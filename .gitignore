@@ -1,0 +1,29 @@
+# IDE
+.idea/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directory
+node_modules/
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release/
+
+# OSX
+.DS_Store
+
+# App packaged
+dist/
+release/
+docs/
+main.js

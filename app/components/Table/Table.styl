@@ -1,0 +1,19 @@
+@import '../../styles/variables.styl'
+@import '../../styles/mixins.styl'
+
+.table
+	height: inherit
+	max-width: 'calc(100vw - %s - %s)' % ($sidebar-width 40px)
+
+	+compact-mode()
+		max-width: 'calc(100vw - %s - %s)' % ($sidebar-compact-width 40px)
+
+	&__head
+		font-weight: bold
+
+	&__body
+		// @todo(sbekrin) prettify this?
+		height: calc(100vh - 82px - 29px - 40px - 70px)
+		flex-direction: column
+		overflow-y: auto
+		overflow: none

@@ -1,0 +1,28 @@
+{
+  "presets": [
+	"es2015",
+	"stage-0",
+	"react"
+  ],
+  "plugins": [
+  	"add-module-exports",
+  	"syntax-async-functions",
+  	"transform-async-to-generator"
+  ],
+  "env": {
+    "development": {
+      "presets": [ "react-hmre" ]
+    },
+	"production": {
+	  "presets": [ "react-optimize" ]
+	},
+	"test": {
+	  "plugins": [
+		[
+		  "webpack-loaders",
+		  { "config": "webpack.node.js", "verbose": false }
+		]
+	  ]
+	}
+  }
+}

@@ -1,0 +1,51 @@
+import React, { Component, PropTypes } from 'react';
+
+import SidebarSection from '../SidebarSection';
+import SidebarProject from '../../containers/SidebarProject';
+import ProjectFilter from '../../containers/ProjectFilter';
+import './Sidebar.styl';
+
+export default class Sidebar extends Component {
+	static propTypes = {
+		projects: PropTypes.array.isRequired
+	};
+
+	render () {
+		return (
+			<aside className='sidebar'>
+				<SidebarSection
+					icon='list'
+					label='Projects'
+					link='/projects'
+				>
+					{this.props.projects.length > 5 && <ProjectFilter />}
+					<div className='sidebar__projects'>
+						{this.props.projects.map(project =>
+							<SidebarProject
+								key={project.code}
+								project={project}
+							/>
+						)}
+					</div>
+				</SidebarSection>
+				<SidebarSection
+					icon='extension'
+					label='Versions'
+					link='/modules'
+				/>
+				{/*
+				<SidebarSection
+					icon='extension'
+					label='Modules'
+					link='/modules'
+				/>
+				<SidebarSection
+					icon='settings'
+					label='Settings'
+					link='/settings'
+				/>
+				*/}
+			</aside>
+		);
+	}
+}

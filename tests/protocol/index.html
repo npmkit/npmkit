@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>npmkit:// protocol scheme test</title>
+		<style>
+			:root {
+				font: 16px Arial, sans-serif;
+			}
+
+			a {
+				color: #CB3837;
+			}
+
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+
+			li {
+				margin-bottom: 20px;
+			}
+
+			small {
+				font-family: monospace;
+				display: block;
+				opacity: 0.6;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1><code>npmkit://</code> protocol scheme test</h1>
+			<ul>
+				<li>
+					<a href="npmkit://install?react;react-dom;react-router">
+						Install <b>react</b>, <b>react-dom</b> and <b>react-router</b> as production dependencies
+					</a>
+					<small>npmkit://install?react;react-dom;react-router</small>
+				</li>
+				<li>
+					<a href="npmkit://install-dev?express;react-hot-middleware;webpack">
+						Install <b>express</b>, <b>react-hot-middleware</b> and <b>webpack</b> as development dependencies
+					</a>
+					<small>npmkit://install-dev?express;react-hot-middleware;webpack</small>
+				</li>
+				<li>
+					<a href="npmkit://create?react-web">
+						Create new project with <b>react-web</b> template
+					</a>
+					<small>npmkit://create?react-web</small>
+				</li>
+				<li>
+					<a href="npmkit://clone?express">
+						Clone <b>express</b> package
+					</a>
+					<small>npmkit://clone?express</small>
+				</li>
+			</ul>
+		</main>
+	</body>
+</html>

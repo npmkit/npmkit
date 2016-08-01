@@ -1,0 +1,16 @@
+@import '../../styles/variables.styl'
+
+.table__row
+	border-radius: $control-border-radius
+	border: 1px solid transparent
+	display: flex
+	padding: 1px 3px
+	width: 100%
+	margin-bottom: 1px
+
+	&[aria-busy='true']
+		pointer-events: none
+
+	&:not(&--static):hover
+		border-color: darken($color-background, 5%)
+		background-color: $color-background

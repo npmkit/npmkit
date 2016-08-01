@@ -1,0 +1,48 @@
+@import '../../styles/variables.styl';
+@import '../../styles/mixins.styl';
+
+$project-filter-width = 150px
+
+.sidebar-filter
+	position fixed
+	display: none
+	align-items: center
+	justify-content: flex-end
+	height: $sidebar-filter-height
+	width: $project-filter-width
+	z-index: 1
+	left:  $sidebar-width - $project-filter-width
+	top: 0
+
+	.sidebar-section--expanded &
+		display: flex
+		hide-in-compact-mode()
+
+	&__input
+		border: 1px solid transparent
+		background: transparent
+		border-radius: 20px
+		padding: 3px 10px
+		padding-right: 22px
+		font-size: 13px
+		margin-right: 10px
+		outline: none
+		width: 100%
+
+	&__input:focus,
+	&--filled &__input
+		border-color: $control-outline-color
+		background: $color-foreground
+
+	&__clear-button
+		background: transparent
+		border-radius: 50%
+		position: absolute
+		color: $color-text
+		display: none
+		right: 15px
+		padding: 0
+		top: 13px
+
+	&--filled &__clear-button
+		display: block

@@ -1,0 +1,21 @@
+@import '../../styles/variables.styl'
+
+.button-group
+	display: flex
+
+	.button:not(:only-child)
+		border-radius: 0
+
+		&:hover
+			z-index: 1
+
+		&:not(:first-of-type)
+			margin-left: -1px
+
+		&:first-of-type
+			border-bottom-left-radius: $control-border-radius
+			border-top-left-radius: $control-border-radius
+
+		&:last-of-type
+			border-bottom-right-radius: $control-border-radius
+			border-top-right-radius: $control-border-radius
