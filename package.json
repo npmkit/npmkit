@@ -7,7 +7,6 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./tests/setup.js tests/unit/**/*.spec.js",
     "test-watch": "npm test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test mocha --compilers js:babel-register --require ./tests/setup.js --require co-mocha ./tests/e2e/index.js",
     "lint": "eslint app tests *.js",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.electron.js --progress --profile --colors",
@@ -20,7 +19,6 @@
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "docs-serve": "http-server ./docs",
     "docs-build": "esdoc -c ./.esdoc docs",
-    "print-loc": "sloc --format cli-table --keys total,source,comment app/",
     "generate-icns": "nicns --in ./assets/npmkit-icon.png --out ./app/app.icns"
   },
   "bin": {
@@ -102,7 +100,6 @@
     "redux-mock-store": "^1.0.3",
     "selenium-webdriver": "^2.53.1",
     "sinon": "^1.17.2",
-    "sloc": "^0.1.10",
     "spectron": "^3.0.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.2",

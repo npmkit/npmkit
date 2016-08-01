@@ -2,7 +2,7 @@
 
 npmkit is a cross-platform app to help control your npm chaos
 
----
+[![Build Status](https://travis-ci.org/sergeybekrin/npmkit.svg?branch=master)](https://travis-ci.org/sergeybekrin/npmkit)
 
 ### Initial setup
 As always, run `npm install` to fetch all dependencies.
