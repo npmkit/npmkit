@@ -1,7 +1,6 @@
 import path from 'path';
 import chromedriver from 'chromedriver';
 import webdriver from 'selenium-webdriver';
-import { expect } from 'chai'; // eslint-disable-line no-unused-vars
 import electronPath from 'electron-prebuilt';
 
 chromedriver.start(); // on port 9515
