@@ -1,5 +1,7 @@
-# npmkit
-This is cross-platform app with friendly and powerful UI to control you npm chaos.
+![npmkit logo](/.github/npmkit-logo.png?raw=true)
+npmkit is a cross-platform app to help control your npm chaos
+
+---
 
 ### Initial setup
 As always, run `npm install` to fetch all dependencies.
