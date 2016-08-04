@@ -1,11 +1,11 @@
-# npmkit
 ![npmkit logo](/.github/npmkit-logo.png?raw=true)
+# npmkit
 
 npmkit is a cross-platform app to help control your npm chaos
 
 ---
 
-[![Build Status](https://travis-ci.org/sergeybekrin/npmkit.svg?branch=master&style=flat-square)](https://travis-ci.org/sergeybekrin/npmkit)
+[![Build Status](https://img.shields.io/travis/sergeybekrin/npmkit/master.svg?style=flat-square)](https://travis-ci.org/sergeybekrin/npmkit)
 [![Dependencies status](https://david-dm.org/sergeybekrin/npmkit.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit)
 [![devDependencies status](https://david-dm.org/sergeybekrin/npmkit/dev-status.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
 
