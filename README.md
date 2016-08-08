@@ -1,19 +1,20 @@
-![npmkit logo](/.github/npmkit-logo.png?raw=true)
+![npmkit logo](https://github.com/sergeybekrin/npmkit/raw/master/.github/npmkit-logo.png)
 # npmkit
 
-npmkit is a cross-platform app to help control your npm chaos
-
----
+Control your npm chaos with ease
 
 [![Build Status](https://img.shields.io/travis/sergeybekrin/npmkit/master.svg?style=flat-square)](https://travis-ci.org/sergeybekrin/npmkit)
 [![Dependencies status](https://david-dm.org/sergeybekrin/npmkit.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit)
 [![devDependencies status](https://david-dm.org/sergeybekrin/npmkit/dev-status.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
 
+## About
 
-### Initial setup
-As always, run `npm install` to fetch all dependencies.
+npmkit is a cross-platform GUI app built with [Electron](https://github.com/electron/electron),
+[React](https://github.com/facebook/react) and [Redux](https://github.com/reactjs/redux). So far
+it allows to add existing projects to it, edit package.json info, run scripts and manage dependencies.
 
-### Building
+## Building and packaging
+
 Built production bundle located under ./dist
 To build it yourself run:
 ```
@@ -25,7 +26,6 @@ And to run production electron app use:
 npm run start
 ```
 
-### Packaging
 Packaged and executable app located under ./releases/%platform%/%architecture%/
 To create it yourself for current platform use:
 ```
@@ -37,7 +37,8 @@ Or, if you wish to build for all possible platforms, run:
 npm run package-all
 ```
 
-### Development
+## Development
+
 For development process you'll need both webpack server and electron
 instance. It's easier to keep track of errors by running next commands
 in separate terminal tabs/windows:
@@ -54,13 +55,15 @@ npm run start-hot
 
 This project based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate) project.
 
-### Testing
+## Testing
+
 To run unit tests use:
 ```
 npm run test
 ```
 
-### Features roadmap
+## Features roadmap
+
 - [x] Add or remove projects
 - [x] Quick search projects
 - [x] Edit project info
