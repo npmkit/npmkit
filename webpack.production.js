@@ -1,18 +1,16 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import merge from 'webpack-merge';
+
 import baseConfig from './webpack.base';
 
-export default {
-	...baseConfig,
+export default merge(baseConfig, {
 	entry: './app/index.js',
 	output: {
-		...baseConfig.output,
 		publicPath: '../dist/'
 	},
 	module: {
-		...baseConfig.module,
 		loaders: [
-			...baseConfig.module.loaders,
 			{
 				test: /\.css$/,
 				loader: ExtractTextPlugin.extract('style', 'css')
@@ -27,7 +25,6 @@ export default {
 		]
 	},
 	plugins: [
-		...baseConfig.plugins,
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('production')
@@ -42,4 +39,4 @@ export default {
 		new ExtractTextPlugin('bundle.css', { allChunks: true })
 	],
 	target: 'electron-renderer'
-};
+});

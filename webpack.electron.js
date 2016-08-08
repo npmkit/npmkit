@@ -1,8 +1,9 @@
 import webpack from 'webpack';
+import merge from 'webpack-merge';
+
 import baseConfig from './webpack.base';
 
-export default {
-	...baseConfig,
+export default merge(baseConfig, {
 	entry: './main.development.js',
 	output: {
 		path: __dirname,
@@ -24,4 +25,4 @@ export default {
 		__dirname: false,
 		__filename: false
 	}
-};
+});

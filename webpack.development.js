@@ -1,8 +1,9 @@
 import webpack from 'webpack';
+import merge from 'webpack-merge';
+
 import baseConfig from './webpack.base';
 
-export default {
-	...baseConfig,
+export default merge(baseConfig, {
 	debug: true,
 	devtool: 'cheap-module-eval-source-map',
 	entry: [
@@ -10,19 +11,13 @@ export default {
 		'./app/index.js'
 	],
 	output: {
-		...baseConfig.output,
 		publicPath: 'http://localhost:3000/dist/'
 	},
 	module: {
-		...baseConfig.module,
 		loaders: [
-			...baseConfig.module.loaders,
 			{
 				test: /\.css$/,
-				loaders: [
-					'style-loader',
-					'css-loader?sourceMap'
-				]
+				loaders: [ 'style-loader', 'css-loader?sourceMap' ]
 			},
 			{
 				test: /\.styl$/,
@@ -34,7 +29,6 @@ export default {
 		]
 	},
 	plugins: [
-		...baseConfig.plugins,
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
@@ -42,4 +36,4 @@ export default {
 		})
 	],
 	target: 'electron-renderer'
-};
+});

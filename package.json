@@ -26,15 +26,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://sbekrin@bitbucket.org/sbekrin/npmkit.git"
+    "url": "git+https://github.com/sergeybekrin/npmkit.git"
   },
-  "private": true,
   "author": {
     "name": "Sergey Bekrin",
-    "email": "sergey@bekrin.me",
-    "url": "http://bekrin.me"
+    "email": "sergey@bekrin.me"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "keywords": [
     "npm",
     "kit",
@@ -107,7 +105,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack-hot-middleware": "^2.10.0",
+    "webpack-merge": "^0.14.1"
   },
   "dependencies": {
     "classnames": "^2.2.3",
