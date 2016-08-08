@@ -12,7 +12,11 @@
     "es6": true
   },
   "settings": {
-	"import/resolver": "webpack"
+	"import/resolver": {
+	  "webpack": {
+		"config": "webpack.eslint.js"
+	  }
+	}
   },
   "rules": {
     "react/jsx-indent-props": [ 2, "tab" ],
