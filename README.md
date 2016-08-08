@@ -3,9 +3,10 @@
 
 Control your npm chaos with ease
 
-[![Build Status](https://img.shields.io/travis/sergeybekrin/npmkit/master.svg?style=flat-square)](https://travis-ci.org/sergeybekrin/npmkit)
-[![Dependencies status](https://david-dm.org/sergeybekrin/npmkit.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit)
-[![devDependencies status](https://david-dm.org/sergeybekrin/npmkit/dev-status.svg?style=flat-square)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
+[![Linux Build Status](https://img.shields.io/travis/sergeybekrin/npmkit/master.svg)](https://travis-ci.org/sergeybekrin/npmkit)
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/sergeybekrin/npmkit?svg=true)](https://ci.appveyor.com/project/sergeybekrin/npmkit/branch/master)
+[![Dependencies status](https://david-dm.org/sergeybekrin/npmkit.svg)](https://david-dm.org/sergeybekrin/npmkit)
+[![devDependencies status](https://david-dm.org/sergeybekrin/npmkit/dev-status.svg)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
 
 ## About
 
