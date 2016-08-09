@@ -18,9 +18,7 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - git reset --hard HEAD
   - npm install -g npm@latest
-  - npm install electron-builder@latest
   - npm install
 
 matrix:
