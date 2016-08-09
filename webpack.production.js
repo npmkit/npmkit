@@ -7,7 +7,7 @@ import baseConfig from './webpack.base';
 export default merge(baseConfig, {
 	entry: './app/index.js',
 	output: {
-		publicPath: '../dist/'
+		publicPath: '../build/'
 	},
 	module: {
 		loaders: [

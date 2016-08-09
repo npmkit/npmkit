@@ -11,7 +11,7 @@ export default merge(baseConfig, {
 		'./app/index.js'
 	],
 	output: {
-		publicPath: 'http://localhost:3000/dist/'
+		publicPath: 'http://localhost:3000/build/'
 	},
 	module: {
 		loaders: [

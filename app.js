@@ -112,7 +112,7 @@ export default class App {
 				show: false
 			});
 
-			window.loadURL(`file://${__dirname}/${process.env.NODE_ENV === 'development' ? 'app' : 'dist'}/app.html`);
+			window.loadURL(`file://${__dirname}/${process.env.NODE_ENV === 'development' ? 'app' : 'build'}/app.html`);
 
 			// Show and focus on app one loaded
 			window.webContents.on('ready-to-show', () => {

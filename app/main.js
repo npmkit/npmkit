@@ -1,4 +1,4 @@
-import App from './app';
+import App from '../app';
 
 if (process.env.NODE_ENV === 'development') {
 	require('electron-debug')(); // eslint-disable-line global-require

@@ -23,7 +23,7 @@ build/Release/
 .DS_Store
 
 # App packaged
-dist/
-release/
 docs/
-main.js
+dist/
+build/
+/main.js

@@ -10,7 +10,7 @@
 					const link = document.createElement('link');
 
 					link.rel = 'stylesheet';
-					link.href = '../dist/bundle.css';
+					link.href = '../build/bundle.css';
 
 					document.write(link.outerHTML);
 				}
@@ -31,8 +31,8 @@
 
 				script.src = (
 					process.env.HOT ?
-					'http://localhost:3000/dist/bundle.js' :
-					'../dist/bundle.js'
+					'http://localhost:3000/build/bundle.js' :
+					'../build/bundle.js'
 				);
 
 				document.write(script.outerHTML);
