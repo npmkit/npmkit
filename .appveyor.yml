@@ -1,25 +1,22 @@
-version: '0.3.2-{build}'
+version: '0.3.2-alpha-{build}'
 
 platform:
-  - x64
+- x64
 
 cache:
-  - node_modules
-  - '%APPDATA%\npm-cache'
-  - '%USERPROFILE%\.electron'
+- node_modules
+- '%APPDATA%\npm-cache'
+- '%USERPROFILE%\.electron'
 
 init:
-  - git config --global core.autocrlf input
-
-environment:
-  matrix:
-    - nodejs_version: 6
+- git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - set CI=true
-  - npm install -g npm@latest
-  - npm install
+- ps: Install-Product node 6 x64
+- set CI=true
+- npm install -g npm@latest
+- npm install typescript@>=1.7.3 # temp fix of 'peer dep missing' from electron-builder
+- npm install
 
 matrix:
   fast_finish: true
@@ -28,12 +25,25 @@ shallow_clone: true
 
 clone_depth: 1
 
-test_script:
-  - node --version
-  - npm --version
-  - npm run lint
-  - npm run test
-  - npm run build
-
 build_script:
-  - npm run dist-win
+- node --version
+- npm --version
+- npm run lint
+- npm run test
+- npm run dist-win
+
+test: off
+
+artifacts:
+- path: dist\win\*
+  name: npmkitwin
+
+deploy:
+  release: npmkit v0.3.2-alpha
+  description: 'AppVeyor CI Release'
+  provider: GitHub
+  draft: true
+  force_update: true
+  artifact: npmkitwin
+  auth_token:
+    secure: iKOdJsnlkf8k7A/HVc5ssbphSKDIhXNKa5WugDkqyOuCAsQg7YZS7d9LPJJE55U0

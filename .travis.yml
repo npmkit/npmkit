@@ -8,39 +8,58 @@ language: c
 
 matrix:
   include:
-    - os: osx
-    - os: linux
-      env: CC=clang CXX=clang++ npm_config_clang=1
-      compiler: clang
+  - os: osx
+#  - os: linux
+#    env: CC=clang CXX=clang++ npm_config_clang=1
+#    compiler: clang
 
 cache:
   directories:
-    - node_modules
-    - $HOME/.electron
-    - $HOME/.cache
+  - node_modules
+  - $HOME/.electron
+  - $HOME/.cache
 
 addons:
   apt:
     packages:
-      - libgnome-keyring-dev
-      - icnsutils
+    - libgnome-keyring-dev
+    - icnsutils
 
 before_install:
-  - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v1.2.1/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-1.2.1.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
+- mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v1.2.1/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-1.2.1.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gnu-tar libicns graphicsmagick xz; fi
+#- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
 
 install:
-  - export CXX="g++-4.8"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-  - nvm install 6
-  - npm install
-
-before_script:
-  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
-  - sh -e /etc/init.d/xvfb start &
-  - sleep 3
+- nvm install 6
+- npm install -g npm@latest
+- npm install typescript@'>=1.7.3'
+- npm install
 
 script:
-  - npm run lint
-  - npm run test
-  - npm run dist-macos
-  - npm run dist-linux
+- node --version
+- npm --version
+- npm run lint
+- npm run test
+- npm run dist-macos
+- npm run dist-linux
+
+before_deploy:
+  - "export MAC_DMG_FILE=$(ls dist/mac/*.dmg)"
+  - "export MAC_ZIP_FILE=$(ls dist/mac/*.zip)"
+  - "export LINUX_APPIMAGE_FILE=$(ls dist/*.AppImage)"
+  - "export LINUX_DEB_FILE=$(ls dist/*.deb)"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: khX9gaYXX87Cci8n/MOv6X6FPTdR4r9UHdE6FgtCmbkGl/lr0KIBTpFw4rUqzcUfz3f/wBKr6cGz3Dmo/1vBIp6Hji/8PLRyaEpKMnC4T2EdXHCf2wwEf0FPTknlAQS9WWDh8QuWHOW50J8ckVAu2NuZBKVszMeGDWeFrigmF75fcn15SnxDNMZB5BhzWWAK1rdnd+8yoM0G86ruTdm2v8zjz2enkDP/wewqPvw077QYRubYyq5rHetFs8oxCCg4EMws1VB2zxsDGBdtHytANX1Wpj/TYCun9wl9I9trcecK365EY7wr7/uaWlNigqb9q/ySuOiXB4XR23Gs6Z1OvHvTNMhVBggj+F3UeJKrG7lL0OC2048vfx1Vpggz185JXy6Hna5s9/X4+ChhgbhEflsAPRmrSoJTzcnqaDBc6MPufF7pV5NilSugXokoWi6AWufWwNQeJn/6x8rXmQIHA2RCkfccc1sX4QGXCMwCPehUJyO717VnFnru1ub+yYoR+2BoZLvqm7bpRzw2dEoBerJ0jQ7LAiTBMIkOewb4ilcnM39G9cwDwrGpiU9LdPu8y/hIo3jmUfDrqjqgMIRqX/TDo4L8R5xxEjFTN3pw60i1dweE3gdmY/ZSheRS9C1GWYcKfA0lrswb+MhXIVAMPG3+7WBuqmxM5ewHzhRpIKI=
+  file:
+    - "${MAC_DMG_FILE}"
+    - "${MAC_ZIP_FILE}"
+    - "${LINUX_APPIMAGE_FILE}"
+    - "${LINUX_DEB_FILE}"
+  skip_cleanup: true
+  overwrite: true
+  on:
+    repo: sergeybekrin/npmkit

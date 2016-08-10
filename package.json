@@ -158,8 +158,8 @@
     },
     "linux": {
       "target": [
-        "deb",
-        "AppImage"
+		"AppImage",
+		"deb"
       ]
     }
   },
