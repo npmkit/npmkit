@@ -50,16 +50,16 @@ before_deploy:
   - "export LINUX_APPIMAGE_FILE=$(ls dist/*.AppImage)"
   - "export LINUX_DEB_FILE=$(ls dist/*.deb)"
 
-deploy:
-  provider: releases
-  api_key:
-    secure: khX9gaYXX87Cci8n/MOv6X6FPTdR4r9UHdE6FgtCmbkGl/lr0KIBTpFw4rUqzcUfz3f/wBKr6cGz3Dmo/1vBIp6Hji/8PLRyaEpKMnC4T2EdXHCf2wwEf0FPTknlAQS9WWDh8QuWHOW50J8ckVAu2NuZBKVszMeGDWeFrigmF75fcn15SnxDNMZB5BhzWWAK1rdnd+8yoM0G86ruTdm2v8zjz2enkDP/wewqPvw077QYRubYyq5rHetFs8oxCCg4EMws1VB2zxsDGBdtHytANX1Wpj/TYCun9wl9I9trcecK365EY7wr7/uaWlNigqb9q/ySuOiXB4XR23Gs6Z1OvHvTNMhVBggj+F3UeJKrG7lL0OC2048vfx1Vpggz185JXy6Hna5s9/X4+ChhgbhEflsAPRmrSoJTzcnqaDBc6MPufF7pV5NilSugXokoWi6AWufWwNQeJn/6x8rXmQIHA2RCkfccc1sX4QGXCMwCPehUJyO717VnFnru1ub+yYoR+2BoZLvqm7bpRzw2dEoBerJ0jQ7LAiTBMIkOewb4ilcnM39G9cwDwrGpiU9LdPu8y/hIo3jmUfDrqjqgMIRqX/TDo4L8R5xxEjFTN3pw60i1dweE3gdmY/ZSheRS9C1GWYcKfA0lrswb+MhXIVAMPG3+7WBuqmxM5ewHzhRpIKI=
-  file:
-    - "${MAC_DMG_FILE}"
-    - "${MAC_ZIP_FILE}"
-    - "${LINUX_APPIMAGE_FILE}"
-    - "${LINUX_DEB_FILE}"
-  skip_cleanup: true
-  overwrite: true
-  on:
-    repo: sergeybekrin/npmkit
+#deploy:
+#  provider: releases
+#  api_key:
+#    secure: khX9gaYXX87Cci8n/MOv6X6FPTdR4r9UHdE6FgtCmbkGl/lr0KIBTpFw4rUqzcUfz3f/wBKr6cGz3Dmo/1vBIp6Hji/8PLRyaEpKMnC4T2EdXHCf2wwEf0FPTknlAQS9WWDh8QuWHOW50J8ckVAu2NuZBKVszMeGDWeFrigmF75fcn15SnxDNMZB5BhzWWAK1rdnd+8yoM0G86ruTdm2v8zjz2enkDP/wewqPvw077QYRubYyq5rHetFs8oxCCg4EMws1VB2zxsDGBdtHytANX1Wpj/TYCun9wl9I9trcecK365EY7wr7/uaWlNigqb9q/ySuOiXB4XR23Gs6Z1OvHvTNMhVBggj+F3UeJKrG7lL0OC2048vfx1Vpggz185JXy6Hna5s9/X4+ChhgbhEflsAPRmrSoJTzcnqaDBc6MPufF7pV5NilSugXokoWi6AWufWwNQeJn/6x8rXmQIHA2RCkfccc1sX4QGXCMwCPehUJyO717VnFnru1ub+yYoR+2BoZLvqm7bpRzw2dEoBerJ0jQ7LAiTBMIkOewb4ilcnM39G9cwDwrGpiU9LdPu8y/hIo3jmUfDrqjqgMIRqX/TDo4L8R5xxEjFTN3pw60i1dweE3gdmY/ZSheRS9C1GWYcKfA0lrswb+MhXIVAMPG3+7WBuqmxM5ewHzhRpIKI=
+#  file:
+#    - "${MAC_DMG_FILE}"
+#    - "${MAC_ZIP_FILE}"
+#    - "${LINUX_APPIMAGE_FILE}"
+#    - "${LINUX_DEB_FILE}"
+#  skip_cleanup: true
+#  overwrite: true
+#  on:
+#    repo: sergeybekrin/npmkit
