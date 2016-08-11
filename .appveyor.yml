@@ -39,8 +39,9 @@ artifacts:
   name: npmkitwin
 
 deploy:
-  release: npmkit v0.3.2-alpha
-  description: 'AppVeyor CI Release'
+  tag: npmkit-v0.3.2-alpha-build$(appveyor_build_version)
+  release: v0.3.2-alpha
+  description: ''
   provider: GitHub
   draft: true
   force_update: true
