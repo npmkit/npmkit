@@ -1,7 +1,7 @@
 import expect, { createSpy } from 'expect';
 
-import * as actions from '../../../app/actions/NetworkStatusActions';
-import * as types from '../../../app/constants/ActionTypes';
+import * as actions from '../../../app/renderer/actions/NetworkStatusActions';
+import * as types from '../../../app/renderer/constants/ActionTypes';
 
 /**
  * @test {app/actions/NetworkStatusActions.js}

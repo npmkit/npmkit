@@ -1,0 +1,62 @@
+@import '~styles/variables.styl'
+@import '~styles/mixins.styl'
+
+$label-height = 42px
+
+.sidebar-section
+	transition: flex 300ms ease
+	flex-direction: column
+	min-height: $label-height
+	flex-basis: $label-height
+	display: flex
+	flex: none
+
+	& + &
+		border-top: 1px solid #0001
+
+	&--expanded
+		flex: 1
+
+	&--expanded &__label
+		color: $color-text
+
+	&__label
+		color: $color-text-contrast
+		text-decoration: none
+		padding: 0 14px
+		padding-left: 10px
+		line-height: $label-height
+		cursor: default
+		flex-shrink: 0
+		outline: none
+		height: $label-height
+		margin-right: 1px
+
+		.svg-icon
+			margin-right: 6px
+
+			+compact-mode()
+				width: 100%
+
+	&__label-text
+		hide-in-compact-mode()
+
+	// Hacky border
+	&--expanded &__label[href='/projects']
+	&--expanded &__label[href='#/projects']
+		border-bottom: 1px solid $control-outline-color
+
+	&__contents
+		transition: transform 100ms ease
+		overflow: hidden
+		overflow-y: auto
+
+	&:not(&--expanded) &__contents
+		height: 0
+
+	&--expanded &__contents
+		flex: 1
+
+	&:not(&--expanded) &__label:hover
+		background-color: darken($color-foreground, 5%)
+

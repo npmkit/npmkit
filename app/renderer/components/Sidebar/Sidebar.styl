@@ -1,0 +1,16 @@
+@import '~styles/variables.styl';
+@import '~styles/mixins.styl';
+
+.sidebar
+	box-shadow: inset -1px 0 0 $control-outline-color
+	background-color: $color-background
+	flex-direction: column
+	width: $sidebar-width
+	display: flex
+	height: 100vh
+
+	+compact-mode()
+		width: $sidebar-compact-width
+
+	&__projects
+		margin-top: -1px

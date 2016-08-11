@@ -5,7 +5,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 
 export default merge(baseConfig, {
-	entry: './app/index.js',
+	entry: './app/renderer',
 	output: {
 		publicPath: '../build/'
 	},

@@ -1,0 +1,18 @@
+@import '~styles/variables.styl'
+
+.sidebar-item
+	border-left: 4px solid transparent
+	text-decoration: none
+	color: $color-text
+	padding: 15px 14px
+	padding-left: 10px
+	cursor: default
+	display: flex
+	outline: none
+
+	&--active,
+	&--active:hover
+		border-color: $color-primary
+
+	.svg-icon
+		fill: currentColor

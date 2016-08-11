@@ -8,7 +8,7 @@ export default merge(baseConfig, {
 	devtool: 'cheap-module-eval-source-map',
 	entry: [
 		'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-		'./app/index.js'
+		'./app/renderer'
 	],
 	output: {
 		publicPath: 'http://localhost:3000/build/'

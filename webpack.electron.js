@@ -4,7 +4,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 
 export default merge(baseConfig, {
-	entry: './app/main.js',
+	entry: './app/main',
 	output: {
 		path: __dirname,
 		filename: './main.js'

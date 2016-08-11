@@ -1,0 +1,27 @@
+@import '~styles/variables.styl'
+
+.module-explorer
+	justify-content: center
+	align-items: center
+	display: flex
+
+	&__container
+		flex-direction: column
+		flex: 1
+
+	&__controls
+		margin-bottom: 10px
+		display: flex
+
+	&__input
+		border: 1px solid $control-outline-color
+		border-radius: $control-border-radius
+		padding: 6px 10px
+		outline: none
+		flex: 1
+
+	&__cancel + &__input
+		margin-left: 10px
+
+	&__cancel
+		align-self: auto

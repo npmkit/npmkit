@@ -1,0 +1,84 @@
+@import '~styles/variables'
+
+$base-padding = 6px 20px
+$small-padding = 2px 4px
+
+.button
+	background: transparent
+	border-radius: $control-border-radius
+	border: none
+	padding: $base-padding
+	font: inherit
+	font-weight: bold
+	outline: none
+	text-align: left
+	color: $color-primary
+
+	&:not(&--disabled)
+		cursor: pointer
+
+	&:not(&--disabled):hover
+		background-color: lighten($color-primary, 10%)
+		color: white
+		outline: none
+
+	&:active:not(&--disabled)
+		opacity: 0.8
+
+	&:not(&--transparent):not(&--borderless)
+		background-color: $color-primary
+		border: 1px solid darken($color-primary, 20%)
+		color: white
+
+	&--wide
+		width: 100%
+
+	&--inline
+		display: inline-block
+
+	&:not(&--inline)
+		display: block
+
+	// Medium button size
+	&--medium
+		padding: $base-padding
+		min-height: 32px
+
+	&--medium .svg-icon + &__label
+		margin-left: 0.5em
+
+	// Small button size
+	&--small
+		padding: $small-padding
+		font-weight: normal
+		color: white
+
+	&--small .svg-icon + &__label
+		margin-left: 0.1em
+
+	// Transparent button style
+	&--transparent
+		border: 1px solid transparentify($color-primary, $color-primary, 20%)
+		background: transparent
+		color: $color-primary
+
+	&--transparent:not(&--disabled):hover
+		border-color: darken($color-primary, 20%)
+		background-color: $color-primary
+		color: white
+
+	// Disabled styles
+	&--disabled
+		pointer-events: none
+		opacity: .5
+
+	// Align
+	&--align
+		&-left
+			align-self: flex-start
+
+		&-center
+			align-self: center
+
+		&-right
+			align-self: flex-end

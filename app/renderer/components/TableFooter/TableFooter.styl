@@ -1,0 +1,16 @@
+@import '~styles/variables.styl';
+@import '~styles/mixins.styl';
+
+.table__footer
+	display: flex
+
+	&--sticky
+		position: fixed
+		left: $sidebar-width + 1
+		background: $color-foreground
+		right: 0
+		bottom: 0
+		padding: 10px 20px
+
+		+compact-mode()
+			left: $sidebar-compact-width + 1

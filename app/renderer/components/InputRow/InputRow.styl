@@ -1,0 +1,71 @@
+@import '~styles/variables.styl'
+
+.input-row
+	display: flex
+	margin-bottom: 10px
+	align-items: flex-start
+
+	&--disabled
+		pointer-events none
+		opacity: 0.2
+
+	&--readonly &__input
+		opacity: 0.5
+		pointer-events: none
+
+	&--required &__label
+		&:after
+			content: '*'
+			font-size: 150%
+			position: absolute
+			margin-top: -4px
+
+	&__label
+		width: 120px
+		padding: 8px 0
+
+	&__hint
+		opacity: 0
+		transition: transform 200ms ease, opacity 200ms ease
+		transform: translateX(10px)
+		margin-left: 20px
+		margin-top: -10px
+		font-size: 13px
+		flex: 1
+		position: absolute
+		max-width: 200px
+		background: #333
+		border-radius: $control-border-radius
+		pointer-events: none
+		padding: 10px
+		color: white
+
+		&:before
+			right: 100%;
+			top: 30px;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			pointer-events: none;
+			border-right-color: #333;
+			border-width: 10px;
+			margin-top: -10px;
+
+	&__control:focus ~ &__hint,
+	&--hint-on-hover:hover &__hint
+		opacity: 1
+		transform: none
+
+	&__control
+		border: none
+		border-bottom: 2px solid $control-outline-color
+		padding: 8px 0
+		outline: none
+
+		textarea&
+			resize: none
+
+		&:focus
+			border-color: $color-primary

@@ -1,0 +1,28 @@
+@import '~styles/variables.styl'
+
+.module-card
+	align-items: center
+	max-width: 500px
+	padding: 10px
+	display: flex
+	margin: 0 auto
+
+	&:not(:last-of-type)
+		border-bottom: 1px solid $control-outline-color
+
+	&__name
+		color: $color-heading
+		font-weight: 500
+
+	&__version
+		padding-left: 5px
+		font-size: 85%
+		opacity: 0.5
+
+	&__description
+		color: $color-text
+		font-size: 85%
+
+	&__meta
+		padding-right: 10px
+		flex: 1

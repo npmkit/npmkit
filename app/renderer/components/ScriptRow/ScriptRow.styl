@@ -1,0 +1,45 @@
+@import '~styles/variables.styl'
+
+@keyframes move
+	0%
+		background-position: 0 0
+
+	100%
+		background-position: 30px 30px
+
+.script-row
+	&:not(&--running):hover
+		background-color: $color-background
+		border-color: $control-outline-color
+
+	&--running
+		border: 1px solid $control-outline-color
+		animation: move 2s linear infinite
+		background-size: 30px 30px
+		background-image: linear-gradient(
+			-45deg,
+			$color-background 25%,
+			transparent 25%,
+			transparent 50%,
+			$color-background 50%,
+			$color-background 75%,
+			transparent 75%,
+			transparent
+		)
+
+	&__status
+		line-height: 1.5;
+		font-size: 85%;
+
+	&__actions
+		align-items: center
+
+	&__command
+		code
+			-webkit-font-smoothing: initial
+			min-width: 0
+			overflow: hidden
+			text-overflow: ellipsis
+			white-space: nowrap
+			display: block
+

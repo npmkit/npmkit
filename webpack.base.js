@@ -17,7 +17,8 @@ export default {
 	},
 	resolve: {
 		root: [
-			path.resolve(__dirname, 'app'),
+			path.resolve(__dirname, 'app', 'main'),
+			path.resolve(__dirname, 'app', 'renderer'),
 			path.resolve(__dirname, 'node_modules')
 		],
 		extensions: [ '', '.js', '.jsx', '.styl' ],
