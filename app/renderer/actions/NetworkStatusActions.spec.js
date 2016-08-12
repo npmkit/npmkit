@@ -1,10 +1,10 @@
 import expect, { createSpy } from 'expect';
 
-import * as actions from '../../../app/renderer/actions/NetworkStatusActions';
-import * as types from '../../../app/renderer/constants/ActionTypes';
+import * as actions from './NetworkStatusActions';
+import * as types from '../constants/ActionTypes';
 
 /**
- * @test {app/actions/NetworkStatusActions.js}
+ * @test {./NetworkStatusActions.js}
  */
 describe('network action creators', () => {
 	let dispatch;
@@ -14,7 +14,7 @@ describe('network action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/NetworkStatusActions.js~setNetworkOnline}
+	 * @test {./NetworkStatusActions.js~setNetworkOnline}
 	 */
 	it('should create an action for online network', () => {
 		actions.setNetworkOnline()(dispatch);
@@ -26,7 +26,7 @@ describe('network action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/NetworkStatusActions.js~setNetworkOffline}
+	 * @test {./NetworkStatusActions.js~setNetworkOffline}
 	 */
 	it('should create an action for offline network', () => {
 		actions.setNetworkOffline()(dispatch);

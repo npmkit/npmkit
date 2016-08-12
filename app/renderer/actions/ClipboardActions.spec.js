@@ -1,10 +1,10 @@
 import expect, { createSpy } from 'expect';
 
-import * as actions from '../../../app/renderer/actions/ClipboardActions';
-import * as types from '../../../app/renderer/constants/ActionTypes';
+import * as actions from './ClipboardActions';
+import * as types from '../constants/ActionTypes';
 
 /**
- * @test {app/actions/ClipboardActions.js}
+ * @test {./ClipboardActions.js}
  */
 describe('clipboard action creators', () => {
 	let dispatch;
@@ -14,7 +14,7 @@ describe('clipboard action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/ClipboardActions.js~copyToClipboard}
+	 * @test {./ClipboardActions.js~copyToClipboard}
 	 */
 	it('should create an action to write to clipboard', () => {
 		actions.copyToClipboard('foo bar')(dispatch);

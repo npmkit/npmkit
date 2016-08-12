@@ -4,7 +4,7 @@
   "description": "Ultimate toolkit to control npm chaos",
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./tests/setup.js tests/unit/**/*.spec.js",
+    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./tests/setup.js app/**/*.spec.js",
     "test-watch": "npm test -- --watch",
     "lint": "eslint app tests *.js",
     "hot-server": "node -r babel-register server.js",

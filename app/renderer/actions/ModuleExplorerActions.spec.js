@@ -1,10 +1,10 @@
 import expect, { createSpy } from 'expect';
 
-import * as actions from '../../../app/renderer/actions/ModuleExplorerActions';
-import * as types from '../../../app/renderer/constants/ActionTypes';
+import * as actions from './ModuleExplorerActions';
+import * as types from '../constants/ActionTypes';
 
 /**
- * @test {app/actions/ModuleExplorerActions.js}
+ * @test {./ModuleExplorerActions.js}
  */
 describe('module explorer action creators', () => {
 	let dispatch;
@@ -14,7 +14,7 @@ describe('module explorer action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/ModuleExplorerActions.js~registerSearchRequest}
+	 * @test {./ModuleExplorerActions.js~registerSearchRequest}
 	 */
 	it('should create an action to register search attempt', () => {
 		actions.registerSearchRequest('express')(dispatch);
@@ -26,7 +26,7 @@ describe('module explorer action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/ModuleExplorerActions.js~receiveSearchResults}
+	 * @test {./ModuleExplorerActions.js~receiveSearchResults}
 	 */
 	it('should create an action to receive search results', () => {
 		const items = [
@@ -44,7 +44,7 @@ describe('module explorer action creators', () => {
 	});
 
 	/**
-	 * @test {app/actions/ModuleExplorerActions.js~receiveModuleDetails}
+	 * @test {./ModuleExplorerActions.js~receiveModuleDetails}
 	 */
 	it('should create an action to receive module details', () => {
 		const module = {
