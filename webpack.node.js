@@ -7,6 +7,9 @@ module.exports = {
 		libraryTarget: 'commonjs2'
 	},
 	module: {
-		loaders: devConfigs.module.loaders.slice(1) // remove babel-loader
+		// remove babel-loader
+		loaders: devConfigs.module.loaders.filter(
+			loader => (loader.loader || loader.loaders).indexOf('babel') === -1
+		)
 	}
 };

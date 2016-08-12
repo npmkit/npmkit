@@ -18,10 +18,8 @@
 	},
 	"test": {
 	  "plugins": [
-		[
-		  "webpack-loaders",
-		  { "config": "webpack.node.js", "verbose": false }
-		]
+		[ "resolver", { "resolveDirs": [ "app/main", "app/renderer" ] } ],
+		[ "webpack-loaders", { "config": "webpack.node.js", "verbose": false } ]
 	  ]
 	}
   }
