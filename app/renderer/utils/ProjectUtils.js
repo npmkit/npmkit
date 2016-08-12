@@ -3,7 +3,7 @@ import os from 'os';
 import semver from 'semver';
 import filesystem from 'fs';
 
-import { projectInitialState as defaultProjectState } from '../reducers/project';
+import { projectInitialState as defaultProjectState } from 'reducers/project';
 import * as DialogUtils from 'utils/DialogUtils';
 import * as NpmUtils from 'utils/NpmUtils';
 import * as ColorUtils from 'utils/ColorUtils';

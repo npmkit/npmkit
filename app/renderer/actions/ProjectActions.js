@@ -1,12 +1,12 @@
 import fs from 'fs';
 import { push } from 'react-router-redux';
 
-import { PACKAGE_JSON_FILE, META_PROJECTS_FILE } from '../constants/PathConstants';
-import { loadScripts } from './ScriptActions';
-import * as ProjectUtils from '../utils/ProjectUtils';
-import * as MetaUtils from '../utils/MetaUtils';
-import * as DialogUtils from '../utils/DialogUtils';
-import * as ActionTypes from '../constants/ActionTypes';
+import { PACKAGE_JSON_FILE, META_PROJECTS_FILE } from 'constants/PathConstants';
+import { loadScripts } from 'actions/ScriptActions';
+import * as ProjectUtils from 'utils/ProjectUtils';
+import * as MetaUtils from 'utils/MetaUtils';
+import * as DialogUtils from 'utils/DialogUtils';
+import * as ActionTypes from 'constants/ActionTypes';
 
 /**
  * @param {Array<Object>} projects

@@ -8,8 +8,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import { fixPath } from './utils/ShellUtils';
-import { setCurrentProject } from './actions/ProjectActions';
+import { fixPath } from 'utils/ShellUtils';
+import { setCurrentProject } from 'actions/ProjectActions';
 import configureStore from 'store/store';
 import Root from 'containers/Root';
 import Application from 'components/Application';
