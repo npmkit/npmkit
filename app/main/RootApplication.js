@@ -1,3 +1,4 @@
+import path from 'path';
 import { app, BrowserWindow } from 'electron';
 
 /**
@@ -105,7 +106,13 @@ export default class RootApplication {
 				show: false
 			});
 
-			window.loadURL(`file://${__dirname}/${process.env.NODE_ENV === 'development' ? 'app' : 'build'}/app.html`);
+			const htmlPath = path.resolve(
+				__dirname,
+				process.env.NODE_ENV === 'development' ? 'app/renderer' : 'build',
+				'app.html'
+			);
+
+			window.loadURL(`file://${htmlPath}`);
 
 			// Show and focus on app one loaded
 			window.webContents.once('did-finish-load', () => {
