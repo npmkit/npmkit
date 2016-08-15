@@ -7,7 +7,7 @@ export default class InputTextBox extends Component {
 		disabled: PropTypes.bool,
 		onChange: PropTypes.func.isRequired,
 		placeholder: PropTypes.string,
-		readonly: PropTypes.bool,
+		readOnly: PropTypes.bool,
 		value: PropTypes.string
 	};
 
@@ -29,10 +29,10 @@ export default class InputTextBox extends Component {
 		const props = pick(
 			this.props,
 			'disabled',
-			'maxlength',
+			'maxLength',
 			'pattern',
 			'placeholder',
-			'readonly',
+			'readOnly',
 			'required',
 			'size',
 			'value'

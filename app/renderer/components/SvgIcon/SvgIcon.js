@@ -25,16 +25,18 @@ export default class SvgIcon extends Component {
 	}
 
 	render () {
-		const { width, height, code, fill } = this.props;
-		const size = { width, height };
+		const { code, fill, ...props } = this.props;
 
-		const classes = classnames(this.props.className, {
-			'svg-icon': true,
-			'svg-icon--no-fill': fill !== null
-		});
+		const classes = classnames(
+			this.props.className,
+			'svg-icon',
+			{
+				'svg-icon--no-fill': fill !== null
+			}
+		);
 
 		return (
-			<svg {...this.props} {...size} className={classes}>
+			<svg {...props} className={classes}>
 				<use xlinkHref={`${iconsPath}#${code}`} />
 			</svg>
 		);

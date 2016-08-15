@@ -12,7 +12,7 @@ export default class FormRow extends Component {
 		hintOnHover: PropTypes.bool,
 		label: PropTypes.string.isRequired,
 		onChange: PropTypes.func,
-		readonly: PropTypes.bool,
+		readOnly: PropTypes.bool,
 		required: PropTypes.bool,
 		width: PropTypes.number
 	};
@@ -20,7 +20,7 @@ export default class FormRow extends Component {
 	static defaultProps = {
 		hintOnHover: false,
 		disabled: false,
-		readonly: false
+		readOnly: false
 	};
 
 	constructor (props) {
@@ -37,7 +37,7 @@ export default class FormRow extends Component {
 		const {
 			label,
 			disabled,
-			readonly,
+			readOnly,
 			required,
 			hintOnHover
 		} = this.props;
@@ -45,7 +45,7 @@ export default class FormRow extends Component {
 		const classes = classnames({
 			'input-row': true,
 			'input-row--disabled': disabled,
-			'input-row--readonly': readonly,
+			'input-row--readonly': readOnly,
 			'input-row--required': required,
 			'input-row--hint-on-hover': hintOnHover
 		});

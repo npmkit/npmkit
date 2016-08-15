@@ -7,7 +7,7 @@ export default class InputTextArea extends Component {
 		disabled: PropTypes.bool,
 		onChange: PropTypes.func.isRequired,
 		placeholder: PropTypes.string,
-		readonly: PropTypes.bool,
+		readOnly: PropTypes.bool,
 		value: PropTypes.string
 	};
 
@@ -28,12 +28,12 @@ export default class InputTextArea extends Component {
 	render () {
 		const props = pick(
 			this.props,
-			'autofocus',
+			'autoFocus',
 			'cols',
 			'disabled',
-			'maxlength',
+			'maxLength',
 			'placeholder',
-			'readonly',
+			'readOnly',
 			'required',
 			'row'
 		);

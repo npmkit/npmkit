@@ -10,7 +10,7 @@ export default class InputCheckBox extends Component {
 		disabled: PropTypes.bool,
 		onChange: PropTypes.func.isRequired,
 		placeholder: PropTypes.string,
-		readonly: PropTypes.bool
+		readOnly: PropTypes.bool
 	};
 
 	constructor (props) {
@@ -31,7 +31,7 @@ export default class InputCheckBox extends Component {
 		const props = pick(
 			this.props,
 			'disabled',
-			'readonly',
+			'readOnly',
 			'checked'
 		);
 
