@@ -35,5 +35,9 @@ export default merge(baseConfig, {
 			'process.env.NODE_ENV': JSON.stringify('development')
 		})
 	],
-	target: 'electron-renderer'
+	target: 'electron-renderer',
+	node: {
+		__dirname: true,
+		__filename: true
+	}
 });

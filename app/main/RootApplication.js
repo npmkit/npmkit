@@ -108,7 +108,7 @@ export default class RootApplication {
 
 			const htmlPath = path.resolve(
 				__dirname,
-				process.env.NODE_ENV === 'development' ? 'app/renderer' : 'build',
+				process.env.NODE_ENV === 'development' ? '../renderer' : 'build',
 				'app.html'
 			);
 

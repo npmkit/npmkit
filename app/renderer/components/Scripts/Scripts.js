@@ -12,6 +12,7 @@ export default class Scripts extends Component {
 		onCopyCommand: PropTypes.func.isRequired,
 		onMount: PropTypes.func.isRequired,
 		onStart: PropTypes.func.isRequired,
+		onStartSudo: PropTypes.func.isRequired,
 		onStop: PropTypes.func.isRequired,
 		onToggleOutput: PropTypes.func.isRequired,
 		scripts: PropTypes.arrayOf(PropTypes.object)
@@ -35,6 +36,7 @@ export default class Scripts extends Component {
 							key={script.id}
 							onCopyCommand={this.props.onCopyCommand}
 							onStart={this.props.onStart}
+							onStartSudo={this.props.onStartSudo}
 							onStop={this.props.onStop}
 							onToggleOutput={this.props.onToggleOutput}
 							script={script}

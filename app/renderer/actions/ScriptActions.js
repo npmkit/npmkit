@@ -1,9 +1,11 @@
 import os from 'os';
 import { spawn } from 'child_process';
+import Sudoer from 'electron-sudo';
 
-import { showNotification } from './NotificationActions';
-import * as ActionTypes from '../constants/ActionTypes';
-import * as ScriptsUtils from '../utils/ScriptsUtils';
+import { APP_NAME } from 'constants/AppConstants';
+import { showNotification } from 'actions/NotificationActions';
+import * as ActionTypes from 'constants/ActionTypes';
+import * as ScriptsUtils from 'utils/ScriptsUtils';
 
 /**
  * We need to keep references to running process
@@ -25,6 +27,11 @@ const runningScripts = new Map();
  * @type {Boolean}
  */
 const isWindows = os.platform() === 'win32';
+
+/**
+ * @type {Sudoer}
+ */
+const sudoer = new Sudoer({ name: APP_NAME });
 
 /**
  * @param {Object} project
@@ -130,13 +137,13 @@ export function loadScripts (project) {
 /**
  * @param {Object} project
  * @param {Object} script
+ * @param {Object} params
+ * @param {Boolean} params.sudo
  * @return {Function}
  */
-export function startScript (project, script) {
+export function startScript (project, script, params = { sudo: false }) {
 	return (dispatch) => {
-		dispatch(registerScriptStart(project, script));
-
-		const child = spawn(
+		const spawnParams = [
 			isWindows ? 'npm.cmd' : 'npm',
 			[ 'run-script', '--no-color', script.name ],
 			{
@@ -144,58 +151,69 @@ export function startScript (project, script) {
 				detached: !isWindows, // false on windows, true otherwise
 				cwd: project.path
 			}
+		];
+
+		const process = (
+			params.sudo ?
+			sudoer.spawn(...spawnParams) :
+			Promise.resolve(spawn(...spawnParams))
 		);
 
-		refProcess(project, script, child);
+		process.then(child => {
+			dispatch(registerScriptStart(project, script));
 
-		let stdout = '';
-		let stderr = '';
+			refProcess(project, script, child);
 
-		child.stdout.setEncoding('utf8');
+			child.stdout.setEncoding('utf8');
 
-		child.stdout.on('data', data => {
-			if (data) {
-				dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
-			}
+			child.stdout.on('data', (data) => {
+				if (data) {
+					dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
+				}
+			});
 
-			stdout += data;
-		});
+			child.stderr.on('data', (data) => {
+				if (data && typeof data === 'string') {
+					dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
+				}
+			});
 
-		child.stderr.on('data', data => {
-			if (data && typeof data === 'string') {
-				dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
-			}
+			child.on('exit', (code, signal) => {
+				unrefProcess(project, script);
 
-			stderr += data;
-		});
+				const isStartScript = script.name === 'start';
+				const projectName = project.data.name;
 
-		child.on('exit', (code, signal) => { // eslint-disable-line consistent-return
-			unrefProcess(project, script);
+				// When process is finished successfully
+				if (code === 0) {
+					dispatch(registerScriptFinish(project, script));
 
-			const isStartScript = script.name === 'start';
-			const projectName = project.data.name;
+					if (isStartScript) {
+						dispatch(showNotification(`${projectName} stopped`));
+					} else {
+						dispatch(showNotification(`Task ${script.name} finished`, projectName));
+					}
 
-			// When process is finished successfully
-			if (code === 0) {
-				dispatch(registerScriptFinish(project, script, stdout));
+					return;
+				}
 
-				return isStartScript ?
-					dispatch(showNotification(`${projectName} stopped`)) :
-					dispatch(showNotification(`Task ${script.name} finished`, projectName));
-			}
+				// Then process is stopped by user
+				if (signal === 'SIGTERM') {
+					dispatch(registerScriptFinish(project, script));
 
-			// Then process is stopped by user
-			if (signal === 'SIGTERM') {
+					if (isStartScript) {
+						dispatch(showNotification(`${projectName} stopped`));
+					} else {
+						dispatch(showNotification(`Task ${script.name} stopped`, projectName));
+					}
+
+					return;
+				}
+
+				// Then process exited with error
 				dispatch(registerScriptFinish(project, script));
-
-				return isStartScript ?
-					dispatch(showNotification(`${projectName} stopped`)) :
-					dispatch(showNotification(`Task ${script.name} stopped`, projectName));
-			}
-
-			// Then process exited with error
-			dispatch(registerScriptFinish(project, script, stdout));
-			dispatch(showNotification(`Task ${script.name} failed`, projectName));
+				dispatch(showNotification(`Task ${script.name} failed`, projectName));
+			});
 		});
 	};
 }

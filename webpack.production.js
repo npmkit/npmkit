@@ -38,5 +38,9 @@ export default merge(baseConfig, {
 		}),
 		new ExtractTextPlugin('bundle.css', { allChunks: true })
 	],
-	target: 'electron-renderer'
+	target: 'electron-renderer',
+	node: {
+		__dirname: true,
+		__filename: true
+	}
 });

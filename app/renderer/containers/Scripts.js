@@ -19,6 +19,9 @@ const mergeProps = ({ project, scripts }, { dispatch }) => ({
 	onStart (script) {
 		dispatch(startScript(project, script));
 	},
+	onStartSudo (script) {
+		dispatch(startScript(project, script, { sudo: true }));
+	},
 	onStop (script) {
 		dispatch(stopScript(project, script));
 	},
