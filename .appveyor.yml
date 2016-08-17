@@ -38,13 +38,13 @@ artifacts:
 - path: dist\win\*
   name: npmkitwin
 
-deploy:
-  tag: npmkit-v0.3.2-alpha-build$(appveyor_build_version)
-  release: v0.3.2-alpha
-  description: ''
-  provider: GitHub
-  draft: true
-  force_update: true
-  artifact: npmkitwin
-  auth_token:
-    secure: iKOdJsnlkf8k7A/HVc5ssbphSKDIhXNKa5WugDkqyOuCAsQg7YZS7d9LPJJE55U0
+#deploy:
+#  tag: npmkit-v0.3.2-alpha-build$(appveyor_build_version)
+#  release: v0.3.2-alpha
+#  description: ''
+#  provider: GitHub
+#  draft: true
+#  force_update: true
+#  artifact: npmkitwin
+#  auth_token:
+#    secure: iKOdJsnlkf8k7A/HVc5ssbphSKDIhXNKa5WugDkqyOuCAsQg7YZS7d9LPJJE55U0
