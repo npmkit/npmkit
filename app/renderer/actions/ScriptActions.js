@@ -1,11 +1,13 @@
 import os from 'os';
 import { spawn } from 'child_process';
-import Sudoer from 'electron-sudo';
 
-import { APP_NAME } from 'constants/AppConstants';
 import { showNotification } from 'actions/NotificationActions';
 import * as ActionTypes from 'constants/ActionTypes';
 import * as ScriptsUtils from 'utils/ScriptsUtils';
+import { sudoer } from 'utils/ShellUtils';
+
+const SUCCESS_EXIT_CODE = 0;
+const SIGTERM_EXIT_CODE = 143;
 
 /**
  * We need to keep references to running process
@@ -27,11 +29,6 @@ const runningScripts = new Map();
  * @type {Boolean}
  */
 const isWindows = os.platform() === 'win32';
-
-/**
- * @type {Sudoer}
- */
-const sudoer = new Sudoer({ name: APP_NAME });
 
 /**
  * @param {Object} project
@@ -146,11 +143,7 @@ export function startScript (project, script, params = { sudo: false }) {
 		const spawnParams = [
 			isWindows ? 'npm.cmd' : 'npm',
 			[ 'run-script', '--no-color', script.name ],
-			{
-				shell: true,
-				detached: !isWindows, // false on windows, true otherwise
-				cwd: project.path
-			}
+			{ shell: true, cwd: project.path }
 		];
 
 		const process = (
@@ -166,26 +159,17 @@ export function startScript (project, script, params = { sudo: false }) {
 
 			child.stdout.setEncoding('utf8');
 
-			child.stdout.on('data', (data) => {
-				if (data) {
-					dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
-				}
-			});
-
-			child.stderr.on('data', (data) => {
-				if (data && typeof data === 'string') {
-					dispatch(registerScriptDataChunk(project, script, data.split(/\r?\n/)));
-				}
-			});
+			child.stdout.on('data', handleOutput);
+			child.stderr.on('data', handleOutput);
 
 			child.on('exit', (code, signal) => {
-				unrefProcess(project, script);
+				unrefProcess(project, script, child.pid);
 
 				const isStartScript = script.name === 'start';
 				const projectName = project.data.name;
 
-				// When process is finished successfully
-				if (code === 0) {
+				// When process is finished or terminated gracefully
+				if ([ SUCCESS_EXIT_CODE, SIGTERM_EXIT_CODE ].includes(code)) {
 					dispatch(registerScriptFinish(project, script));
 
 					if (isStartScript) {
@@ -214,6 +198,12 @@ export function startScript (project, script, params = { sudo: false }) {
 				dispatch(registerScriptFinish(project, script));
 				dispatch(showNotification(`Task ${script.name} failed`, projectName));
 			});
+
+			function handleOutput (data) {
+				const output = data.toString('ascii');
+
+				dispatch(registerScriptDataChunk(project, script, output.split(/\r?\n/)));
+			}
 		});
 	};
 }
@@ -224,18 +214,18 @@ export function startScript (project, script, params = { sudo: false }) {
  * @returns {Function}
  */
 export function stopScript (project, script) {
-	return () => {
+	return async () => {
 		const child = runningScripts.get(`${project.code}.${script.name}`);
 
-		if (isWindows) {
-			child.kill('SIGTERM');
-		} else {
-			// If pid is less than -1, then sig is sent to every process
-			// in the process group whose ID is -pid.
-			process.kill(-child.pid, 'SIGTERM');
-		}
+		try {
+			await ScriptsUtils.killProcess(child);
+		} catch (error) {
+			if (error.code === 'EPERM') {
+				await ScriptsUtils.sudoKillProcess(child);
+			}
 
-		unrefProcess(project, script);
+			// @todo add some error info?
+		}
 	};
 }
 
@@ -249,9 +239,17 @@ function refProcess (project, script, process) {
 }
 
 /**
- * @param project
- * @param script
+ * @param {Object} project
+ * @param {Object} script
+ * @param {number} pid
  */
-function unrefProcess (project, script) {
-	runningScripts.delete(`${project.code}.${script.name}`);
+function unrefProcess (project, script, pid) {
+	const key = `${project.code}.${script.name}`;
+
+	if (runningScripts.get(key).pid === pid) {
+		runningScripts.delete(key);
+	} else {
+		throw new Error('Wrong process id');
+	}
 }
+

@@ -36,8 +36,7 @@ export default class ScriptCard extends Component {
 		const isRunning = script.status === ScriptStatusEnum.RUNNING;
 
 		menu.itemIf(!isRunning, 'Run', () => this.props.onStart(script));
-		// blocked by https://github.com/sergeybekrin/npmkit/issues/2
-		// menu.itemIf(!isRunning, 'Run as sudo', () => this.props.onStartSudo(script));
+		menu.itemIf(!isRunning, 'Run as sudo', () => this.props.onStartSudo(script));
 		menu.itemIf(isRunning, 'Stop', () => this.props.onStop(script));
 		menu.item('Copy command', () => this.props.onCopyCommand(script));
 

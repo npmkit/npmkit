@@ -1,8 +1,15 @@
 import { execFile, execFileSync } from 'child_process';
 import stripAnsi from 'strip-ansi';
 import os from 'os';
+import Sudoer from 'electron-sudo';
 
 import { NPM_EXECUTABLE_NAME } from 'constants/PathConstants';
+import { APP_NAME } from 'constants/AppConstants';
+
+/**
+ * @type {Sudoer}
+ */
+export const sudoer = new Sudoer({ name: APP_NAME });
 
 /**
  * Execute regular console command

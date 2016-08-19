@@ -1,6 +1,7 @@
 import { v4 } from 'node-uuid';
 
 import { scriptInitialState } from 'reducers/script';
+import { kill, sudoKill } from 'utils/ProcessUtils';
 
 /**
  * Get list if scripts from project object
@@ -9,15 +10,13 @@ import { scriptInitialState } from 'reducers/script';
  * @returns {Array}
  */
 export function getScripts (project) {
-
-	// Skip if no scripts available
 	if (!project.data.hasOwnProperty('scripts')) {
 		return [];
 	}
 
 	const scripts = [];
 
-	for (const [ name = '', command = '' ] of Object.entries(project.data.scripts)) {
+	for (const [ name, command ] of Object.entries(project.data.scripts)) {
 		scripts.push({
 			...scriptInitialState,
 			id: v4(),
@@ -29,3 +28,38 @@ export function getScripts (project) {
 	return scripts;
 }
 
+/**
+ * @param {ChildProcess} child
+ * @param {string} signal
+ * @return {Promise}
+ */
+export function killProcess (child, signal = 'SIGTERM') {
+	return new Promise((resolve, reject) => {
+		kill(child.pid, signal, (error) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(child.pid);
+		});
+	});
+}
+
+/**
+ * @param {ChildProcess} child
+ * @param {string} signal
+ * @return {Promise}
+ */
+export function sudoKillProcess (child, signal = 'SIGTERM') {
+	return new Promise((resolve, reject) => {
+		sudoKill(child.pid, signal, (error) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(child.pid);
+		});
+	});
+}
