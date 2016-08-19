@@ -24,7 +24,6 @@ import LocalInstaller from 'containers/LocalInstaller';
 
 import 'app.html';
 import 'styles/root.styl';
-import 'normalize.css';
 
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
