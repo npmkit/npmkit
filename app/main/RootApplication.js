@@ -103,6 +103,7 @@ export default class RootApplication {
 		// Create window once app is ready
 		app.on('ready', () => {
 			const window = new BrowserWindow({
+				frame: false,
 				show: false
 			});
 

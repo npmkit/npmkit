@@ -7,7 +7,8 @@ import './Sidebar.styl';
 
 export default class Sidebar extends Component {
 	static propTypes = {
-		projects: PropTypes.array.isRequired
+		projects: PropTypes.array.isRequired,
+		totalProjectsCount: PropTypes.number.isRequired
 	};
 
 	render () {
@@ -18,7 +19,7 @@ export default class Sidebar extends Component {
 					label='Projects'
 					link='/projects'
 				>
-					{this.props.projects.length > 5 && <ProjectFilter />}
+					{this.props.totalProjectsCount > 5 && <ProjectFilter />}
 					<div className='sidebar__projects'>
 						{this.props.projects.map(project =>
 							<SidebarProject
