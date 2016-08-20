@@ -2,7 +2,6 @@
 @import '~styles/mixins.styl'
 
 $badge-size = 32px
-$swipe-bar-size = 60px
 
 text-overflow-ellipsis()
 	text-overflow: ellipsis
@@ -10,21 +9,17 @@ text-overflow-ellipsis()
 	overflow: hidden
 
 .project-card
-	border-bottom: 1px solid transparent
-	border-top: 1px solid transparent
-	border-left: none
+	border-left: 4px solid transparent
 	position: relative
-	padding-left: 14px
+	padding-left: 10px
 	display: flex
 	flex: 1
 
 	&:not(&--active):hover
-		background-color: darken($color-foreground, 5%)
+		background-color: darken($color-foreground, 3%)
 
 	&--active
-		background: $color-foreground
-		border-top-color: $control-outline-color
-		border-bottom-color: $control-outline-color
+		position: relative
 
 	&__contents
 		pointer-events: none
@@ -59,19 +54,13 @@ text-overflow-ellipsis()
 		opacity: .75
 
 	&__star
-		background-color: $color-background
+		background-color: #ffd700
 		align-self: center
 		position: absolute
 		border-radius: 50%
-		color: #ffd700
-		padding: 2px
+		color: $color-foreground
+		padding: 1px
 		width: 14px
 		height: 14px
-		left: 12px
-		top: 12px
-
-	&:not(&--active):hover &__star
-		background-color: darken($color-foreground, 5%)
-
-	&--active &__star
-		background-color: $color-foreground
+		left: 8px
+		top: 8px

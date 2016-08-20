@@ -137,6 +137,7 @@ export default class SidebarProject extends Component {
 		return (
 			<SidebarLink
 				activeClassName='project-card--active'
+				activeStyle={{ borderColor: color }}
 				className='project-card'
 				onContextMenu={this._handleContextMenu}
 				to={`projects/${code}`}

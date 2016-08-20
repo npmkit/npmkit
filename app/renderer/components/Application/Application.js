@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { remote } from 'electron';
 
 import Sidebar from 'containers/Sidebar';
+import TitleBar from 'components/TitleBar';
 import './Application.styl';
 
 export default class Application extends Component {
@@ -31,7 +32,7 @@ export default class Application extends Component {
 		return (
 			process.env.NODE_ENV === 'development' ?
 			(() => {
-				const DevTools = require('../../containers/DevTools'); // eslint-disable-line global-require
+				const DevTools = require('containers/DevTools'); // eslint-disable-line global-require
 
 				return <DevTools />;
 			})() :
@@ -41,10 +42,13 @@ export default class Application extends Component {
 
 	render () {
 		return (
-			<div className='application'>
-				<Sidebar />
-				{this.props.children}
-				{this._renderDevTools()}
+			<div className='Application'>
+				<TitleBar />
+				<div className='Application-layout'>
+					<Sidebar />
+					{this.props.children}
+					{this._renderDevTools()}
+				</div>
 			</div>
 		);
 	}

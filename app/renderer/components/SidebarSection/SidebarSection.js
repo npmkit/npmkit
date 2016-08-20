@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 
-import SvgIcon from 'components/SvgIcon';
 import './SidebarSection.styl';
 
 export default class SidebarSection extends Component {
@@ -29,8 +28,7 @@ export default class SidebarSection extends Component {
 		return (
 			<div className={classes}>
 				<Link className='sidebar-section__label' to={link}>
-					<SvgIcon code={this.props.icon} height={18} width={18} />
-					<strong className='sidebar-section__label-text'>{label}</strong>
+					<span className='sidebar-section__label-text'>{label}</span>
 				</Link>
 				<div className='sidebar-section__contents'>{children}</div>
 			</div>

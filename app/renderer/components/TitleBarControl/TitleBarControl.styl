@@ -1,0 +1,40 @@
+.TitleBarControl
+	&:focus
+		outline: none
+
+	&--macos
+		-webkit-app-region: no-drag
+		background-color: rgb(222, 222, 222)
+		border: 1px solid rgb(208, 208, 208)
+		padding: 0
+		line-height 0
+		border-radius: 50%
+		width: 12px
+		height: 12px
+
+	&--macos&--close
+		&:not(:active)
+			border-color: rgb(226, 70, 63)
+			background-color: rgb(255, 95, 87)
+
+		&:active
+			border-color: rgb(173, 57, 52)
+			background-color: rgb(191, 73, 67)
+
+	&--macos&--minimize
+		&:not(:active)
+			border-color: rgb(225, 161, 22)
+			background-color: rgb(255, 189, 46)
+
+		&:active
+			border-color: rgb(173, 125, 21)
+			background-color: rgb(191, 145, 35)
+
+	&--macos&--maximize
+		&:not(:active)
+			border-color: rgb(18, 172, 40)
+			background-color: rgb(40, 201, 64)
+
+		&:active
+			border-color: rgb(18, 134, 34)
+			background-color: rgb(31, 154, 49)

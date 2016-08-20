@@ -1,7 +1,7 @@
 @import '~styles/variables.styl'
 @import '~styles/mixins.styl'
 
-$label-height = 42px
+$label-height = 28px
 
 .sidebar-section
 	transition: flex 300ms ease
@@ -10,9 +10,6 @@ $label-height = 42px
 	flex-basis: $label-height
 	display: flex
 	flex: none
-
-	& + &
-		border-top: 1px solid #0001
 
 	&--expanded
 		flex: 1
@@ -40,11 +37,6 @@ $label-height = 42px
 
 	&__label-text
 		hide-in-compact-mode()
-
-	// Hacky border
-	&--expanded &__label[href='/projects']
-	&--expanded &__label[href='#/projects']
-		border-bottom: 1px solid $control-outline-color
 
 	&__contents
 		transition: transform 100ms ease
