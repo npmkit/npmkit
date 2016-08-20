@@ -26,8 +26,6 @@ const mergeProps = (stateProps, { dispatch }) => ({
 	...stateProps,
 	onInstall (module) {
 		dispatch(addDependency(stateProps.project, module));
-
-		// @todo
 		dispatch(push(`/projects/${stateProps.project.code}/dependencies`));
 	},
 	onCancel () {
