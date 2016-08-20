@@ -31,7 +31,7 @@ before_install:
 #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
 
 install:
-- nvm install 6
+- nvm install 5
 - npm install -g npm@latest
 - npm install typescript@'>=1.7.3'
 - npm install
@@ -44,11 +44,11 @@ script:
 - npm run dist-macos
 - npm run dist-linux
 
-before_deploy:
-  - "export MAC_DMG_FILE=$(ls dist/mac/*.dmg)"
-  - "export MAC_ZIP_FILE=$(ls dist/mac/*.zip)"
-  - "export LINUX_APPIMAGE_FILE=$(ls dist/*.AppImage)"
-  - "export LINUX_DEB_FILE=$(ls dist/*.deb)"
+#before_deploy:
+#  - "export MAC_DMG_FILE=$(ls dist/mac/*.dmg)"
+#  - "export MAC_ZIP_FILE=$(ls dist/mac/*.zip)"
+#  - "export LINUX_APPIMAGE_FILE=$(ls dist/*.AppImage)"
+#  - "export LINUX_DEB_FILE=$(ls dist/*.deb)"
 
 #deploy:
 #  provider: releases
