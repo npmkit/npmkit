@@ -33,7 +33,6 @@ before_install:
 install:
 - nvm install 5
 - npm install -g npm@latest
-- npm install typescript@'>=1.7.3'
 - npm install
 
 script:
