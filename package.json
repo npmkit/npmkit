@@ -110,7 +110,7 @@
     "classnames": "^2.2.5",
     "electron-debug": "^1.0.1",
     "electron-sudo": "^4.0.5",
-    "history": "^2.1.1",
+    "history": "2.1.2",
     "lodash": "^4.15.0",
     "node-uuid": "^1.4.7",
     "react": "^15.3.1",
