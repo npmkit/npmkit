@@ -1,4 +1,6 @@
-import { name, version } from '../../../package.json';
+import { remote } from 'electron';
 
-export const APP_NAME = name;
-export const APP_VERSION = version;
+const { app } = remote;
+
+export const APP_NAME = app.getName();
+export const APP_VERSION = app.getVersion();

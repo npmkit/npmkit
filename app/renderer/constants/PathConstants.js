@@ -1,9 +1,9 @@
 import os from 'os';
+import { remote } from 'electron';
 
-import { APP_NAME } from 'constants/AppConstants';
+const { app } = remote;
 
-export const HOME_DIRECTORY = os.homedir();
-export const META_DIRECTORY = `${HOME_DIRECTORY}/.${APP_NAME}`;
+export const META_DIRECTORY = app.getPath('userData');
 export const META_PROJECTS_FILE = 'projects.json';
 export const META_CONFIG_FILE = 'config.json';
 export const PACKAGE_JSON_FILE = 'package.json';
