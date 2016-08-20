@@ -5,6 +5,7 @@ import './TitleBarControl.styl';
 
 export default class TitleBarControl extends Component {
 	static propTypes = {
+		onClick: PropTypes.func.isRequired,
 		theme: PropTypes.oneOf([ 'windows', 'macos', 'linux' ]).isRequired,
 		type: PropTypes.oneOf([ 'close', 'minimize', 'maximize' ]).isRequired
 	};
@@ -17,7 +18,10 @@ export default class TitleBarControl extends Component {
 		);
 
 		return (
-			<button className={className} />
+			<button
+				className={className}
+				onClick={this.props.onClick}
+			/>
 		);
 	}
 }

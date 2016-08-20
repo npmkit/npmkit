@@ -14,8 +14,8 @@ export default class TabsItem extends Component {
 
 		return (
 			<Link
-				activeClassName='tabs__item--active'
-				className='tabs__item'
+				activeClassName='TabsItem--active'
+				className='TabsItem'
 				to={link}
 			>{label}</Link>
 		);

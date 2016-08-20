@@ -72,12 +72,12 @@ export default class ModulesExplorer extends Component {
 
 	render () {
 		return (
-			<div className='module-explorer'>
-				<div className='module-explorer__container'>
-					<div className='module-explorer__controls'>
+			<div className='ModuleExplorer'>
+				<div className='ModuleExplorer-container'>
+					<div className='ModuleExplorer-controls'>
 						{this.props.query.length > 0 &&
 							<Button
-								className='module-explorer__cancel'
+								className='ModuleExplorer-cancel'
 								icon='arrow-back'
 								inline
 								onClick={this._handleCancel}
@@ -86,14 +86,14 @@ export default class ModulesExplorer extends Component {
 							>Back</Button>
 						}
 						<input
-							className='module-explorer__input'
+							className='ModuleExplorer-input'
 							onChange={this._handleKeywordChange}
 							placeholder='Search packages'
 							ref='input'
 							type='text'
 						/>
 					</div>
-					<div className='module-explorer__result'>
+					<div className='ModuleExplorer-result'>
 						{this.props.result.map(this._renderModule)}
 					</div>
 				</div>

@@ -1,27 +1,27 @@
 @import '~styles/variables.styl'
 
-.module-explorer
+.ModuleExplorer
 	justify-content: center
 	align-items: center
 	display: flex
 
-	&__container
+	&-container
 		flex-direction: column
 		flex: 1
 
-	&__controls
+	&-controls
 		margin-bottom: 10px
 		display: flex
 
-	&__input
+	&-input
 		border: 1px solid $control-outline-color
 		border-radius: $control-border-radius
-		padding: 6px 10px
+		padding: 5px 10px
 		outline: none
 		flex: 1
 
-	&__cancel + &__input
+	&-cancel + &-input
 		margin-left: 10px
 
-	&__cancel
+	&-cancel
 		align-self: auto

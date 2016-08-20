@@ -29,15 +29,15 @@ export default class ModuleCard extends Component {
 		const { name, description, version } = this.props.module;
 
 		return (
-			<div className='module-card'>
-				<div className='module-card__meta'>
+			<div className='ModuleCard'>
+				<div className='ModuleCard-meta'>
 					<div>
-						<span className='module-card__name'>{name}</span>
-						<span className='module-card__version'>{version || ''}</span>
+						<span className='ModuleCard-name'>{name}</span>
+						<span className='ModuleCard-version'>{version || ''}</span>
 					</div>
-					<div className='module-card__description'>{description}</div>
+					<div className='ModuleCard-description'>{description}</div>
 				</div>
-				<div className='module-card__actions'>
+				<div className='ModuleCard-actions'>
 					{installed &&
 						<Button
 							disabled

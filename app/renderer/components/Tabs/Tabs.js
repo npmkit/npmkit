@@ -11,7 +11,7 @@ export default class Tabs extends Component {
 		const { children } = this.props;
 
 		return (
-			<div className='tabs'>{children}</div>
+			<div className='Tabs'>{children}</div>
 		);
 	}
 }

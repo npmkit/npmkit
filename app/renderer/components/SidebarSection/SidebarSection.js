@@ -21,16 +21,16 @@ export default class SidebarSection extends Component {
 		const isExpanded = this.context.router.isActive(link);
 
 		const classes = classnames({
-			'sidebar-section': true,
-			'sidebar-section--expanded': isExpanded
+			SidebarSection: true,
+			'SidebarSection--expanded': isExpanded
 		});
 
 		return (
 			<div className={classes}>
-				<Link className='sidebar-section__label' to={link}>
-					<span className='sidebar-section__label-text'>{label}</span>
+				<Link className='SidebarSection-label' to={link}>
+					<span className='SidebarSection-labelText'>{label}</span>
 				</Link>
-				<div className='sidebar-section__contents'>{children}</div>
+				<div className='SidebarSection-contents'>{children}</div>
 			</div>
 		);
 	}

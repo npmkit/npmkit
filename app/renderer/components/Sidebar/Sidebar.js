@@ -13,14 +13,14 @@ export default class Sidebar extends Component {
 
 	render () {
 		return (
-			<aside className='sidebar'>
+			<aside className='Sidebar'>
 				<SidebarSection
 					icon='list'
 					label='Projects'
 					link='/projects'
 				>
 					{this.props.totalProjectsCount > 5 && <ProjectFilter />}
-					<div className='sidebar__projects'>
+					<div className='Sidebar-projects'>
 						{this.props.projects.map(project =>
 							<SidebarProject
 								key={project.code}

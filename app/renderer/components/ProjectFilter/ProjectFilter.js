@@ -15,21 +15,21 @@ export default class SidebarFilter extends Component {
 		const { keyword, onKeywordChange, onClear } = this.props;
 		const hasKeyword = keyword.length > 0;
 		const classes = classnames({
-			'sidebar-filter': true,
-			'sidebar-filter--filled': hasKeyword
+			SidebarFilter: true,
+			'SidebarFilter--filled': hasKeyword
 		});
 
 		return (
 			<div className={classes}>
 				<input
-					className='sidebar-filter__input'
+					className='SidebarFilter-input'
 					onChange={onKeywordChange}
 					placeholder='Quick Filter'
 					type='text'
 					value={keyword}
 				/>
 				<SvgIcon
-					className='sidebar-filter__clear-button'
+					className='SidebarFilter-clearButton'
 					code='cancel'
 					height={16}
 					onClick={onClear}

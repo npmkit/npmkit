@@ -1,12 +1,13 @@
 @import '~styles/variables.styl';
 @import '~styles/mixins.styl';
 
-.sidebar
+.Sidebar
 	box-shadow: inset -1px 0 0 $control-outline-color
+	padding-top: $titlebar-height
 	flex-direction: column
 	width: $sidebar-width
 	display: flex
-	height: 'calc(100vh - %s)' % ($titlebar-height)
+	height: 100vh
 
 	+compact-mode()
 		width: $sidebar-compact-width

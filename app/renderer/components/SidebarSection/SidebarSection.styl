@@ -1,9 +1,9 @@
 @import '~styles/variables.styl'
 @import '~styles/mixins.styl'
 
-$label-height = 28px
+$label-height = 32px
 
-.sidebar-section
+.SidebarSection
 	transition: flex 300ms ease
 	flex-direction: column
 	min-height: $label-height
@@ -14,10 +14,10 @@ $label-height = 28px
 	&--expanded
 		flex: 1
 
-	&--expanded &__label
+	&--expanded &-label
 		color: $color-text
 
-	&__label
+	&-label
 		color: $color-text-contrast
 		text-decoration: none
 		padding: 0 14px
@@ -35,20 +35,20 @@ $label-height = 28px
 			+compact-mode()
 				width: 100%
 
-	&__label-text
+	&-labelText
 		hide-in-compact-mode()
 
-	&__contents
+	&-contents
 		transition: transform 100ms ease
 		overflow: hidden
 		overflow-y: auto
 
-	&:not(&--expanded) &__contents
+	&:not(&--expanded) &-contents
 		height: 0
 
-	&--expanded &__contents
+	&--expanded &-contents
 		flex: 1
 
-	&:not(&--expanded) &__label:hover
+	&:not(&--expanded) &-label:hover
 		background-color: darken($color-foreground, 5%)
 

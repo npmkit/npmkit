@@ -3,7 +3,7 @@
 
 $project-filter-width = 150px
 
-.sidebar-filter
+.SidebarFilter
 	position fixed
 	display: none
 	align-items: center
@@ -12,13 +12,13 @@ $project-filter-width = 150px
 	width: $project-filter-width
 	z-index: 1
 	left:  $sidebar-width - $project-filter-width
-	top: 37px
+	top: 40px
 
-	.sidebar-section--expanded &
+	.SidebarSection--expanded &
 		display: flex
 		hide-in-compact-mode()
 
-	&__input
+	&-input
 		border: 1px solid transparent
 		background: transparent
 		border-radius: 20px
@@ -29,12 +29,12 @@ $project-filter-width = 150px
 		outline: none
 		width: 100%
 
-	&__input:focus,
-	&--filled &__input
+	&-input:focus,
+	&--filled &-input
 		border-color: $control-outline-color
 		background: $color-foreground
 
-	&__clear-button
+	&-clearButton
 		background: transparent
 		border-radius: 50%
 		position: absolute
@@ -44,5 +44,5 @@ $project-filter-width = 150px
 		padding: 0
 		top: 6px
 
-	&--filled &__clear-button
+	&--filled &-clear-button
 		display: block
