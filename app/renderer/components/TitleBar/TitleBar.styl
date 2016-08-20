@@ -1,0 +1,18 @@
+@import '~styles/variables';
+
+.TitleBar
+	-webkit-user-select: none
+	-webkit-app-region: drag
+
+	&--macos
+		border-top-left-radius: 5px
+		border-top-right-radius: 5px
+		display: flex
+		align-items center
+		min-height: $titlebar-height
+		padding: 0 14px
+
+	&--macos &-controls
+		justify-content space-between
+		width: 52px
+		display: flex
