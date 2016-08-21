@@ -10,7 +10,7 @@ import { kill, sudoKill } from 'utils/ProcessUtils';
  * @returns {Array}
  */
 export function getScripts (project) {
-	if (!project.data.hasOwnProperty('scripts')) {
+	if (project.data.scripts === undefined) {
 		return [];
 	}
 

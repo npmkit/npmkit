@@ -1,6 +1,6 @@
 import { Component, PropTypes } from 'react';
 
-const keys = new Set;
+const keys = new Set();
 
 export default class Root extends Component {
 	static propTypes = {

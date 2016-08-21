@@ -46,7 +46,7 @@ export default class ModuleCard extends Component {
 					}
 					{!installed &&
 						<Button
-							disabled={!Boolean(version)}
+							disabled={!!version}
 							onClick={this._handleInstallClick}
 							transparent
 						>Install</Button>

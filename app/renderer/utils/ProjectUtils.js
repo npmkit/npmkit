@@ -33,7 +33,7 @@ export function buildProjectObject (path, state = {}) {
 		throw new Error('package.json is missing in provided directory');
 	}
 
-	if (!data.hasOwnProperty('name') ||
+	if (data.name === undefined ||
 		data.name.length === 0) {
 		throw new Error('`name` property is missing in package.json');
 	}
@@ -42,8 +42,8 @@ export function buildProjectObject (path, state = {}) {
 		throw new Error('Project name is too long');
 	}
 
-	if (!data.hasOwnProperty('version') ||
-		data.length === 0) {
+	if (data.version === undefined ||
+		data.version.length === 0) {
 		throw new Error('`version` property is missing in package.json');
 	}
 

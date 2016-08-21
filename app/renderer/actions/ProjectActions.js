@@ -330,7 +330,7 @@ export function loadProjects () {
 			.map(project => {
 
 				// Skip objects with empty path
-				if (!project.hasOwnProperty('path') ||
+				if (project.path === undefined ||
 					typeof project.path !== 'string' ||
 					project.path.length === 0) {
 					return null;

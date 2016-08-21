@@ -37,6 +37,8 @@
     "react/self-closing-comp": 1,
     "react/sort-prop-types": 1,
     "react/jsx-wrap-multilines": 1,
+	"react/no-string-refs": 0,
+	"jsx-a11y/label-has-for": 0,
     "jsx-quotes": [ 2, "prefer-single" ],
     "import/no-unresolved": [ 2, { "ignore": [ "electron" ]}],
     "import/no-extraneous-dependencies": 0,
