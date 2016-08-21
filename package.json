@@ -1,6 +1,6 @@
 {
   "name": "npmkit",
-  "version": "0.3.2-alpha",
+  "version": "0.3.3-alpha",
   "description": "Ultimate toolkit to control npm chaos",
   "main": "main.js",
   "scripts": {
