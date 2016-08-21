@@ -3,10 +3,10 @@ version: '0.3.2-alpha-{build}'
 platform:
 - x64
 
-cache:
-- node_modules
-- '%APPDATA%\npm-cache'
-- '%USERPROFILE%\.electron'
+#cache:
+#- node_modules
+#- '%APPDATA%\npm-cache'
+#- '%USERPROFILE%\.electron'
 
 init:
 - git config --global core.autocrlf input
