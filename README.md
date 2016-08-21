@@ -5,8 +5,9 @@ Control your npm chaos with ease
 
 [![Linux Build Status](https://img.shields.io/travis/sergeybekrin/npmkit/master.svg)](https://travis-ci.org/sergeybekrin/npmkit)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/sergeybekrin/npmkit?svg=true)](https://ci.appveyor.com/project/sergeybekrin/npmkit/branch/master)
-[![Dependencies status](https://david-dm.org/sergeybekrin/npmkit.svg)](https://david-dm.org/sergeybekrin/npmkit)
-[![devDependencies status](https://david-dm.org/sergeybekrin/npmkit/dev-status.svg)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
+[![Dependencies status](https://img.shields.io/david/sergeybekrin/npmkit.svg?maxAge=2592000?style=plastic)](https://david-dm.org/sergeybekrin/npmkit)
+[![devDependencies status](https://img.shields.io/david/dev/sergeybekrin/npmkit.svg?maxAge=2592000?style=plastic)](https://david-dm.org/sergeybekrin/npmkit?type=dev)
+[![License](https://img.shields.io/github/license/sergeybekrin/npmkit.svg?maxAge=2592000)](https://github.com/sergeybekrin/npmkit/blob/master/LICENSE.md)
 
 ## About
 
