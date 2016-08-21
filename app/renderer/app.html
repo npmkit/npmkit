@@ -21,12 +21,6 @@
 		<main></main>
 		<script>
 			{
-				if (process.env.NODE_ENV === 'development') {
-				  const devToolsInstaller = require('electron-devtools-installer');
-
-				  devToolsInstaller.default(devToolsInstaller.REACT_DEVELOPER_TOOLS).catch(() => {});
-				}
-
 				const script = document.createElement('script');
 
 				script.src = (

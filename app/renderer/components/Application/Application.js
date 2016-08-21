@@ -28,18 +28,6 @@ export default class Application extends Component {
 		mainWindow.setAlwaysOnTop(false);
 	}
 
-	_renderDevTools () {
-		return (
-			process.env.NODE_ENV === 'development' ?
-			(() => {
-				const DevTools = require('containers/DevTools'); // eslint-disable-line global-require
-
-				return <DevTools />;
-			})() :
-			null
-		);
-	}
-
 	render () {
 		return (
 			<div className='Application'>
@@ -47,7 +35,6 @@ export default class Application extends Component {
 				<div className='Application-layout'>
 					<Sidebar />
 					{this.props.children}
-					{this._renderDevTools()}
 				</div>
 			</div>
 		);

@@ -31,6 +31,11 @@ const history = syncHistoryWithStore(hashHistory, store);
 // Prevent page zoom
 webFrame.setZoomLevelLimits(1, 1);
 
+// Add dev tools
+if (process.env.NODE_ENV === 'development') {
+	require('utils/DevToolsUtils').installDevTools(); // eslint-disable-line global-require
+}
+
 // Fix PATH on OS X
 fixPath();
 

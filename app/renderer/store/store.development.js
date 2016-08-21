@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { hashHistory } from 'react-router';
-import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
 
 import networkStatusMiddleware from 'middlewares/networkStatusMiddleware';
@@ -10,7 +9,6 @@ import clipboardMiddleware from 'middlewares/clipboardMiddleware';
 import npmMiddleware from 'middlewares/npmMiddleware';
 import protocolMiddleware from 'middlewares/protocolMiddleware';
 import rootReducer from 'reducers/index';
-import DevTools from 'containers/DevTools';
 
 const composedStore = compose(
 	applyMiddleware(
@@ -22,8 +20,7 @@ const composedStore = compose(
 		networkStatusMiddleware,
 		notificationMiddleware
 	),
-	DevTools.instrument(),
-	persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+	window.devToolsExtension ? window.devToolsExtension() : (f) => f
 );
 
 const finalCreateStore = composedStore(createStore);
