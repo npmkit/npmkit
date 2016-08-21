@@ -17,45 +17,36 @@ it allows to add existing projects to it, edit package.json info, run scripts an
 
 ## Building and packaging
 
-Built production bundle located under ./dist
-To build it yourself run:
+To build production bundle use:
 ```
 npm run build
 ```
 
-And to run production electron app use:
+To start built bundle use:
 ```
 npm run start
 ```
 
-Packaged and executable app located under ./releases/%platform%/%architecture%/
-To create it yourself for current platform use:
+To make executables for all possible systems use:
 ```
-npm run package
+npm run dist-all
 ```
 
-Or, if you wish to build for all possible platforms, run:
-```
-npm run package-all
-```
+Also, OS-specific `npm run dist-win`, `npm run dist-linux` and `npm run dist-macos` tasks available.
 
 ## Development
 
-For development process you'll need both webpack server and electron
-instance. It's easier to keep track of errors by running next commands
-in separate terminal tabs/windows:
-
-Run hot reload server:
+Run this command to start both development server and Electron dev instance. Please note, that while development
+app name and version would be taken from `electron` (ex-`electron-prebuilt`) package.
 ```
-npm run hot-server
+npm run dev
 ```
 
-Run electron instance:
-```
-npm run start-hot
-```
+This project is originally based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate) project.
 
-This project based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate) project.
+## CI Integration
+Currently Travis CI and AppVeyor are enabled to run builds.
+Automatic deployment is disabled due too CI configuration limitations and done manually.
 
 ## Testing
 
@@ -63,26 +54,3 @@ To run unit tests use:
 ```
 npm run test
 ```
-
-## Features roadmap
-
-- [x] Add or remove projects
-- [x] Quick search projects
-- [x] Edit project info
-- [x] Run and stop tasks
-- [ ] Run tasks under sudo
-- [ ] Add or edit tasks
-- [x] View dependencies
-- [x] Update or install dependencies
-- [x] Basic dependency search
-- [ ] *epic* Full dependency search
-- [x] Handle npmkit://install protocol action
-- [ ] Handle npmkit://install-dev protocol action
-- [ ] Handle npmkit://create protocol action
-- [ ] Handle npmkit://clone protocol action
-- [ ] Separate modules view
-- [ ] *epic* New project wizard
-- [ ] *epic* Move redux-store to main process and make sub-apps to use different browser windows
-- [ ] *epic* Add npm-specific actions (publish, version bump, etc.)
-- [ ] Add unit tests
-- [ ] Add e2e tests
