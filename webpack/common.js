@@ -11,18 +11,17 @@ export default {
 		]
 	},
 	output: {
-		path: path.join(__dirname, 'build'),
+		path: path.join(__dirname, '..', 'build'),
 		filename: 'bundle.js',
 		libraryTarget: 'commonjs2'
 	},
 	resolve: {
 		root: [
-			path.resolve(__dirname, 'app', 'main'),
-			path.resolve(__dirname, 'app', 'renderer'),
-			path.resolve(__dirname, 'node_modules')
+			path.resolve(__dirname, '..', 'app', 'main'),
+			path.resolve(__dirname, '..', 'app', 'renderer'),
+			path.resolve(__dirname, '..', 'node_modules')
 		],
-		extensions: [ '', '.js', '.jsx', '.styl' ],
-		packageMains: [ 'webpack', 'browser', 'web', 'browserify', [ 'jam', 'main' ], 'main' ]
+		extensions: [ '', '.js', '.json', '.jsx', '.styl' ]
 	},
 	plugins: [],
 	externals: []

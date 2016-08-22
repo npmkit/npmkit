@@ -19,7 +19,7 @@
 	"test": {
 	  "plugins": [
 		[ "module-resolver", { "root": [ "./app/main", "./app/renderer" ] }],
-		[ "webpack-loaders", { "config": "webpack.node.js", "verbose": false }]
+		[ "webpack-loaders", { "config": "webpack/mocha.js", "verbose": false }]
 	  ]
 	}
   }

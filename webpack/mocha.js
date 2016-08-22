@@ -1,6 +1,6 @@
 require('babel-register');
 
-const devConfigs = require('./webpack.development');
+const devConfig = require('./renderer.development');
 
 module.exports = {
 	output: {
@@ -8,7 +8,7 @@ module.exports = {
 	},
 	module: {
 		// remove babel-loader
-		loaders: devConfigs.module.loaders.filter(
+		loaders: devConfig.module.loaders.filter(
 			loader => (loader.loader || loader.loaders).indexOf('babel') === -1
 		)
 	}

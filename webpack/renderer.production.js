@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 
-import baseConfig from './webpack.base';
+import baseConfig from './common';
 
 export default merge(baseConfig, {
 	entry: './app/renderer',

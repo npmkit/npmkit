@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 
-import baseConfig from './webpack.base';
+import baseConfig from './common';
 
 export default merge(baseConfig, {
 	debug: true,

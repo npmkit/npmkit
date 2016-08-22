@@ -1,13 +1,14 @@
+import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 
-import baseConfig from './webpack.base';
+import baseConfig from './common';
 
 export default merge(baseConfig, {
 	entry: './app/main',
 	output: {
-		path: __dirname,
-		filename: './main.js'
+		path: path.resolve(__dirname, '..'),
+		filename: 'main.js'
 	},
 	plugins: [
 		new webpack.DefinePlugin({
