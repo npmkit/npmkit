@@ -28,7 +28,7 @@ export default class ModulesExplorer extends Component {
 	}
 
 	componentDidMount () {
-		this.refs.input.focus();
+		this._input.focus();
 	}
 
 	_handleKeywordChange (event) {
@@ -41,7 +41,7 @@ export default class ModulesExplorer extends Component {
 
 	_handleCancel () {
 		this._search.cancel();
-		this.refs.input.value = '';
+		this._input.value = '';
 		this.props.onCancel();
 	}
 
@@ -88,7 +88,11 @@ export default class ModulesExplorer extends Component {
 							className='ModuleExplorer-input'
 							onChange={this._handleKeywordChange}
 							placeholder='Search packages'
-							ref='input'
+							ref={(input) => {
+								if (input) {
+									this._input = input;
+								}
+							}}
 							type='text'
 						/>
 					</div>

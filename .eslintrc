@@ -37,8 +37,6 @@
     "react/self-closing-comp": "warn",
     "react/sort-prop-types": "warn",
     "react/jsx-wrap-multilines": "warn",
-	"react/no-string-refs": "off",
-	"jsx-a11y/label-has-for": "off",
     "jsx-quotes": [ "error", "prefer-single" ],
     "import/no-unresolved": [ "error", { "ignore": [ "electron" ]}],
     "import/no-extraneous-dependencies": "off",

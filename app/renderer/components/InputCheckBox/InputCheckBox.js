@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { pick } from 'utils/ObjectUtils';
+import { v4 } from 'node-uuid';
 import SvgIcon from 'components/SvgIcon';
 import './InputCheckBox.styl';
 
@@ -18,6 +18,10 @@ export default class InputCheckBox extends Component {
 		this._handleChange = this._handleChange.bind(this);
 	}
 
+	componentWillMount () {
+		this.id = v4();
+	}
+
 	_handleChange (event) {
 		this.props.onChange(event.target.checked, this.props.checked);
 	}
@@ -27,21 +31,20 @@ export default class InputCheckBox extends Component {
 	}
 
 	render () {
-		const props = pick(
-			this.props,
-			'disabled',
-			'readOnly',
-			'checked'
-		);
+		const { disabled, readOnly, checked } = this.props;
+		const props = { disabled, readOnly, checked };
 
 		return (
-			<label className='checkbox'>
+			<label
+				className='checkbox'
+				htmlFor={this.id}
+			>
 				<input
 					{...props}
 					checked={this.props.checked}
 					className='checkbox__control'
+					id={this.id}
 					onChange={this._handleChange}
-					ref='input'
 					type='checkbox'
 				/>
 				<SvgIcon

@@ -48,14 +48,18 @@ export default class ProjectPicker extends Component {
 			'picker-option--selected': isSelected
 		});
 
+		const id = `project-${project.code}`;
+
 		return (
 			<label
 				className={classes}
+				htmlFor={id}
 				key={project.code}
 			>
 				<input
 					checked={isSelected}
 					className='picker-option__input'
+					id={id}
 					name='picker-option'
 					onChange={this._handleProjectSelect}
 					type='radio'
@@ -85,16 +89,60 @@ export default class ProjectPicker extends Component {
 				<div className='installer__content'>
 					<div className='installer-field'>
 						<div className='installer-field__heading'>Category</div>
-						<label className='installer-field__option'>
-							<input name='category' type='radio' value='dependencies' />
+
+						{/* Production dependencies */}
+						<label
+							className='installer-field__option'
+							htmlFor='option-prod'
+						>
+							<input
+								id='option-prod'
+								name='category'
+								type='radio'
+								value='dependencies'
+							/>
 							<span>dependencies</span>
 						</label>
-						<label className='installer-field__option'>
-							<input name='category' type='radio' value='devDependencies' />
+
+						{/* Development dependencies */}
+						<label
+							className='installer-field__option'
+							htmlFor='option-dev'
+						>
+							<input
+								id='option-dev'
+								name='category'
+								type='radio'
+								value='devDependencies'
+							/>
 							<span>devDependencies</span>
 						</label>
-						<label className='installer-field__option'>
-							<input name='category' type='radio' value='optionalDependencies' />
+
+						{/* Peer dependencies */}
+						<label
+							className='installer-field__option'
+							htmlFor='option-peer'
+						>
+							<input
+								id='option-peer'
+								name='category'
+								type='radio'
+								value='peerDependencies'
+							/>
+							<span>peerDependencies</span>
+						</label>
+
+						{/* Optional dependencies */}
+						<label
+							className='installer-field__option'
+							htmlFor='option-optional'
+						>
+							<input
+								id='option-peer'
+								name='category'
+								type='radio'
+								value='optionalDependencies'
+							/>
 							<span>optionalDependencies</span>
 						</label>
 					</div>

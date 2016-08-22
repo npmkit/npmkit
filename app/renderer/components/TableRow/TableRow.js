@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react';
-import classnames from 'classnames';
+import combine from 'classnames';
 import './TableRow.styl';
 
-const TableRow = (props) => (
+const TableRow = ({ className, static: isStatic, ...props }) => (
 	<div
-		{...Object.assign({}, props, {
-			className: classnames(props.className, {
-				table__row: true,
-				'table__row--static': props.static === true
-			})
+		{...props}
+		className={combine(className, 'table__row', {
+			'table__row--static': isStatic === true
 		})}
 	>{props.children}</div>
 );

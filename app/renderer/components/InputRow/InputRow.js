@@ -1,5 +1,6 @@
 import React, { Component, PropTypes, createElement } from 'react';
-import classnames from 'classnames';
+import combine from 'classnames';
+import { v4 } from 'node-uuid';
 import './InputRow.styl';
 
 export default class FormRow extends Component {
@@ -7,8 +8,6 @@ export default class FormRow extends Component {
 		children: PropTypes.any,
 		component: PropTypes.any,
 		disabled: PropTypes.bool,
-		hint: PropTypes.string,
-		hintOnHover: PropTypes.bool,
 		label: PropTypes.string.isRequired,
 		onChange: PropTypes.func,
 		readOnly: PropTypes.bool,
@@ -17,19 +16,12 @@ export default class FormRow extends Component {
 	};
 
 	static defaultProps = {
-		hintOnHover: false,
 		disabled: false,
 		readOnly: false
 	};
 
-	constructor (props) {
-		super(props);
-
-		this._handleLabelClick = this._handleLabelClick.bind(this);
-	}
-
-	_handleLabelClick () {
-		this.refs.input.focus();
+	componentWillMount () {
+		this._id = v4();
 	}
 
 	render () {
@@ -37,16 +29,14 @@ export default class FormRow extends Component {
 			label,
 			disabled,
 			readOnly,
-			required,
-			hintOnHover
+			required
 		} = this.props;
 
-		const classes = classnames({
+		const classes = combine({
 			'input-row': true,
 			'input-row--disabled': disabled,
 			'input-row--readonly': readOnly,
-			'input-row--required': required,
-			'input-row--hint-on-hover': hintOnHover
+			'input-row--required': required
 		});
 
 		const { component, ...rest } = this.props;
@@ -55,12 +45,10 @@ export default class FormRow extends Component {
 			<div className={classes}>
 				<label
 					className='input-row__label'
+					htmlFor={this._id}
 					onClick={this._handleLabelClick}
 				>{label}</label>
-				{createElement(component, { ...rest, ref: 'input' })}
-				{this.props.hint &&
-					<div className='input-row__hint'>{this.props.hint}</div>
-				}
+				{createElement(component, { ...rest, id: this._id })}
 			</div>
 		);
 	}

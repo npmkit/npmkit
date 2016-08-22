@@ -43,7 +43,7 @@ export default class ProjectInfo extends Component {
 				<InputRow
 					component={InputTextBox}
 					label='Name'
-					maxlength={214}
+					maxLength={214}
 					onChange={this.props.onNameChange}
 					required
 					size={20}
