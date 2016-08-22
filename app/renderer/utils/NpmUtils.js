@@ -1,5 +1,4 @@
 import filesystem from 'fs';
-
 import { PACKAGE_JSON_FILE } from 'constants/PathConstants';
 
 /**

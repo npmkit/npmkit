@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import { NPM_VERSION_RECEIVE } from 'constants/ActionTypes';
 
 const initialState = {

@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import { NETWORK_STATUS_CHANGE } from 'constants/ActionTypes';
 
 export const initialState = {

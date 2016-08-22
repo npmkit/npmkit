@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import './ViewHeader.styl';
 
 export default class ViewHeader extends Component {

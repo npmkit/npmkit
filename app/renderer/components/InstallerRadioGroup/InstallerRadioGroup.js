@@ -15,8 +15,8 @@ export default class InstallerRadioGroup extends Component {
 					<label className='installer-field__option'>
 						<input
 							name={option.name}
-							type='radio'
 							onChange={this.props.onChange}
+							type='radio'
 							value={option.value}
 						/>
 						<span>{option.name}</span>

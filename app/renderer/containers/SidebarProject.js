@@ -1,7 +1,6 @@
 import { shell } from 'electron';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import { startScript, stopScript } from 'actions/ScriptActions';
 import { starProject, unstarProject, forgetProject } from 'actions/ProjectActions';
 import { getProjectScriptsArray } from 'utils/ProjectUtils';

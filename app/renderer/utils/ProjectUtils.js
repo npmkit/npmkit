@@ -1,8 +1,7 @@
 import crypto from 'crypto';
 import os from 'os';
-import semver from 'semver';
 import filesystem from 'fs';
-
+import semver from 'semver';
 import { projectInitialState as defaultProjectState } from 'reducers/project';
 import * as DialogUtils from 'utils/DialogUtils';
 import * as NpmUtils from 'utils/NpmUtils';

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
 import './TabsItem.styl';
 
 export default class TabsItem extends Component {

@@ -2,7 +2,6 @@ import filesystem from 'fs';
 import path from 'path';
 import semver from 'semver';
 import { v4 } from 'node-uuid';
-
 import * as PathConstants from 'constants/PathConstants';
 import { DependencyStatusEnum, DependencyUpdateTypeEnum } from 'constants/Enums';
 import { npm, unsafeNpm } from 'utils/ShellUtils';

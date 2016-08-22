@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import SidebarSection from 'components/SidebarSection';
 import SidebarProject from 'containers/SidebarProject';
 import ProjectFilter from 'containers/ProjectFilter';

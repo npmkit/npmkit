@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { getCurrentProject } from 'utils/ProjectUtils';
 import { starProject, unstarProject } from 'actions/ProjectActions';
 import ProjectView from 'components/ProjectView';

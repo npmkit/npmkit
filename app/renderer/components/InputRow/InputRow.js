@@ -1,6 +1,5 @@
 import React, { Component, PropTypes, createElement } from 'react';
 import classnames from 'classnames';
-
 import './InputRow.styl';
 
 export default class FormRow extends Component {

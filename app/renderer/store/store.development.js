@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { hashHistory } from 'react-router';
 import thunk from 'redux-thunk';
-
 import networkStatusMiddleware from 'middlewares/networkStatusMiddleware';
 import notificationMiddleware from 'middlewares/notificationMiddleware';
 import clipboardMiddleware from 'middlewares/clipboardMiddleware';

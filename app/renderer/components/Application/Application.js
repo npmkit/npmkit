@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { remote } from 'electron';
-
 import Sidebar from 'containers/Sidebar';
 import TitleBar from 'components/TitleBar';
 import './Application.styl';

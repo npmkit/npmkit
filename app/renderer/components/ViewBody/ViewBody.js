@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import './ViewBody.styl';
 
 export default class ViewBody extends Component {

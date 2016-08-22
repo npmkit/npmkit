@@ -1,5 +1,4 @@
 import semver from 'semver';
-
 import { executeSilent, npm } from 'utils/ShellUtils';
 import * as DialogUtils from 'utils/DialogUtils';
 import * as ActionTypes from 'constants/ActionTypes';

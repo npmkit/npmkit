@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classnames from 'classnames';
-
 import SvgIcon from 'components/SvgIcon';
 import './Button.styl';
 

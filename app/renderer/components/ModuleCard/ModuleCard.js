@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import Button from 'components/Button';
 import './ModuleCard.styl';
 

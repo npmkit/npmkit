@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import combine from 'classnames';
 import { remote } from 'electron';
-
 import TitleBarControl from 'components/TitleBarControl';
 import './TitleBar.styl';
 

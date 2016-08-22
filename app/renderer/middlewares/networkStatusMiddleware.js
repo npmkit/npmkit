@@ -1,6 +1,6 @@
 import {
 	setNetworkOnline,
-	setNetworkOffline } from 'actions/NetworkStatusActions.js';
+	setNetworkOffline } from 'actions/NetworkStatusActions';
 import { showNotification } from 'actions/NotificationActions';
 
 /**

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import combine from 'classnames';
-
 import './TitleBarControl.styl';
 
 export default class TitleBarControl extends Component {

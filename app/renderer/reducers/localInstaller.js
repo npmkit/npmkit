@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import { DependencyCategoryEnum } from 'constants/Enums';
 import {
 	PROJECT_PICKER_SET_PACKAGES,

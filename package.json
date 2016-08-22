@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --compilers js:babel-register --recursive --require ./tests/setup.js app/**/*.spec.js",
     "test-watch": "npm test -- --watch",
-    "lint": "eslint app tests *.js",
+    "lint": "eslint app tests webpack *.js",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack/main.production.js --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack/renderer.production.js --profile --colors",

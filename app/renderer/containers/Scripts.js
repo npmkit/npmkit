@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { startScript, stopScript, toggleOutput, loadScripts } from 'actions/ScriptActions';
 import { getCurrentProject, getProjectScriptsArray } from 'utils/ProjectUtils';
 import { copyToClipboard } from 'actions/ClipboardActions';

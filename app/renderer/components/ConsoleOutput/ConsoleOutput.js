@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import './ConsoleOutput.styl';
 
 export default class ConsoleOutput extends Component {

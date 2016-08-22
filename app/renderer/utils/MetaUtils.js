@@ -1,5 +1,4 @@
 import filesystem from 'fs';
-
 import * as PathConstants from 'constants/PathConstants';
 
 /**

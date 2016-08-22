@@ -1,7 +1,6 @@
 import expect, { createSpy } from 'expect';
-
+import * as types from 'constants/ActionTypes';
 import * as actions from './ClipboardActions';
-import * as types from '../constants/ActionTypes';
 
 /**
  * @test {./ClipboardActions.js}

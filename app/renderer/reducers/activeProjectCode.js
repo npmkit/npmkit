@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import { PROJECT_SET_ACTIVE } from 'constants/ActionTypes';
 
 export const initialState = null;

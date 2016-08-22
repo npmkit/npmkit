@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
 import './TableCell.styl';
 
 export default class TableCell extends Component {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import debounce from 'lodash/debounce';
-
 import ModuleCard from 'components/ModuleCard';
 import Button from 'components/Button';
 import './ModuleExplorer.styl';

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import firstBy from 'thenby';
-
 import { canAutoUpdate } from 'utils/DependenciesUtils';
 import { DependencyStatusEnum } from 'constants/Enums';
 import Spacer from 'components/Spacer';

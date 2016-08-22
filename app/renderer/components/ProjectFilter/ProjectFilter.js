@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
-
 import SvgIcon from 'components/SvgIcon';
 import './ProjectFilter.styl';
 

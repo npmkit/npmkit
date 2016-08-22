@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-
 import { getCurrentProject, getProjectDependenciesArray } from 'utils/ProjectUtils';
 import { searchModules, clearModuleSearch } from 'actions/ModuleExplorerActions';
 import { addDependency } from 'actions/DependencyActions';

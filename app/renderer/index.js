@@ -7,7 +7,6 @@ import { hashHistory, Router, Route, IndexRoute, IndexRedirect } from 'react-rou
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-
 import { fixPath } from 'utils/ShellUtils';
 import { setCurrentProject } from 'actions/ProjectActions';
 import configureStore from 'store/store';

@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import {
 	DEPENDENCIES_LOAD,
 	DEPENDENCY_REGISTER,

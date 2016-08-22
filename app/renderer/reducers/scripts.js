@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import {
 	SCRIPTS_LOAD,
 	SCRIPT_REGISTER,

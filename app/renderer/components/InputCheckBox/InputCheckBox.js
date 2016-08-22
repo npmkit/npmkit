@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import { pick } from 'utils/ObjectUtils';
 import SvgIcon from 'components/SvgIcon';
 import './InputCheckBox.styl';

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-
 import networkStatusReducer from 'reducers/networkStatus';
 import activeProjectReducer from 'reducers/activeProjectCode';
 import projectsFilterReducer from 'reducers/projectsFilter';

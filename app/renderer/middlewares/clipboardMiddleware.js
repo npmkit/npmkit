@@ -1,5 +1,4 @@
 import { clipboard } from 'electron';
-
 import { CLIPBOARD_WRITE } from 'constants/ActionTypes';
 
 /**

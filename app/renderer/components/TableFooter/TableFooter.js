@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
 import './TableFooter.styl';
 
 export default class TableFooter extends Component {

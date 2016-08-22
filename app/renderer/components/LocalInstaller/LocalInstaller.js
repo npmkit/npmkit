@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { remote } from 'electron';
 import classnames from 'classnames';
-
 import Button from 'components/Button';
 import logoPath from 'assets/npmkit-logo.svg';
 import './LocalInstaller.styl';
@@ -12,6 +11,8 @@ import './LocalInstaller.styl';
 export default class ProjectPicker extends Component {
 	static propTypes = {
 		installer: PropTypes.object.isRequired,
+		onCancel: PropTypes.func.isRequired,
+		onInstall: PropTypes.func.isRequired,
 		onPick: PropTypes.func.isRequired,
 		packages: PropTypes.arrayOf(PropTypes.string).isRequired,
 		projects: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -85,15 +86,15 @@ export default class ProjectPicker extends Component {
 					<div className='installer-field'>
 						<div className='installer-field__heading'>Category</div>
 						<label className='installer-field__option'>
-							<input type='radio' name='category' value='dependencies' />
+							<input name='category' type='radio' value='dependencies' />
 							<span>dependencies</span>
 						</label>
 						<label className='installer-field__option'>
-							<input type='radio' name='category' value='devDependencies' />
+							<input name='category' type='radio' value='devDependencies' />
 							<span>devDependencies</span>
 						</label>
 						<label className='installer-field__option'>
-							<input type='radio' name='category' value='optionalDependencies' />
+							<input name='category' type='radio' value='optionalDependencies' />
 							<span>optionalDependencies</span>
 						</label>
 					</div>

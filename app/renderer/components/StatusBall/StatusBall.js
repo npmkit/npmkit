@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
 import './StatusBall.styl';
 
 export default class StatusBall extends Component {

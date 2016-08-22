@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import ProjectFilter from 'components/ProjectFilter';
 import { setProjectFilter, clearProjectsFilter } from 'actions/ProjectActions';
 

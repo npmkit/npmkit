@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import { FILE_MANAGER_NAME } from 'constants/PlatformConstants';
 import { ScriptStatusEnum } from 'constants/Enums';
 import ContextMenu from 'utils/MenuUtils';

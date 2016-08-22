@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-
 import { projectsSelector } from 'selectors/ProjectsSelector';
 import LocalInstaller from 'components/LocalInstaller';
 import { setPickerProject } from 'actions/ProtocolActions';

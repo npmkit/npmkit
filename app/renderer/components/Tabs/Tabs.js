@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import './Tabs.styl';
 
 export default class Tabs extends Component {

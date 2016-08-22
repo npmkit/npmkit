@@ -1,7 +1,6 @@
 import expect, { createSpy } from 'expect';
-
+import * as types from 'constants/ActionTypes';
 import * as actions from './ModuleExplorerActions';
-import * as types from '../constants/ActionTypes';
 
 /**
  * @test {./ModuleExplorerActions.js}

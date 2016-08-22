@@ -1,6 +1,5 @@
 import fs from 'fs';
 import { push } from 'react-router-redux';
-
 import { PACKAGE_JSON_FILE, META_PROJECTS_FILE } from 'constants/PathConstants';
 import { loadScripts } from 'actions/ScriptActions';
 import * as ProjectUtils from 'utils/ProjectUtils';

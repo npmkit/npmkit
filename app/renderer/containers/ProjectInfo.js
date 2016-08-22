@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { getCurrentProject } from 'utils/ProjectUtils';
 import { updateProjectData } from 'actions/ProjectActions';
 import ProjectInfo from 'components/ProjectInfo';

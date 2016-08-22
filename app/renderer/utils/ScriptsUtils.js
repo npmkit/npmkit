@@ -1,5 +1,4 @@
 import { v4 } from 'node-uuid';
-
 import { scriptInitialState } from 'reducers/script';
 import { kill, sudoKill } from 'utils/ProcessUtils';
 

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
-
 import './SidebarSection.styl';
 
 export default class SidebarSection extends Component {

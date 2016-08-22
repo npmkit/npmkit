@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
-
 import './Table.styl';
 
 const Table = ({ className = '', children }) => (

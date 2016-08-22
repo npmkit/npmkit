@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import { APP_NAME, APP_VERSION } from 'constants/AppConstants';
 import { createProject, openProject, cloneProject } from 'actions/ProjectActions';
 import Button from 'components/Button';

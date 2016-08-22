@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
 import './VersionCard.styl';
 
 export default class VersionCard extends Component {

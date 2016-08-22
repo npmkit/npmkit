@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import './ButtonGroup.styl';
 
 export default class ButtonGroup extends Component {

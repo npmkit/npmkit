@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
-
 import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
 import config from './webpack/renderer.development';
 
 const app = express();
@@ -21,6 +18,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
+/* eslint-disable no-console */
 app.listen(PORT, 'localhost', (error) => {
 	if (error) {
 		console.error(error);
@@ -30,3 +28,4 @@ app.listen(PORT, 'localhost', (error) => {
 
 	console.log(`Listening at http://localhost:${PORT}`);
 });
+/* eslint-enable no-console */

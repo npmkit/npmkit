@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
 import { ScriptStatusEnum } from 'constants/Enums';
 import ContextMenu from 'utils/MenuUtils';
 import TableRow from 'components/TableRow';

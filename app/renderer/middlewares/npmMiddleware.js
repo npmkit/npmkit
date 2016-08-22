@@ -1,5 +1,5 @@
-import { DEPENDENCY_VIEW_PAGE } from 'constants/ActionTypes';
 import { shell } from 'electron';
+import { DEPENDENCY_VIEW_PAGE } from 'constants/ActionTypes';
 
 /**
  * @return {Function}

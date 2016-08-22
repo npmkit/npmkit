@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
-
 import baseConfig from './common';
 
 export default merge(baseConfig, {

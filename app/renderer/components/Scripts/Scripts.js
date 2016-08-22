@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import ScriptRow from 'components/ScriptRow';
 import Table from 'components/Table';
 import TableHead from 'components/TableHead';

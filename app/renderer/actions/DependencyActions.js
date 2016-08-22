@@ -1,14 +1,13 @@
 import { v4 } from 'node-uuid';
-
-import { getProjectDependenciesArray } from '../utils/ProjectUtils';
-import { parse as parseJson } from '../utils/JsonUtils';
-import { initialState as dependencyInitialState } from '../reducers/dependency';
-import { DependencyCategoryEnum } from '../constants/Enums';
-import { npm } from '../utils/ShellUtils';
+import { getProjectDependenciesArray } from 'utils/ProjectUtils';
+import { parse as parseJson } from 'utils/JsonUtils';
+import { initialState as dependencyInitialState } from 'reducers/dependency';
+import { DependencyCategoryEnum } from 'constants/Enums';
+import { npm } from 'utils/ShellUtils';
+import * as DependenciesUtils from 'utils/DependenciesUtils';
+import * as DialogUtils from 'utils/DialogUtils';
+import * as ActionTypes from 'constants/ActionTypes';
 import { showNotification } from './NotificationActions';
-import * as DependenciesUtils from '../utils/DependenciesUtils';
-import * as DialogUtils from '../utils/DialogUtils';
-import * as ActionTypes from '../constants/ActionTypes';
 
 /**
  * Registers dependency in state

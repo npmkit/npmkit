@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import ViewHeader from 'components/ViewHeader';
 import ViewBody from 'components/ViewBody';
 import VersionCard from 'components/VersionCard';

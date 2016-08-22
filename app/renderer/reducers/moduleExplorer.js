@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-
 import {
 	MODULE_EXPLORER_REQUEST,
 	MODULE_EXPLORER_RECEIVE,

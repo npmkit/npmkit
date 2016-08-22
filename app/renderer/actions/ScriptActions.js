@@ -1,6 +1,5 @@
 import os from 'os';
 import { spawn } from 'child_process';
-
 import { showNotification } from 'actions/NotificationActions';
 import * as ActionTypes from 'constants/ActionTypes';
 import * as ScriptsUtils from 'utils/ScriptsUtils';

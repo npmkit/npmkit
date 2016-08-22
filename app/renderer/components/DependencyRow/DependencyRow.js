@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import classnames from 'classnames';
-
 import { DependencyStatusEnum, DependencyUpdateTypeEnum } from 'constants/Enums';
 import { PACKAGE_JSON_FILE } from 'constants/PathConstants';
 import { isNpmDependency } from 'utils/DependenciesUtils';
