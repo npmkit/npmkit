@@ -43,6 +43,7 @@
     "import/no-unresolved": [ 2, { "ignore": [ "electron" ]}],
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
+	"import/no-named-as-default": 0,
     "indent": [ 2, "tab", { "SwitchCase": 1 }],
     "space-before-function-paren": [ 2, "always" ],
     "padded-blocks": 0,
