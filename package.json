@@ -1,0 +1,61 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ./app",
+    "predev": "yarn build:main",
+    "dev": "concurrently \"yarn watch\" \"yarn start\"",
+    "watch": "yarn build:renderer --watch",
+    "clean": "rimraf ./app/dist",
+    "prebuild": "yarn clean",
+    "build": "yarn build:main && yarn build:renderer",
+    "build:main": "webpack --env.target=main --mode=development",
+    "build:renderer": "webpack --env.target=renderer --mode=development",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --d4ir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-plugin-react-require": "^3.0.0",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "electron": "^1.8.2",
+    "electron-builder": "^20.2.0",
+    "eslint": "^4.18.2",
+    "html-webpack-plugin": "^3.0.4",
+    "husky": "^0.14.3",
+    "jest": "^22.4.2",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "rimraf": "^2.6.2",
+    "styled-components": "^3.1.6",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-externals-plugin": "^1.0.0",
+    "webpack-merge": "^4.1.2"
+  },
+  "babel": {
+    "presets": [["env", { "targets": { "electron": "1.8" } }], "react"],
+    "plugins": [
+      ["root-import", { "rootPathSuffix": "app/src" }],
+      "react-require"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "proseWrap": "always"
+  },
+  "build": {
+    "appId": "com.sergeybekrin.npmkit",
+    "files": ["**/*", "dist", "!src"],
+    "mac": {
+      "category": "public.app-category.productivity"
+    }
+  }
+}

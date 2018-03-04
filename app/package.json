@@ -1,0 +1,18 @@
+{
+  "name": "npmkit",
+  "productName": "npmkit",
+  "version": "1.0.0",
+  "description": "Ultimate node toolkit for productive development",
+  "license": "MIT",
+  "repository": "sergeybektin/npmkit",
+  "homepage": "https://github.com/sergeybekrin/npmkit",
+  "author": "Sergey Bekrin <sergey@bekrin.me> http://bekrin.me",
+  "private": true,
+  "main": "dist/index.main.js",
+  "dependencies": {
+    "electron-debug": "^1.5.0",
+    "electron-is-dev": "^0.3.0",
+    "electron-util": "^0.6.0",
+    "menubar": "^5.2.3"
+  }
+}
