@@ -15,7 +15,7 @@ class ReactRootPlugin {
       }
       options = {
         tagName: defaultTagName,
-        tagId: tagId || defaultTagId
+        tagId: tagId || defaultTagId,
       };
     }
     this.tagName = options.tagName || defaultTagName;
@@ -37,7 +37,7 @@ class ReactRootPlugin {
             firstHalf,
             `<${this.tagName} id="${this.tagId}"></${this.tagName}>`,
             '\n',
-            secondHalf
+            secondHalf,
           ].join(' ');
           resolve(data);
         });

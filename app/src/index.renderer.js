@@ -1,4 +1,4 @@
 import { render } from 'react-dom';
-import App from '~/components/app';
+import TreyPopup from '~/trey-popup';
 
-render(<App />, document.getElementById('root'));
+render(<TreyPopup />, document.getElementById('root'));

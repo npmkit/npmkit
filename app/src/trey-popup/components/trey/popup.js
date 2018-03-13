@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const TreyPopup = styled.div`
-  background: white;
+  flex-direction: column;
   border-radius: 0.25rem;
+  background: white;
   padding: 0.5rem;
   display: flex;
   flex: 1;
