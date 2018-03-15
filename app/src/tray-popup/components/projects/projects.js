@@ -4,15 +4,20 @@ import AppState from '~/common/state';
 import Project from './project';
 import Placeholder from './placeholder';
 
+const ProjectsContainer = styled.div`
+  overflow-y: scroll;
+  flex: 1;
+`;
+
 const Projects = props => (
   <Subscribe to={[AppState]}>
     {app =>
       app.hasAnyProjects() ? (
-        <div>
+        <ProjectsContainer>
           {app
             .getFilteredProjects()
             .map(project => <Project key={project.code} {...project} />)}
-        </div>
+        </ProjectsContainer>
       ) : (
         <Placeholder>Add new project by dragging it here</Placeholder>
       )

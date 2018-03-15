@@ -1,5 +1,6 @@
 import { remote } from 'electron';
 import styled, { css } from 'styled-components';
+import Button from '~/common/components/button';
 
 const userHomePath = remote.app.getPath('home');
 
@@ -10,7 +11,7 @@ const cropOverflowedText = css`
 `;
 
 const Container = styled.div`
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   display: flex;
 `;
 
@@ -51,6 +52,8 @@ const Path = styled.div`
   color: #999;
 `;
 
+const Actions = styled.div``;
+
 const Project = ({ name, path, client, color, code }) => (
   <Container>
     <Avatar style={{ backgroundColor: color }}>{name[0]}</Avatar>
@@ -58,6 +61,9 @@ const Project = ({ name, path, client, color, code }) => (
       <Name title={name}>{name}</Name>
       <Path title={path}>{path.replace(userHomePath, '~')}</Path>
     </Details>
+    <Actions>
+      <Button ghost>🛠</Button>
+    </Actions>
   </Container>
 );
 

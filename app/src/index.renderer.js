@@ -1,4 +1,11 @@
 import { render } from 'react-dom';
-import TreyPopup from '~/trey-popup';
+import { ThemeProvider } from 'styled-components';
+import TrayPopup from '~/tray-popup';
+import theme from '~/common/theme';
 
-render(<TreyPopup />, document.getElementById('root'));
+render(
+  <ThemeProvider theme={theme}>
+    <TrayPopup />
+  </ThemeProvider>,
+  document.getElementById('root')
+);

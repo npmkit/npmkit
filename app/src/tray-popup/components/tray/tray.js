@@ -4,12 +4,16 @@ import styled from 'styled-components';
 
 const noop = () => {};
 
+const TrayContainer = styled.div`
+  height: inherit;
+`;
+
 /**
  * Use native DnD events on document since Electron injects custom `path` prop
  * with full absolute path which is required
  * @see https://electronjs.org/docs/api/file-object
  */
-class Trey extends React.Component {
+class Tray extends React.Component {
   static propTypes = {
     onDragEnter: T.func,
     onDragLeave: T.func,
@@ -62,14 +66,14 @@ class Trey extends React.Component {
     // Drop proxied DnD events
     const filteredProps = Object.keys(this.props).reduce(
       (nextProps, propName) => {
-        return Trey.defaultProps.hasOwnProperty(propName)
+        return Tray.defaultProps.hasOwnProperty(propName)
           ? nextProps
           : { ...nextProps, [propName]: this.props[propName] };
       },
       {}
     );
-    return <div {...filteredProps} />;
+    return <TrayContainer {...filteredProps} />;
   }
 }
 
-export default Trey;
+export default Tray;

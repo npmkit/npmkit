@@ -27,20 +27,26 @@ const menubar = createMenubar({
   alwaysOnTop: isDev,
 });
 
-menubar.on('after-create-window', () => {
-  menubar.tray.on('click', () => {
-    menubar.window.show();
-  });
+// Show and move tray popup back to its location
+const showTray = () => {
+  menubar.positioner.move('trayCenter', menubar.tray.getBounds());
+  menubar.window.show();
+};
 
-  app.on('activate', () => {
-    menubar.window.show();
-  });
+menubar.on('after-create-window', () => {
+  // Show popup on regular click
+  menubar.tray.on('click', showTray);
+  // Show popup once file drag overed the tray
+  menubar.tray.on('drag-enter', showTray);
+  // Show popup once app is activated
+  app.on('activate', showTray);
 });
 
 app.on('ready', () => {
   electronUtil.enforceMacOSAppLocation();
 });
 
+// Validate project on reqest
 ipcMain.on(Channels.PROJECT_OPEN_REQUEST, async (event, projectPath) => {
   try {
     // Get basic data and validate it

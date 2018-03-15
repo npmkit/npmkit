@@ -24,6 +24,11 @@ class AppState extends Container {
     );
   }
 
+  // Common
+  syncStore() {
+    store.set('projects', this.state.projects);
+  }
+
   // Projects related
   hasAnyProjects() {
     return this.state.projects.length > 0;
@@ -46,9 +51,10 @@ class AppState extends Container {
   }
 
   proceedValidProject(project) {
-    const nextProjects = [...this.state.projects, project];
-    this.setState({ projects: nextProjects });
-    store.set('projects', nextProjects);
+    // Exit if project already added
+    if (this.state.projects.some(p => p.path === project.path)) return;
+    this.setState({ projects: [...this.state.projects, project] });
+    this.syncStore();
   }
 
   proceedInvalidProject(reason) {
