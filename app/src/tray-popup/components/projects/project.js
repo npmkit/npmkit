@@ -1,7 +1,8 @@
-import { remote } from 'electron';
+import { remote, shell, clipboard } from 'electron';
 import styled, { css } from 'styled-components';
 import Button from '~/common/components/button';
 
+const { Menu, MenuItem } = remote;
 const userHomePath = remote.app.getPath('home');
 
 const cropOverflowedText = css`
@@ -10,9 +11,23 @@ const cropOverflowedText = css`
   overflow: hidden;
 `;
 
+const Actions = styled.div`
+  visibility: hidden;
+`;
+
+const Action = styled(Button).attrs({ ghost: true })`
+  font-size: 1.25rem;
+`;
+
 const Container = styled.div`
   padding: 0.5rem 0.75rem;
   display: flex;
+
+  &:hover {
+    ${Actions} {
+      visibility: visible;
+    }
+  }
 `;
 
 const Avatar = styled.div`
@@ -52,17 +67,28 @@ const Path = styled.div`
   color: #999;
 `;
 
-const Actions = styled.div``;
+const showOptions = project => {
+  Menu.buildFromTemplate([
+    {
+      label: 'Reveal in Finder',
+      click: () => shell.showItemInFolder(project.path),
+    },
+    {
+      label: 'Copy Path',
+      click: () => clipboard.writeText(project.path),
+    },
+  ]).popup();
+};
 
-const Project = ({ name, path, client, color, code }) => (
+const Project = props => (
   <Container>
-    <Avatar style={{ backgroundColor: color }}>{name[0]}</Avatar>
+    <Avatar style={{ backgroundColor: props.color }}>{props.name[0]}</Avatar>
     <Details>
-      <Name title={name}>{name}</Name>
-      <Path title={path}>{path.replace(userHomePath, '~')}</Path>
+      <Name title={props.name}>{props.name}</Name>
+      <Path title={props.path}>{props.path.replace(userHomePath, '~')}</Path>
     </Details>
     <Actions>
-      <Button ghost>🛠</Button>
+      <Action onClick={() => showOptions(props)}>🛠</Action>
     </Actions>
   </Container>
 );

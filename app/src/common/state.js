@@ -10,8 +10,10 @@ import Channel from '~/common/channels';
 class AppState extends Container {
   state = {
     projects: store.get('projects', []),
-    projectsFilter: null,
+    search: null,
   };
+
+  searchInputRef = null;
 
   constructor(...args) {
     super(...args);
@@ -24,7 +26,6 @@ class AppState extends Container {
     );
   }
 
-  // Common
   syncStore() {
     store.set('projects', this.state.projects);
   }
@@ -34,31 +35,55 @@ class AppState extends Container {
     return this.state.projects.length > 0;
   }
 
-  getAllProjects() {
+  getSortedProjects() {
     return this.state.projects.sort(
       firstBy('name', { ignoreCase: true }).thenBy('path')
     );
   }
 
   getFilteredProjects() {
-    const projects = this.getAllProjects();
-    if (this.state.filter && this.state.filter.trim()) {
-      return projects.filter(project =>
-        project.name.includes(this.state.filter)
-      );
-    }
-    return projects;
+    const projects = this.getSortedProjects();
+    const search = this.state.search && this.state.search.trim().toLowerCase();
+    return search
+      ? projects.filter(project => project.name.includes(search))
+      : projects;
   }
 
   proceedValidProject(project) {
     // Exit if project already added
-    if (this.state.projects.some(p => p.path === project.path)) return;
+    if (this.state.projects.some(current => current.path === project.path)) {
+      return;
+    }
     this.setState({ projects: [...this.state.projects, project] });
     this.syncStore();
   }
 
   proceedInvalidProject(reason) {
     // tbd: notify
+  }
+
+  // Project search related
+  setSearchInputRef(node) {
+    this.searchInputRef = node;
+  }
+
+  getSearch() {
+    return this.state.search;
+  }
+
+  hasSearch() {
+    return typeof this.getSearch() === 'string';
+  }
+
+  setSearch(keyword) {
+    this.setState({ search: keyword });
+    if (this.searchInputRef) {
+      this.searchInputRef.focus();
+    }
+  }
+
+  clearSearch() {
+    this.setState({ search: null });
   }
 
   // Drag and drop related

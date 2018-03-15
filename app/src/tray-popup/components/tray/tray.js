@@ -19,6 +19,8 @@ class Tray extends React.Component {
     onDragLeave: T.func,
     onDragOver: T.func,
     onDrop: T.func,
+    onKeyPress: T.func,
+    onKeyDown: T.func,
   };
 
   static defaultProps = {
@@ -26,6 +28,8 @@ class Tray extends React.Component {
     onDragLeave: noop,
     onDragOver: noop,
     onDrop: noop,
+    onKeyPress: noop,
+    onKeyDown: noop,
   };
 
   componentWillMount() {
@@ -33,6 +37,8 @@ class Tray extends React.Component {
     document.addEventListener('dragleave', this.handleDragLeave);
     document.addEventListener('dragover', this.handleDragOver);
     document.addEventListener('drop', this.handleDrop);
+    document.addEventListener('keypress', this.handleKeyPress);
+    document.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
@@ -40,6 +46,8 @@ class Tray extends React.Component {
     document.removeEventListener('dragleave', this.handleDragLeave);
     document.removeEventListener('dragover', this.handleDragOver);
     document.removeEventListener('drop', this.handleDrop);
+    document.removeEventListener('keypress', this.handleKeyPress);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleDragEnter = event => {
@@ -52,7 +60,6 @@ class Tray extends React.Component {
 
   handleDragOver = event => {
     event.preventDefault();
-    event.stopPropagation();
     this.props.onDragOver(event);
   };
 
@@ -60,6 +67,14 @@ class Tray extends React.Component {
     event.preventDefault();
     event.stopPropagation();
     this.props.onDrop(event);
+  };
+
+  handleKeyPress = event => {
+    this.props.onKeyPress(event);
+  };
+
+  handleKeyDown = event => {
+    this.props.onKeyDown(event);
   };
 
   render() {
