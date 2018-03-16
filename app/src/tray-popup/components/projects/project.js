@@ -1,3 +1,4 @@
+import path from 'path';
 import { remote, shell, clipboard } from 'electron';
 import styled, { css } from 'styled-components';
 import Button from '~/common/components/button';
@@ -67,8 +68,21 @@ const Path = styled.div`
   color: #999;
 `;
 
-const showOptions = project => {
+const fetchScripts = project => {
+  // tbd
+};
+
+const showProjectMenu = project => {
   Menu.buildFromTemplate([
+    {
+      label: 'Scripts',
+      submenu: [],
+    },
+    { type: 'separator' },
+    {
+      label: 'Open in Editor',
+      click: () => shell.openItem(path.join(project.path), 'package.json'),
+    },
     {
       label: 'Reveal in Finder',
       click: () => shell.showItemInFolder(project.path),
@@ -88,7 +102,7 @@ const Project = props => (
       <Path title={props.path}>{props.path.replace(userHomePath, '~')}</Path>
     </Details>
     <Actions>
-      <Action onClick={() => showOptions(props)}>🛠</Action>
+      <Action onClick={() => showProjectMenu(props)}>🛠</Action>
     </Actions>
   </Container>
 );
