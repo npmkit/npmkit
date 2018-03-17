@@ -11,18 +11,6 @@ import Tray from './components/tray';
 import Toolbar from './components/toolbar';
 import Projects from './components/projects';
 
-const { Menu, MenuItem } = remote;
-const optionsMenu = Menu.buildFromTemplate([
-  { label: 'About npmkit' },
-  { label: 'Clear settings', click: () => store.clear() },
-  { type: 'separator' },
-  {
-    label: 'Quit npmkit',
-    accelerator: 'Cmd+Q',
-    click: () => remote.app.quit(),
-  },
-]);
-
 injectGlobal`
   :root {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -43,6 +31,22 @@ injectGlobal`
     height: calc(100vh - 17px);
   }
 `;
+
+const { Menu, MenuItem } = remote;
+const showOptions = app =>
+  Menu.buildFromTemplate([
+    { label: 'Refresh projects', click: () => app.refreshProjects() },
+    { type: 'separator' },
+    { label: 'Edit settings', click: () => app.editSettings() },
+    { label: 'Clear settings', click: () => app.clearSettings() },
+    { type: 'separator' },
+    { label: 'About npmkit', click: () => {} },
+    {
+      label: 'Quit npmkit',
+      accelerator: 'Cmd+Q',
+      click: () => remote.app.quit(),
+    },
+  ]).popup();
 
 const handlePrintableKeyPress = app => event => {
   // Enable search panel once printable character is hit
@@ -97,7 +101,7 @@ const App = () => (
                   🔍
                 </Toolbar.Action>
                 <Toolbar.Title>npmkit</Toolbar.Title>
-                <Toolbar.Action onClick={() => optionsMenu.popup()}>
+                <Toolbar.Action onClick={() => showOptions(app)}>
                   ⚙️
                 </Toolbar.Action>
               </Toolbar>

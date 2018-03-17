@@ -1,7 +1,8 @@
 import path from 'path';
-import { remote, shell, clipboard } from 'electron';
+import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css } from 'styled-components';
 import Button from '~/common/components/button';
+import Channels from '~/common/channels';
 
 const { Menu, MenuItem } = remote;
 const userHomePath = remote.app.getPath('home');
@@ -80,9 +81,14 @@ const showProjectMenu = project => {
     },
     { type: 'separator' },
     {
-      label: 'Open in Editor',
-      click: () => shell.openItem(path.join(project.path), 'package.json'),
+      label: 'Open in Terminal',
+      click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
     },
+    {
+      label: 'Open in Editor',
+      click: () => shell.openItem(path.join(project.path, 'package.json')),
+    },
+    { type: 'separator' },
     {
       label: 'Reveal in Finder',
       click: () => shell.showItemInFolder(project.path),
@@ -94,15 +100,19 @@ const showProjectMenu = project => {
   ]).popup();
 };
 
-const Project = props => (
+const Project = ({ project }) => (
   <Container>
-    <Avatar style={{ backgroundColor: props.color }}>{props.name[0]}</Avatar>
+    <Avatar style={{ backgroundColor: project.color }}>
+      {project.name[0]}
+    </Avatar>
     <Details>
-      <Name title={props.name}>{props.name}</Name>
-      <Path title={props.path}>{props.path.replace(userHomePath, '~')}</Path>
+      <Name title={project.name}>{project.name}</Name>
+      <Path title={project.path}>
+        {project.path.replace(userHomePath, '~')}
+      </Path>
     </Details>
     <Actions>
-      <Action onClick={() => showProjectMenu(props)}>🛠</Action>
+      <Action onClick={() => showProjectMenu(project)}>🛠</Action>
     </Actions>
   </Container>
 );

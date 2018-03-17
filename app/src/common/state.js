@@ -24,10 +24,26 @@ class AppState extends Container {
     ipcRenderer.on(Channel.PROJECT_OPEN_ERROR, (_, payload) =>
       this.proceedInvalidProject(payload)
     );
+    // Set defaults
+    store.set('terminal', store.get('terminal', 'Terminal'));
   }
 
-  syncStore() {
+  // Settings
+  syncSettings() {
     store.set('projects', this.state.projects);
+  }
+
+  clearSettings() {
+    this.setState({ projects: [] });
+    store.clear();
+  }
+
+  editSettings() {
+    store.openInEditor();
+  }
+
+  getTerminalApp() {
+    return this.state.terminal;
   }
 
   // Projects related
@@ -49,13 +65,27 @@ class AppState extends Container {
       : projects;
   }
 
-  proceedValidProject(project) {
-    // Exit if project already added
-    if (this.state.projects.some(current => current.path === project.path)) {
-      return;
-    }
-    this.setState({ projects: [...this.state.projects, project] });
-    this.syncStore();
+  refreshProjects() {
+    this.state.projects.forEach(project => {
+      ipcRenderer.send(Channel.PROJECT_OPEN_REQUEST, project.path);
+    });
+  }
+
+  proceedValidProject(newProject) {
+    // Check if project already exist in list
+    const existingProject = this.state.projects.find(
+      project => project.path === newProject.path
+    );
+    // Replace old project with a new data, or append it if new one
+    this.setState({
+      projects: existingProject
+        ? this.state.projects.map(
+            project => (project === existingProject ? newProject : project)
+          )
+        : [...this.state.projects, newProject],
+    });
+    // Save settings
+    this.syncSettings();
   }
 
   proceedInvalidProject(reason) {
