@@ -25,6 +25,9 @@ function createConfig(type, extra = {}) {
         __dirname: false,
         __filename: false,
       },
+      performance: {
+        hints: false,
+      },
     },
     extra
   );

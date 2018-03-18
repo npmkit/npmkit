@@ -33,20 +33,26 @@ injectGlobal`
 `;
 
 const { Menu, MenuItem } = remote;
-const showOptions = app =>
+const showOptions = app => {
   Menu.buildFromTemplate([
-    { label: 'Refresh projects', click: () => app.refreshProjects() },
+    {
+      label: 'Refresh projects',
+      accelerator: 'Cmd+Alt+R',
+      click: () => app.refreshProjects(),
+    },
     { type: 'separator' },
     { label: 'Edit settings', click: () => app.editSettings() },
     { label: 'Clear settings', click: () => app.clearSettings() },
     { type: 'separator' },
-    { label: 'About npmkit', click: () => {} },
+    { label: 'About npmkit', role: 'about', click: () => {} },
     {
       label: 'Quit npmkit',
+      role: 'quit',
       accelerator: 'Cmd+Q',
       click: () => remote.app.quit(),
     },
   ]).popup();
+};
 
 const handlePrintableKeyPress = app => event => {
   // Enable search panel once printable character is hit
@@ -60,8 +66,13 @@ const handlePrintableKeyPress = app => event => {
 };
 
 const handleMetaKeyPress = app => event => {
-  // Clear search once esc is hit
   switch (event.which) {
+    case KeyCodes.ARROW_LEFT:
+    case KeyCodes.ARROW_UP:
+    case KeyCodes.ARROW_RIGHT:
+    case KeyCodes.ARROW_DOWN:
+      // todo: navigate to next/prev project
+      break;
     case KeyCodes.ESC:
       app.clearSearch();
     default:

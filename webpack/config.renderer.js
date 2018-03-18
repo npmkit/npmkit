@@ -15,6 +15,7 @@ module.exports = createConfig('renderer', {
   ],
   devServer: {
     contentBase: './dist',
+    logLevel: 'warn',
     inline: true,
     lazy: false,
     before() {

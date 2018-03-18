@@ -3,9 +3,7 @@ import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css } from 'styled-components';
 import Button from '~/common/components/button';
 import Channels from '~/common/channels';
-
-const { Menu, MenuItem } = remote;
-const userHomePath = remote.app.getPath('home');
+import formatPath from '~/common/format-path';
 
 const cropOverflowedText = css`
   white-space: nowrap;
@@ -69,15 +67,29 @@ const Path = styled.div`
   color: #999;
 `;
 
-const fetchScripts = project => {
-  // tbd
-};
-
 const showProjectMenu = project => {
-  Menu.buildFromTemplate([
+  remote.Menu.buildFromTemplate([
     {
       label: 'Scripts',
-      submenu: [],
+      submenu: Object.entries(project.scripts).map(([script, command]) => {
+        // Check if script is running
+        const isRunning =
+          ipcRenderer.sendSync(Channels.SCRIPT_STATUS_SYNC, {
+            project,
+            script,
+          }) === 'running';
+        return {
+          label: isRunning ? `Stop ${script} (running)` : script,
+          sublabel: command,
+          enabled: true,
+          click: () =>
+            // Stop process if running or start one
+            ipcRenderer.send(
+              isRunning ? Channels.SCRIPT_STOP : Channels.SCRIPT_START,
+              { project, script }
+            ),
+        };
+      }),
     },
     { type: 'separator' },
     {
@@ -107,9 +119,7 @@ const Project = ({ project }) => (
     </Avatar>
     <Details>
       <Name title={project.name}>{project.name}</Name>
-      <Path title={project.path}>
-        {project.path.replace(userHomePath, '~')}
-      </Path>
+      <Path title={project.path}>{formatPath(project.path)}</Path>
     </Details>
     <Actions>
       <Action onClick={() => showProjectMenu(project)}>🛠</Action>

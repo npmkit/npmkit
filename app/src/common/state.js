@@ -1,15 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import firstBy from 'thenby';
-import { ipcRenderer } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 import { Container } from 'unstated';
+import debounce from 'lodash.debounce';
+import formatPath from '~/common/format-path';
 import store from '~/common/store';
-import { notify } from '~/common/notifications';
 import Channel from '~/common/channels';
+
+const FAILED_DEBOUNCE_WAIT = 250;
 
 class AppState extends Container {
   state = {
-    projects: store.get('projects', []),
+    projects: [],
+    failed: [],
+    scripts: {},
     search: null,
   };
 
@@ -24,13 +29,13 @@ class AppState extends Container {
     ipcRenderer.on(Channel.PROJECT_OPEN_ERROR, (_, payload) =>
       this.proceedInvalidProject(payload)
     );
-    // Set defaults
-    store.set('terminal', store.get('terminal', 'Terminal'));
+    // Load added projects
+    ipcRenderer.send(Channel.PROJECTS_LOAD);
   }
 
   // Settings
   syncSettings() {
-    store.set('projects', this.state.projects);
+    store.set('projects', this.state.projects.map(project => project.path));
   }
 
   clearSettings() {
@@ -88,8 +93,22 @@ class AppState extends Container {
     this.syncSettings();
   }
 
+  // Since adding projects is async, we need to make sure send notification once
+  notifyAboutFailedProjects = debounce(() => {
+    const failedCount = this.state.failed.length;
+    const message =
+      failedCount > 1
+        ? `Failed to load ${failedCount} projects.`
+        : `Failed to load project. Make sure ${formatPath(
+            this.state.failed[0]
+          )} is a valid npm module.`;
+    ipcRenderer.send(Channel.NOTIFICATION_SHOW, { body: message });
+    this.setState({ failed: [] });
+  }, FAILED_DEBOUNCE_WAIT);
+
   proceedInvalidProject(reason) {
-    // tbd: notify
+    this.setState({ failed: [...this.state.failed, reason.path] });
+    this.notifyAboutFailedProjects();
   }
 
   // Project search related
