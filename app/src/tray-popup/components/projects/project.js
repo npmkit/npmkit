@@ -13,15 +13,27 @@ const cropOverflowedText = css`
 
 const Actions = styled.div`
   visibility: hidden;
+  align-items: center;
+  display: flex;
 `;
 
 const Action = styled(Button).attrs({ ghost: true })`
   font-size: 1.25rem;
 `;
 
-const Container = styled.div`
+const Container = styled.button`
   padding: 0.5rem 0.75rem;
+  background: transparent;
+  text-align: left;
   display: flex;
+  width: 100%;
+  border: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 1px white,
+      inset 0 0 0 3px ${props => props.theme.colors.primary};
+  }
 
   &:hover {
     ${Actions} {
@@ -70,6 +82,11 @@ const Path = styled.div`
 const showProjectMenu = project => {
   remote.Menu.buildFromTemplate([
     {
+      label: project.name,
+      enabled: false,
+    },
+    { type: 'separator' },
+    {
       label: 'Scripts',
       submenu: Object.entries(project.scripts).map(([script, command]) => {
         // Check if script is running
@@ -91,7 +108,6 @@ const showProjectMenu = project => {
         };
       }),
     },
-    { type: 'separator' },
     {
       label: 'Open in Terminal',
       click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
@@ -112,8 +128,13 @@ const showProjectMenu = project => {
   ]).popup();
 };
 
-const Project = ({ project }) => (
-  <Container>
+const Project = ({ project, ...props }) => (
+  <Container
+    {...props}
+    tabIndex="0"
+    innerRef={node => node && props.selected && node.focus()}
+    onClick={() => showProjectMenu(project)}
+  >
     <Avatar style={{ backgroundColor: project.color }}>
       {project.name[0]}
     </Avatar>
@@ -121,9 +142,6 @@ const Project = ({ project }) => (
       <Name title={project.name}>{project.name}</Name>
       <Path title={project.path}>{formatPath(project.path)}</Path>
     </Details>
-    <Actions>
-      <Action onClick={() => showProjectMenu(project)}>🛠</Action>
-    </Actions>
   </Container>
 );
 

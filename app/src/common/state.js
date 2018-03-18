@@ -13,6 +13,7 @@ const FAILED_DEBOUNCE_WAIT = 250;
 class AppState extends Container {
   state = {
     projects: [],
+    selected: null,
     failed: [],
     scripts: {},
     search: null,
@@ -74,6 +75,15 @@ class AppState extends Container {
     this.state.projects.forEach(project => {
       ipcRenderer.send(Channel.PROJECT_OPEN_REQUEST, project.path);
     });
+  }
+
+  setSelected(project) {
+    console.log('>> selected', project.name);
+    this.setState({ selected: project });
+  }
+
+  getSelected(code) {
+    return this.state.selected || this.getFilteredProjects()[0];
   }
 
   proceedValidProject(newProject) {

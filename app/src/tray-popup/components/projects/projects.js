@@ -16,7 +16,14 @@ const Projects = props => (
         <ProjectsContainer>
           {app
             .getFilteredProjects()
-            .map(project => <Project key={project.code} project={project} />)}
+            .map(project => (
+              <Project
+                onFocus={() => app.setSelected(project)}
+                key={project.code}
+                project={project}
+                selected={app.getSelected() === project}
+              />
+            ))}
         </ProjectsContainer>
       ) : (
         <Placeholder>Add new project by dragging it here</Placeholder>
