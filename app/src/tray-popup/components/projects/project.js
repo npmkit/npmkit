@@ -80,52 +80,56 @@ const Path = styled.div`
 `;
 
 const showProjectMenu = project => {
-  remote.Menu.buildFromTemplate([
-    {
-      label: project.name,
-      enabled: false,
-    },
-    { type: 'separator' },
-    {
-      label: 'Scripts',
-      submenu: Object.entries(project.scripts).map(([script, command]) => {
-        // Check if script is running
-        const isRunning =
-          ipcRenderer.sendSync(Channels.SCRIPT_STATUS_SYNC, {
-            project,
-            script,
-          }) === 'running';
-        return {
-          label: isRunning ? `Stop ${script} (running)` : script,
-          sublabel: command,
-          enabled: true,
-          click: () =>
-            // Stop process if running or start one
-            ipcRenderer.send(
-              isRunning ? Channels.SCRIPT_STOP : Channels.SCRIPT_START,
-              { project, script }
-            ),
-        };
-      }),
-    },
-    {
-      label: 'Open in Terminal',
-      click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
-    },
-    {
-      label: 'Open in Editor',
-      click: () => shell.openItem(path.join(project.path, 'package.json')),
-    },
-    { type: 'separator' },
-    {
-      label: 'Reveal in Finder',
-      click: () => shell.showItemInFolder(project.path),
-    },
-    {
-      label: 'Copy Path',
-      click: () => clipboard.writeText(project.path),
-    },
-  ]).popup();
+  const scripts = Object.entries(project.scripts).map(([script, command]) => {
+    // Check if script is running
+    const isRunning =
+      ipcRenderer.sendSync(Channels.SCRIPT_STATUS_SYNC, {
+        project,
+        script,
+      }) === 'running';
+    return {
+      label: isRunning ? `Stop ${script} (running)` : script,
+      sublabel: command,
+      enabled: true,
+      click: () =>
+        // Stop process if running or start one
+        ipcRenderer.send(
+          isRunning ? Channels.SCRIPT_STOP : Channels.SCRIPT_START,
+          { project, script }
+        ),
+    };
+  });
+  // Show menu
+  remote.Menu.buildFromTemplate(
+    [
+      {
+        label: project.name,
+        enabled: false,
+      },
+      { type: 'separator' },
+      scripts.length && {
+        label: 'Scripts',
+        submenu: scripts,
+      },
+      {
+        label: 'Open in Terminal',
+        click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
+      },
+      {
+        label: 'Open in Editor',
+        click: () => shell.openItem(path.join(project.path, 'package.json')),
+      },
+      { type: 'separator' },
+      {
+        label: 'Reveal in Finder',
+        click: () => shell.showItemInFolder(project.path),
+      },
+      {
+        label: 'Copy Path',
+        click: () => clipboard.writeText(project.path),
+      },
+    ].filter(Boolean)
+  ).popup();
 };
 
 const Project = ({ project, ...props }) => (

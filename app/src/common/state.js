@@ -78,12 +78,11 @@ class AppState extends Container {
   }
 
   setSelected(project) {
-    console.log('>> selected', project.name);
     this.setState({ selected: project });
   }
 
   getSelected(code) {
-    return this.state.selected || this.getFilteredProjects()[0];
+    return this.state.selected;
   }
 
   proceedValidProject(newProject) {

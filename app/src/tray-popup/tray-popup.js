@@ -60,6 +60,7 @@ const handlePrintableKeyPress = app => event => {
     case KeyCodes.ENTER:
       break;
     default:
+      app.setSelected(null);
       app.setSearch(event.target.value || '');
       break;
   }
@@ -69,12 +70,10 @@ const handleMetaKeyPress = app => event => {
   const renderedProjects = app.getFilteredProjects();
   const selectedProjectIndex = renderedProjects.indexOf(app.getSelected());
   switch (event.which) {
-    case KeyCodes.ARROW_LEFT:
     case KeyCodes.ARROW_UP:
       const prevIndex = Math.max(0, selectedProjectIndex - 1);
       app.setSelected(renderedProjects[prevIndex]);
       break;
-    case KeyCodes.ARROW_RIGHT:
     case KeyCodes.ARROW_DOWN:
       const nextIndex = Math.min(
         renderedProjects.length - 1,
