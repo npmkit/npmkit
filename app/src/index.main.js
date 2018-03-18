@@ -11,18 +11,18 @@ import invariant from 'invariant';
 import stringToColor from 'string-to-color';
 import treeKill from 'tree-kill';
 import createNotification from '~/common/notification';
-import store from '~/common/store';
+import preferences from '~/common/preferences-store';
 import Channels from '~/common/channels';
 import menubarIcon from '~/assets/menubarTemplate.png';
 import '~/assets/menubarTemplate@2x.png';
 
+const noop = () => {};
 const isDev = process.env.NODE_ENV === 'development';
 electronDebug({ showDevTools: isDev });
 
 const readFileAsync = promisify(fs.readFile);
 const statAsync = promisify(fs.stat);
 const treeKillAsync = promisify(treeKill);
-const backgroundProcesses = new Map();
 const menubar = createMenubar({
   index: isDev ? 'http://localhost:8080' : `file://${__dirname}/index.html`,
   width: 320,
@@ -86,7 +86,7 @@ app.on('ready', () => {
 // Open all projects (e.g. on first run)
 ipcMain.on(Channels.PROJECTS_LOAD, event => {
   try {
-    store.get('projects').forEach(async projectPath => {
+    preferences.get('projects').forEach(async projectPath => {
       const data = await getProjectData(projectPath);
       event.sender.send(Channels.PROJECT_OPEN_SUCCESS, data);
     });
@@ -112,73 +112,58 @@ ipcMain.on(Channels.NOTIFICATION_SHOW, (_, payload) => {
 });
 
 // Open terminal in provided directory
-ipcMain.on(Channels.TERMINAL_OPEN, (event, cwd) => {
+ipcMain.on(Channels.TERMINAL_OPEN, (event, { cwd }) => {
   // todo: add support for other paltforms
   if (process.platform === 'darwin') {
-    execa('open', ['-a', store.get('terminal'), cwd], {
+    execa('open', ['-a', preferences.get('terminal'), cwd], {
       detached: true,
     });
   }
 });
 
 // Run requested script in background
-ipcMain.on(Channels.SCRIPT_START, (event, { project, script }) => {
-  // Check if script is already running
-  const scriptKey = [project.code, script].join('.');
-  invariant(!backgroundProcesses.has(scriptKey), 'Script is already running');
+ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
   // Spawn new process and keep a ref to it
   const child = execa(project.client, ['run', script], {
     cwd: project.path,
     detached: true,
     reject: false,
   });
-  backgroundProcesses.set(scriptKey, child);
+  // Wait once exited
   child.then(result => {
-    // Delete ref and notify once finished
-    backgroundProcesses.delete(scriptKey);
-    event.sender.send(Channels.SCRIPT_EXITED, {
-      project,
-      script,
-      result,
-    });
+    event.sender.send(Channels.SCRIPT_EXITED, { project, script, result });
     // Show notification
     // todo: add script output window
     switch (true) {
       case result.killed || result.signal === 'SIGTERM':
         createNotification(
           project.name,
-          `${script} was stopped. Click to show stderr/stdout.`
-        ).on('click', () => {});
+          `${script} was stopped` // Click to show stderr/stdout.
+        ).on('click', noop);
         break;
       case result.failed:
         createNotification(
           project.name,
-          `${script} has failed. Click to show stderr.`
-        ).on('click', () => {});
+          `${script} has failed` // Click to show stderr.
+        ).on('click', noop);
         break;
       default:
         createNotification(
           project.name,
-          `${script} is successfully complete. Click to show stdout.`
-        ).on('click', () => {});
+          `${script} is successfully complete` // Click to show stdout.
+        ).on('click', noop);
         break;
     }
+  });
+  // Reply with process pid
+  event.sender.send(Channels.SCRIPT_STARTED, {
+    pid: child.pid,
+    project,
+    script,
   });
 });
 
 // Stops running process
-ipcMain.on(Channels.SCRIPT_STOP, async (event, { project, script }) => {
-  // Check if process is running
-  const scriptKey = [project.code, script].join('.');
-  invariant(backgroundProcesses.has(scriptKey), 'Script is not running yet');
-  // Stop the process and clean the ref
-  const child = backgroundProcesses.get(scriptKey);
-  await treeKillAsync(child.pid);
-  backgroundProcesses.delete(scriptKey);
-});
-
-// Check script's status
-ipcMain.on(Channels.SCRIPT_STATUS_SYNC, (event, { project, script }) => {
-  const scriptKey = [project.code, script].join('.');
-  event.returnValue = backgroundProcesses.has(scriptKey) ? 'running' : null;
+ipcMain.on(Channels.SCRIPT_STOP, async (event, { pid }) => {
+  await treeKillAsync(pid);
 });

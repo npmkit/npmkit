@@ -5,12 +5,15 @@ import { remote, ipcRenderer } from 'electron';
 import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
 import formatPath from '~/common/format-path';
-import store from '~/common/store';
+import preferences from '~/common/preferences-store';
 import Channel from '~/common/channels';
 
 const FAILED_DEBOUNCE_WAIT = 250;
 
-class AppState extends Container {
+/**
+ * This state container keeps key info about projects
+ */
+export default class AppState extends Container {
   state = {
     projects: [],
     selected: null,
@@ -34,18 +37,21 @@ class AppState extends Container {
     ipcRenderer.send(Channel.PROJECTS_LOAD);
   }
 
-  // Settings
-  syncSettings() {
-    store.set('projects', this.state.projects.map(project => project.path));
+  // Preferences
+  syncPreferences() {
+    preferences.set(
+      'projects',
+      this.state.projects.map(project => project.path)
+    );
   }
 
-  clearSettings() {
+  clearPreferences() {
     this.setState({ projects: [] });
-    store.clear();
+    preferences.clear();
   }
 
   editSettings() {
-    store.openInEditor();
+    preferences.openInEditor();
   }
 
   getTerminalApp() {
@@ -99,7 +105,7 @@ class AppState extends Container {
         : [...this.state.projects, newProject],
     });
     // Save settings
-    this.syncSettings();
+    this.syncPreferences();
   }
 
   // Since adding projects is async, we need to make sure send notification once
@@ -134,6 +140,7 @@ class AppState extends Container {
   }
 
   setSearch(keyword) {
+    this.setSelected(null);
     this.setState({ search: keyword });
     if (this.searchInputRef) {
       this.searchInputRef.focus();
@@ -159,5 +166,3 @@ class AppState extends Container {
     );
   }
 }
-
-export default AppState;

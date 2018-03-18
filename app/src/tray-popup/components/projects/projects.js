@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Subscribe } from 'unstated';
-import AppState from '~/common/state';
+import AppContainer from '~/common/app-container';
 import Project from './project';
 import Placeholder from './placeholder';
 
@@ -10,7 +10,7 @@ const ProjectsContainer = styled.div`
 `;
 
 const Projects = props => (
-  <Subscribe to={[AppState]}>
+  <Subscribe to={[AppContainer]}>
     {app =>
       app.hasAnyProjects() ? (
         <ProjectsContainer>

@@ -16,6 +16,7 @@
     "electron-util": "^0.7.0",
     "execa": "^0.10.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.flatten": "^4.4.0",
     "menubar": "^5.2.3",
     "string-to-color": "^2.0.0",
     "thenby": "^1.2.3",

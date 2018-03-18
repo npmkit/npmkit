@@ -1,6 +1,8 @@
 import path from 'path';
 import { remote, shell, clipboard, ipcRenderer } from 'electron';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { Subscribe } from 'unstated';
+import ScriptsContainer from '~/common/scripts-container';
 import Button from '~/common/components/button';
 import Channels from '~/common/channels';
 import formatPath from '~/common/format-path';
@@ -11,34 +13,27 @@ const cropOverflowedText = css`
   overflow: hidden;
 `;
 
-const Actions = styled.div`
-  visibility: hidden;
-  align-items: center;
-  display: flex;
-`;
-
-const Action = styled(Button).attrs({ ghost: true })`
-  font-size: 1.25rem;
+const opacityPulse = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 `;
 
 const Container = styled.button`
   padding: 0.5rem 0.75rem;
   background: transparent;
+  align-items: center;
   text-align: left;
   display: flex;
   width: 100%;
   border: none;
+  border-radius: 4px;
+  font: inherit;
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0 1px white,
-      inset 0 0 0 3px ${props => props.theme.colors.primary};
-  }
-
-  &:hover {
-    ${Actions} {
-      visibility: visible;
-    }
+    box-shadow: inset 0 0 0 2px white,
+      inset 0 0 0 4px ${props => props.theme.colors.primary};
   }
 `;
 
@@ -79,26 +74,38 @@ const Path = styled.div`
   color: #999;
 `;
 
-const showProjectMenu = project => {
-  const scripts = Object.entries(project.scripts).map(([script, command]) => {
-    // Check if script is running
-    const isRunning =
-      ipcRenderer.sendSync(Channels.SCRIPT_STATUS_SYNC, {
-        project,
-        script,
-      }) === 'running';
-    return {
-      label: isRunning ? `Stop ${script} (running)` : script,
-      sublabel: command,
-      enabled: true,
+const Status = styled.div`
+  color: ${props => props.theme.colors.primary};
+  margin-left: 0.25rem;
+  align-items: center;
+  align-items: center;
+  font-weight: bold;
+  display: flex;
+  font-size: 0.85rem;
+`;
+
+const StatusBall = styled.span`
+  animation: ${opacityPulse} 1s linear infinite;
+  background: ${props => props.theme.colors.primary};
+  margin-right: 0.25rem;
+  display: inline-block;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+`;
+
+const showProjectMenu = (scripts, project) => {
+  const scriptsMenu = Object.entries(project.scripts).map(
+    ([script, command]) => ({
+      label: scripts.isRunning(project, script)
+        ? `Stop ${script} (running)`
+        : script,
       click: () =>
-        // Stop process if running or start one
-        ipcRenderer.send(
-          isRunning ? Channels.SCRIPT_STOP : Channels.SCRIPT_START,
-          { project, script }
-        ),
-    };
-  });
+        scripts.isRunning(project, script)
+          ? scripts.stop(project, script)
+          : scripts.run(project, script),
+    })
+  );
   // Show menu
   remote.Menu.buildFromTemplate(
     [
@@ -107,13 +114,14 @@ const showProjectMenu = project => {
         enabled: false,
       },
       { type: 'separator' },
-      scripts.length && {
+      scriptsMenu.length && {
         label: 'Scripts',
-        submenu: scripts,
+        submenu: scriptsMenu,
       },
       {
         label: 'Open in Terminal',
-        click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
+        click: () =>
+          ipcRenderer.send(Channels.TERMINAL_OPEN, { cwd: project.path }),
       },
       {
         label: 'Open in Editor',
@@ -132,21 +140,40 @@ const showProjectMenu = project => {
   ).popup();
 };
 
+const renderScriptsStatus = (scripts, project) => {
+  const runningScripts = scripts.getRunning(project);
+  const runningScriptsCount = runningScripts.length;
+  return runningScriptsCount ? (
+    <Status>
+      <StatusBall />{' '}
+      {runningScriptsCount === 1
+        ? `${runningScripts[0].name} is running`
+        : `${runningScriptsCount} scripts are running`}
+    </Status>
+  ) : null;
+};
+
 const Project = ({ project, ...props }) => (
-  <Container
-    {...props}
-    tabIndex="0"
-    innerRef={node => node && props.selected && node.focus()}
-    onClick={() => showProjectMenu(project)}
-  >
-    <Avatar style={{ backgroundColor: project.color }}>
-      {project.name[0]}
-    </Avatar>
-    <Details>
-      <Name title={project.name}>{project.name}</Name>
-      <Path title={project.path}>{formatPath(project.path)}</Path>
-    </Details>
-  </Container>
+  <Subscribe to={[ScriptsContainer]}>
+    {scripts => (
+      <Container
+        {...props}
+        tabIndex="0"
+        innerRef={node => node && props.selected && node.focus()}
+        onContextMenu={() => showProjectMenu(scripts, project)}
+        onClick={() => showProjectMenu(scripts, project)}
+      >
+        <Avatar style={{ backgroundColor: project.color }}>
+          {project.name[0]}
+        </Avatar>
+        <Details>
+          <Name title={project.name}>{project.name}</Name>
+          <Path title={project.path}>{formatPath(project.path)}</Path>
+        </Details>
+        {renderScriptsStatus(scripts, project)}
+      </Container>
+    )}
+  </Subscribe>
 );
 
 export default Project;

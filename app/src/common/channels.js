@@ -5,8 +5,8 @@ export default {
   PROJECTS_LOAD: 'projects-load',
   NOTIFICATION_SHOW: 'notification-show',
   TERMINAL_OPEN: 'terminal-open',
-  SCRIPT_START: 'script-start',
+  SCRIPT_RUN: 'script-run',
+  SCRIPT_STARTED: 'script-started',
   SCRIPT_STOP: 'script-stop',
   SCRIPT_EXITED: 'script-exited',
-  SCRIPT_STATUS_SYNC: 'script-status-sync',
 };

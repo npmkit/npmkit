@@ -3,9 +3,9 @@ import { remote } from 'electron';
 import { injectGlobal } from 'styled-components';
 import { Provider, Subscribe } from 'unstated';
 import { hot } from 'react-hot-loader';
-import store from '~/common/store';
+import preferences from '~/common/preferences-store';
 import Button from '~/common/components/button';
-import AppState from '~/common/state';
+import AppContainer from '~/common/app-container';
 import KeyCodes from '~/common/key-codes';
 import Tray from './components/tray';
 import Toolbar from './components/toolbar';
@@ -14,6 +14,8 @@ import Projects from './components/projects';
 injectGlobal`
   :root {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    -webkit-font-smoothing: antialiased;
+    font-smooth: always;
     font-size: 14px;
     cursor: default;
     user-select: none;
@@ -60,7 +62,6 @@ const handlePrintableKeyPress = app => event => {
     case KeyCodes.ENTER:
       break;
     default:
-      app.setSelected(null);
       app.setSearch(event.target.value || '');
       break;
   }
@@ -90,7 +91,7 @@ const handleMetaKeyPress = app => event => {
 
 const App = () => (
   <Provider>
-    <Subscribe to={[AppState]}>
+    <Subscribe to={[AppContainer]}>
       {app => (
         <Tray
           onDragEnter={() => app.fileDragEnter()}
