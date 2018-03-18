@@ -18,6 +18,11 @@ function createConfig(type, extra = {}) {
       module: {
         rules: [
           { test: /.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+          {
+            test: /.png$/,
+            loader: 'file-loader',
+            options: { name: '[name].[ext]' },
+          },
         ],
       },
       externals: Object.keys(appPackage.dependencies).concat('electron'),

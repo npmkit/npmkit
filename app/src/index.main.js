@@ -3,7 +3,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { promisify } from 'util';
 import execa from 'execa';
-import { app, ipcMain, Notification } from 'electron';
+import { app, ipcMain, nativeImage, Notification } from 'electron';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
 import createMenubar from 'menubar';
@@ -13,6 +13,8 @@ import treeKill from 'tree-kill';
 import createNotification from '~/common/notification';
 import store from '~/common/store';
 import Channels from '~/common/channels';
+import menubarIcon from '~/assets/menubarTemplate.png';
+import '~/assets/menubarTemplate@2x.png';
 
 const isDev = process.env.NODE_ENV === 'development';
 electronDebug({ showDevTools: isDev });
@@ -31,6 +33,7 @@ const menubar = createMenubar({
   movable: false,
   minWidth: 320,
   alwaysOnTop: isDev,
+  icon: path.join(__dirname, menubarIcon),
 });
 
 function showTray() {
