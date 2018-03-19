@@ -92,6 +92,7 @@ ipcMain.on(Channels.PROJECTS_LOAD, event => {
       const data = await getProjectData(projectPath);
       event.sender.send(Channels.PROJECT_OPEN_SUCCESS, data);
     });
+    event.sender.send(Channels.PROJECTS_LOADED);
   } catch (reason) {
     event.sender.send(Channels.PROJECT_OPEN_ERROR, reason);
   }

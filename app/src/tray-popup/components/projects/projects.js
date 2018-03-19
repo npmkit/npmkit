@@ -2,33 +2,38 @@ import styled from 'styled-components';
 import { Subscribe } from 'unstated';
 import AppContainer from '~/common/app-container';
 import Project from './project';
-import Placeholder from './placeholder';
+import Note from './note';
+import ContentPlaceholder from './content-placeholder';
 
-const ProjectsContainer = styled.div`
+const View = styled.div`
   overflow-y: scroll;
   flex: 1;
 `;
 
 const Projects = props => (
   <Subscribe to={[AppContainer]}>
-    {app =>
-      app.hasAnyProjects() ? (
-        <ProjectsContainer>
-          {app
-            .getFilteredProjects()
-            .map(project => (
-              <Project
-                onFocus={() => app.setSelected(project)}
-                key={project.code}
-                project={project}
-                selected={app.getSelected() === project}
-              />
-            ))}
-        </ProjectsContainer>
-      ) : (
-        <Placeholder>Add new project by dragging it here</Placeholder>
-      )
-    }
+    {app => (
+      <View>
+        {app.hasLoadedProjects() ? (
+          app.hasAnyProjects() ? (
+            app
+              .getFilteredProjects()
+              .map(project => (
+                <Project
+                  onFocus={() => app.setSelected(project)}
+                  key={project.code}
+                  project={project}
+                  selected={app.getSelected() === project}
+                />
+              ))
+          ) : (
+            <Note>Add new projects by dragging it here 🗄</Note>
+          )
+        ) : (
+          <ContentPlaceholder />
+        )}
+      </View>
+    )}
   </Subscribe>
 );
 

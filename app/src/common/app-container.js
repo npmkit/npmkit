@@ -6,7 +6,7 @@ import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
 import formatPath from '~/common/format-path';
 import preferences from '~/common/preferences-store';
-import Channel from '~/common/channels';
+import Channels from '~/common/channels';
 
 const FAILED_DEBOUNCE_WAIT = 250;
 
@@ -20,6 +20,7 @@ export default class AppState extends Container {
     failed: [],
     scripts: {},
     search: null,
+    ready: false,
   };
 
   searchInputRef = null;
@@ -27,14 +28,17 @@ export default class AppState extends Container {
   constructor(...args) {
     super(...args);
     // Subscribe to main process replies
-    ipcRenderer.on(Channel.PROJECT_OPEN_SUCCESS, (_, payload) =>
+    ipcRenderer.on(Channels.PROJECT_OPEN_SUCCESS, (_, payload) =>
       this.proceedValidProject(payload)
     );
-    ipcRenderer.on(Channel.PROJECT_OPEN_ERROR, (_, payload) =>
+    ipcRenderer.on(Channels.PROJECT_OPEN_ERROR, (_, payload) =>
       this.proceedInvalidProject(payload)
     );
+    ipcRenderer.on(Channels.PROJECTS_LOADED, () => {
+      this.setState({ ready: true });
+    });
     // Load added projects
-    ipcRenderer.send(Channel.PROJECTS_LOAD);
+    ipcRenderer.send(Channels.PROJECTS_LOAD);
   }
 
   // Preferences
@@ -50,7 +54,7 @@ export default class AppState extends Container {
     preferences.clear();
   }
 
-  editSettings() {
+  editPreferences() {
     preferences.openInEditor();
   }
 
@@ -59,6 +63,10 @@ export default class AppState extends Container {
   }
 
   // Projects related
+  hasLoadedProjects() {
+    return this.state.ready;
+  }
+
   hasAnyProjects() {
     return this.state.projects.length > 0;
   }
@@ -79,7 +87,7 @@ export default class AppState extends Container {
 
   refreshProjects() {
     this.state.projects.forEach(project => {
-      ipcRenderer.send(Channel.PROJECT_OPEN_REQUEST, project.path);
+      ipcRenderer.send(Channels.PROJECT_OPEN_REQUEST, project.path);
     });
   }
 
@@ -117,7 +125,7 @@ export default class AppState extends Container {
         : `Failed to load project. Make sure ${formatPath(
             this.state.failed[0]
           )} is a valid npm module.`;
-    ipcRenderer.send(Channel.NOTIFICATION_SHOW, { body: message });
+    ipcRenderer.send(Channels.NOTIFICATION_SHOW, { body: message });
     this.setState({ failed: [] });
   }, FAILED_DEBOUNCE_WAIT);
 
@@ -162,7 +170,7 @@ export default class AppState extends Container {
 
   fileDrop(files) {
     Array.from(files).forEach(file =>
-      ipcRenderer.send(Channel.PROJECT_OPEN_REQUEST, file.path)
+      ipcRenderer.send(Channels.PROJECT_OPEN_REQUEST, file.path)
     );
   }
 }

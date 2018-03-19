@@ -43,8 +43,8 @@ const showOptions = app => {
       click: () => app.refreshProjects(),
     },
     { type: 'separator' },
-    { label: 'Edit settings', click: () => app.editSettings() },
-    { label: 'Clear settings', click: () => app.clearSettings() },
+    { label: 'Edit settings', click: () => app.editPreferences() },
+    { label: 'Clear settings', click: () => app.clearPreferences() },
     { type: 'separator' },
     { label: 'About npmkit', role: 'about', click: () => {} },
     {

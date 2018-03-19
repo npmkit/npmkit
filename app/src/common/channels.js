@@ -3,6 +3,7 @@ export default {
   PROJECT_OPEN_SUCCESS: 'project-open-success',
   PROJECT_OPEN_ERROR: 'project-open-error',
   PROJECTS_LOAD: 'projects-load',
+  PROJECTS_LOADED: 'projects-loaded',
   NOTIFICATION_SHOW: 'notification-show',
   TERMINAL_OPEN: 'terminal-open',
   SCRIPT_RUN: 'script-run',
