@@ -1,4 +1,5 @@
-module.exports = env => {
+module.exports = (env, argv) => {
+  process.env.NODE_ENV = argv.mode;
   switch (env.target) {
     default:
     case 'renderer':

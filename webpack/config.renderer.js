@@ -1,11 +1,21 @@
 const { spawn } = require('child_process');
+const path = require('path');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const common = require('./config.common');
 const ReactRootPlugin = require('./react-root-plugin');
-const createConfig = require('./create-config');
 
-module.exports = createConfig('renderer', {
+const isDev = process.env.NODE_ENV === 'development';
+
+module.exports = merge.smart(common, {
+  target: 'electron-renderer',
+  entry: path.join(__dirname, '..', `app/src/index.renderer.js`),
+  output: {
+    filename: 'index.renderer.js',
+    publicPath: isDev ? '/' : './',
+  },
   devtool: 'inline-source-map',
   plugins: [
     new webpack.NamedModulesPlugin(),
