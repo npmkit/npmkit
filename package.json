@@ -11,7 +11,7 @@
     "build:main": "webpack --env.target=main --mode=production",
     "build:renderer": "webpack --env.target=renderer --mode=production",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder --d4ir",
+    "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
   "devDependencies": {

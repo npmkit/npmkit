@@ -10,6 +10,7 @@ import createMenubar from 'menubar';
 import invariant from 'invariant';
 import stringToColor from 'string-to-color';
 import treeKill from 'tree-kill';
+import fixPath from 'fix-path';
 import createNotification from '~/common/notification';
 import preferences from '~/common/preferences-store';
 import Channels from '~/common/channels';
@@ -19,6 +20,7 @@ import '~/assets/menubarTemplate@2x.png';
 const noop = () => {};
 const isDev = process.env.NODE_ENV === 'development';
 electronDebug({ showDevTools: isDev });
+fixPath();
 
 const readFileAsync = promisify(fs.readFile);
 const statAsync = promisify(fs.stat);
@@ -127,6 +129,7 @@ ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
   const child = execa(project.client, ['run', script], {
     cwd: project.path,
     detached: true,
+    shell: true,
     reject: false,
   });
   // Wait once exited

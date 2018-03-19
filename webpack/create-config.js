@@ -12,7 +12,7 @@ function createConfig(type, extra = {}) {
       output: {
         filename: `index.${type}.js`,
         path: path.join(__dirname, '..', 'app/dist'),
-        publicPath: '/',
+        publicPath: './',
         libraryTarget: 'commonjs2',
       },
       module: {
