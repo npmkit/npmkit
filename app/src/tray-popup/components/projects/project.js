@@ -1,7 +1,9 @@
 import path from 'path';
 import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css, keyframes } from 'styled-components';
+import { invert, tint } from 'polished';
 import { Subscribe } from 'unstated';
+import AppContainer from '~/common/app-container';
 import ScriptsContainer from '~/common/scripts-container';
 import Button from '~/common/components/button';
 import Channels from '~/common/channels';
@@ -14,13 +16,13 @@ const cropOverflowedText = css`
   overflow: hidden;
 `;
 
-const opacityPulse = keyframes`
+const opacityAnimation = keyframes`
   0% { opacity: 1; }
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 `;
 
-const Container = styled.button`
+const Container = styled.button.attrs({ tabIndex: '0' })`
   padding: 0.5rem 0.75rem;
   background: transparent;
   align-items: center;
@@ -38,7 +40,7 @@ const Container = styled.button`
   }
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.div.attrs({ role: 'presentation' })`
   width: 30px;
   height: 30px;
   color: white;
@@ -48,6 +50,19 @@ const Avatar = styled.div`
   text-transform: uppercase;
   font-weight: 100;
   border-radius: 50%;
+  position: relative;
+  background: linear-gradient(
+    0.45turn,
+    ${props => props.accent},
+    ${props => tint(0.5, props.accent)}
+  );
+`;
+
+const Star = styled.div.attrs({ children: '⭐️' })`
+  position: absolute;
+  font-size: 1.2rem;
+  left: -0.5rem;
+  top: -0.5rem;
 `;
 
 const Details = styled.div`
@@ -86,7 +101,7 @@ const Status = styled.div`
 `;
 
 const StatusBall = styled.span`
-  animation: ${opacityPulse} 1s linear infinite;
+  animation: ${opacityAnimation} 1s linear infinite;
   background: ${props => props.theme.colors.primary};
   margin-right: 0.25rem;
   display: inline-block;
@@ -95,7 +110,7 @@ const StatusBall = styled.span`
   height: 6px;
 `;
 
-const showProjectMenu = (scripts, project) => {
+const showProjectMenu = (app, scripts, project) => {
   const scriptsMenu = Object.entries(project.scripts).map(
     ([script, command]) => ({
       label: scripts.isRunning(project, script)
@@ -113,6 +128,12 @@ const showProjectMenu = (scripts, project) => {
       {
         label: project.name,
         enabled: false,
+      },
+      {
+        label: 'Pin on top',
+        type: 'checkbox',
+        checked: project.pinned,
+        click: () => (project.pinned ? app.unpin(project) : app.pin(project)),
       },
       { type: 'separator' },
       scriptsMenu.length && {
@@ -155,16 +176,16 @@ const renderScriptsStatus = (scripts, project) => {
 };
 
 const Project = ({ project, ...props }) => (
-  <Subscribe to={[ScriptsContainer]}>
-    {scripts => (
+  <Subscribe to={[AppContainer, ScriptsContainer]}>
+    {(app, scripts) => (
       <Container
         {...props}
-        tabIndex="0"
         innerRef={node => node && props.selected && node.focus()}
-        onContextMenu={() => showProjectMenu(scripts, project)}
-        onClick={() => showProjectMenu(scripts, project)}
+        onContextMenu={() => showProjectMenu(app, scripts, project)}
+        onClick={() => showProjectMenu(app, scripts, project)}
       >
-        <Avatar style={{ backgroundColor: project.color }}>
+        <Avatar accent={project.color}>
+          {project.pinned && <Star />}
           {extractInitials(project.name)}
         </Avatar>
         <Details>

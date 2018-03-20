@@ -15,12 +15,11 @@ const FAILED_DEBOUNCE_WAIT = 250;
  */
 export default class AppState extends Container {
   state = {
+    ready: false,
     projects: [],
     selected: null,
-    failed: [],
-    scripts: {},
     search: null,
-    ready: false,
+    failed: [],
   };
 
   searchInputRef = null;
@@ -47,10 +46,16 @@ export default class AppState extends Container {
       'projects',
       this.state.projects.map(project => project.path)
     );
+    preferences.set(
+      'pinned',
+      this.state.projects
+        .filter(project => project.pinned)
+        .map(project => project.path)
+    );
   }
 
   clearPreferences() {
-    this.setState({ projects: [] });
+    this.setState({ projects: [], pinned: [] });
     preferences.clear();
   }
 
@@ -73,7 +78,9 @@ export default class AppState extends Container {
 
   getSortedProjects() {
     return this.state.projects.sort(
-      firstBy('name', { ignoreCase: true }).thenBy('path')
+      firstBy('pinned', { direction: -1 })
+        .thenBy('name', { ignoreCase: true })
+        .thenBy('path')
     );
   }
 
@@ -132,6 +139,24 @@ export default class AppState extends Container {
   proceedInvalidProject(reason) {
     this.setState({ failed: [...this.state.failed, reason.path] });
     this.notifyAboutFailedProjects();
+  }
+
+  setPinned(project, value) {
+    this.setState({
+      projects: this.state.projects.map(
+        current =>
+          current === project ? { ...current, pinned: value } : current
+      ),
+    });
+    this.syncPreferences();
+  }
+
+  pin(project) {
+    this.setPinned(project, true);
+  }
+
+  unpin(project) {
+    this.setPinned(project, false);
   }
 
   // Project search related

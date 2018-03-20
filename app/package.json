@@ -19,6 +19,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.flatten": "^4.4.0",
     "menubar": "^5.2.3",
+    "polished": "^1.9.2",
     "string-to-color": "^2.0.0",
     "thenby": "^1.2.3",
     "tree-kill": "^1.2.0"

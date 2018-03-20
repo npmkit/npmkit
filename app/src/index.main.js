@@ -65,9 +65,12 @@ async function getProjectData(projectPath) {
     .digest('hex');
   // Generate color for better visual distinction
   const color = stringToColor(code);
+  // Check if project is pinned
+  const pinned = preferences.get('pinned').includes(projectPath);
   return {
     code,
     color,
+    pinned,
     name: packageName,
     scripts: packageScripts,
     path: projectPath,
