@@ -6,6 +6,7 @@ import ScriptsContainer from '~/common/scripts-container';
 import Button from '~/common/components/button';
 import Channels from '~/common/channels';
 import formatPath from '~/common/format-path';
+import extractInitials from '~/common/extract-initials';
 
 const cropOverflowedText = css`
   white-space: nowrap;
@@ -164,7 +165,7 @@ const Project = ({ project, ...props }) => (
         onClick={() => showProjectMenu(scripts, project)}
       >
         <Avatar style={{ backgroundColor: project.color }}>
-          {project.name[0]}
+          {extractInitials(project.name)}
         </Avatar>
         <Details>
           <Name title={project.name}>{project.name}</Name>
