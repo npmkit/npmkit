@@ -123,6 +123,11 @@ const showProjectMenu = (app, scripts, project) => {
     })
   );
   // Show menu
+  const rect = document.activeElement.getBoundingClientRect();
+  const position = {
+    x: parseInt(rect.right) - 100,
+    y: parseInt(rect.top),
+  };
   remote.Menu.buildFromTemplate(
     [
       {
@@ -159,7 +164,7 @@ const showProjectMenu = (app, scripts, project) => {
         click: () => clipboard.writeText(project.path),
       },
     ].filter(Boolean)
-  ).popup();
+  ).popup(remote.getCurrentWindow(), position);
 };
 
 const renderScriptsStatus = (scripts, project) => {
