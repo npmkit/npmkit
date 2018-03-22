@@ -1,10 +1,9 @@
 module.exports = (env, argv) => {
-  process.env.NODE_ENV = argv.mode;
   switch (env.target) {
     default:
     case 'renderer':
-      return require('./webpack/config.renderer');
+      return require('./webpack/config.renderer')(env, argv);
     case 'main':
-      return require('./webpack/config.main');
+      return require('./webpack/config.main')(env, argv);
   }
 };
