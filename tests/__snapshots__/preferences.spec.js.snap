@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration preferences sets default preferences 1`] = `
+Object {
+  "pinned": Array [],
+  "projects": Array [],
+  "terminal": "Terminal",
+}
+`;

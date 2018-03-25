@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { Subscribe } from 'unstated';
 import AppContainer from '~/common/app-container';
+import withTestId from '~/common/with-test-id';
 import Project from './project';
 import Note from './note';
 import ContentPlaceholder from './content-placeholder';
 
-const View = styled.div`
-  overflow-y: scroll;
-  flex: 1;
-`;
+const View = withTestId('projects')(
+  styled.div`
+    overflow-y: scroll;
+    flex: 1;
+  `
+);
 
 const Projects = props => (
   <Subscribe to={[AppContainer]}>

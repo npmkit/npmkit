@@ -2,6 +2,7 @@
 node_modules/
 app/dist/
 dist/
+__diff_output__/
 *.log*
 jsconfig.json
 .DS_Store

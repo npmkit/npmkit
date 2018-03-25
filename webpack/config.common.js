@@ -1,7 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const ExternalsPlugin = require('webpack-externals-plugin');
 const appPackage = require('../app/package');
 
 module.exports = {

@@ -1,11 +1,10 @@
 import path from 'path';
 import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css, keyframes } from 'styled-components';
-import { invert, tint } from 'polished';
+import { tint } from 'polished';
 import { Subscribe } from 'unstated';
 import AppContainer from '~/common/app-container';
 import ScriptsContainer from '~/common/scripts-container';
-import Button from '~/common/components/button';
 import Channels from '~/common/channels';
 import formatPath from '~/common/format-path';
 import extractInitials from '~/common/extract-initials';

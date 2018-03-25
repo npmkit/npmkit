@@ -1,7 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import firstBy from 'thenby';
-import { remote, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
 import formatPath from '~/common/format-path';

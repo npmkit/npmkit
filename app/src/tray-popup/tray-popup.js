@@ -3,7 +3,6 @@ import { remote } from 'electron';
 import { injectGlobal } from 'styled-components';
 import { Provider, Subscribe } from 'unstated';
 import { hot } from 'react-hot-loader';
-import preferences from '~/common/preferences-store';
 import Button from '~/common/components/button';
 import AppContainer from '~/common/app-container';
 import KeyCodes from '~/common/key-codes';
@@ -34,7 +33,7 @@ injectGlobal`
   }
 `;
 
-const { Menu, MenuItem } = remote;
+const { Menu } = remote;
 const showOptions = app => {
   Menu.buildFromTemplate([
     {

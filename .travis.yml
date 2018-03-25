@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - 8
+os:
+  - linux
+  - osx
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+cache:
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
+install:
+  - yarn
+script:
+  - yarn run lint
+  - yarn run pack
+  - yarn run test
+after_success:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_BRANCH" == "master" ]]; then
+      yarn release --linux;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$TRAVIS_BRANCH" == "master" ]]; then
+      yarn release --mac --win;
+    fi
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"

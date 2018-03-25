@@ -3,7 +3,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { promisify } from 'util';
 import execa from 'execa';
-import { app, ipcMain, nativeImage, Notification } from 'electron';
+import { app, ipcMain } from 'electron';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
 import createMenubar from 'menubar';
@@ -85,6 +85,7 @@ menubar.on('after-create-window', () => {
 });
 
 app.on('ready', () => {
+  menubar.window.on('ready-to-show', showTray);
   electronUtil.enforceMacOSAppLocation();
 });
 
