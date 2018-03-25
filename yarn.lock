@@ -165,6 +165,10 @@ acorn@^5.5.0:
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.5.3.tgz#f473dd47e0277a08e28e9bec5aeeb04751f0b8c9"
 
+addressparser@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/addressparser/-/addressparser-1.0.1.tgz#47afbe1a2a9262191db6838e4fd1d39b40821746"
+
 ajv-keywords@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.1.tgz#617997fc5f60576894c435f940d819e135b80762"
@@ -1589,6 +1593,17 @@ builder-util@5.6.5, builder-util@^5.6.5:
     stat-mode "^0.2.2"
     temp-file "^3.1.1"
 
+buildmail@3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/buildmail/-/buildmail-3.10.0.tgz#c6826d716e7945bb6f6b1434b53985e029a03159"
+  dependencies:
+    addressparser "1.0.1"
+    libbase64 "0.1.0"
+    libmime "2.1.0"
+    libqp "1.1.0"
+    nodemailer-fetch "1.6.0"
+    nodemailer-shared "1.1.0"
+
 builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
@@ -2487,6 +2502,12 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dkim-signer@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/dkim-signer/-/dkim-signer-0.2.2.tgz#aa81ec071eeed3622781baa922044d7800e5f308"
+  dependencies:
+    libmime "^2.0.3"
 
 dmg-builder@4.1.2:
   version "4.1.2"
@@ -3603,6 +3624,18 @@ glob-base@^0.3.0:
     glob-parent "^2.0.0"
     is-glob "^2.0.0"
 
+glob-gitignore@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/glob-gitignore/-/glob-gitignore-1.0.6.tgz#70e3554a257f1381df22ec56c77fe88075930d3a"
+  dependencies:
+    babel-runtime "^6.26.0"
+    glob "^7.1.2"
+    ignore "^3.3.7"
+    lodash.difference "^4.5.0"
+    lodash.union "^4.6.0"
+    make-array "^1.0.2"
+    util.inherits "^1.0.3"
+
 glob-parent@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-2.0.0.tgz#81383d72db054fcccf5336daa902f182f6edbb28"
@@ -4090,6 +4123,14 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
+iconv-lite@0.4.13:
+  version "0.4.13"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
+
+iconv-lite@0.4.15:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
+
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@^0.4.19, iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
@@ -4102,7 +4143,7 @@ iferr@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/iferr/-/iferr-0.1.5.tgz#c60eed69e6d8fdb6b3104a1fcbca1c192dc5b501"
 
-ignore@^3.3.3:
+ignore@^3.3.3, ignore@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
@@ -5304,6 +5345,30 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+libbase64@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/libbase64/-/libbase64-0.1.0.tgz#62351a839563ac5ff5bd26f12f60e9830bb751e6"
+
+libmime@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/libmime/-/libmime-2.1.0.tgz#51bc76de2283161eb9051c4bc80aed713e4fd1cd"
+  dependencies:
+    iconv-lite "0.4.13"
+    libbase64 "0.1.0"
+    libqp "1.1.0"
+
+libmime@^2.0.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/libmime/-/libmime-2.1.3.tgz#25017ca5ab5a1e98aadbe2725017cf1d48a42a0c"
+  dependencies:
+    iconv-lite "0.4.15"
+    libbase64 "0.1.0"
+    libqp "1.1.0"
+
+libqp@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/libqp/-/libqp-1.1.0.tgz#f5e6e06ad74b794fb5b5b66988bf728ef1dedbe8"
+
 lint-staged@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-7.0.0.tgz#57926c63201e7bd38ca0576d74391efa699b4a9d"
@@ -5434,6 +5499,10 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash.difference@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.difference/-/lodash.difference-4.5.0.tgz#9ccb4e505d486b91651345772885a2df27fd017c"
+
 lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
@@ -5441,6 +5510,10 @@ lodash.isequal@^4.5.0:
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
+
+lodash.union@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
 
 lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.8.0, lodash@~4.17.4:
   version "4.17.5"
@@ -5504,6 +5577,17 @@ lru-cache@^4.0.1, lru-cache@^4.1.1:
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
+
+mailcomposer@^3.12.0:
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/mailcomposer/-/mailcomposer-3.12.0.tgz#9c5e1188aa8e1c62ec8b86bd43468102b639e8f9"
+  dependencies:
+    buildmail "3.10.0"
+    libmime "2.1.0"
+
+make-array@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/make-array/-/make-array-1.0.3.tgz#578edca444d19a277805cc0d8e9eb2d74be74dbe"
 
 make-dir@^1.0.0, make-dir@^1.1.0:
   version "1.2.0"
@@ -5916,6 +6000,16 @@ node-pre-gyp@^0.6.39:
     semver "^5.3.0"
     tar "^2.2.1"
     tar-pack "^3.4.0"
+
+nodemailer-fetch@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/nodemailer-fetch/-/nodemailer-fetch-1.6.0.tgz#79c4908a1c0f5f375b73fe888da9828f6dc963a4"
+
+nodemailer-shared@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nodemailer-shared/-/nodemailer-shared-1.1.0.tgz#cf5994e2fd268d00f5cf0fa767a08169edb07ec0"
+  dependencies:
+    nodemailer-fetch "1.6.0"
 
 nomnom@^1.8.1:
   version "1.8.1"
@@ -7311,6 +7405,13 @@ send@0.16.2:
     range-parser "~1.2.0"
     statuses "~1.4.0"
 
+sendmail@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/sendmail/-/sendmail-1.4.1.tgz#e0732447f5ff07270fbcecd6030d748bcb4a03cb"
+  dependencies:
+    dkim-signer "^0.2.2"
+    mailcomposer "^3.12.0"
+
 serialize-javascript@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.4.0.tgz#7c958514db6ac2443a8abc062dc9f7886a7f6005"
@@ -8344,6 +8445,10 @@ utf8-byte-length@^1.0.1:
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
+
+util.inherits@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/util.inherits/-/util.inherits-1.0.3.tgz#a9c626a0d06d34829d47ba56cab1278d745f9ce6"
 
 util.promisify@1.0.0, util.promisify@^1.0.0:
   version "1.0.0"

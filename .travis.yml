@@ -25,6 +25,8 @@ after_success:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && "$TRAVIS_BRANCH" == "master" ]]; then
       yarn release --mac --win;
     fi
+after_failure:
+  - yarn run create-diff-report
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
