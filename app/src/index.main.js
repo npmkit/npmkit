@@ -12,16 +12,25 @@ import stringToColor from 'string-to-color';
 import treeKill from 'tree-kill';
 import fixPath from 'fix-path';
 import createNotification from '~/common/notification';
-import preferences from '~/common/preferences-store';
+import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
 import menubarIcon from '~/assets/menubarTemplate.png';
 import '~/assets/menubarTemplate@2x.png';
 
-const noop = () => {};
-const isDev = process.env.NODE_ENV === 'development';
-electronDebug({ showDevTools: isDev });
-fixPath();
+// Setup test-related stuff until more elegant soultion is found
+if (global.process.env.NODE_ENV === 'test') {
+  // Point userData to temp directory
+  app.setPath('userData', app.getPath('temp'));
+  // Make sure visual snapshots are the same on CI
+  app.commandLine.appendSwitch('high-dpi-support', 'true');
+  app.commandLine.appendSwitch('force-device-scale-factor', '2');
+}
 
+fixPath();
+electronDebug();
+
+const isDev = process.env.NODE_ENV === 'development';
+const preferences = createStore(true);
 const readFileAsync = promisify(fs.readFile);
 const statAsync = promisify(fs.stat);
 const treeKillAsync = promisify(treeKill);
@@ -130,6 +139,7 @@ ipcMain.on(Channels.TERMINAL_OPEN, (event, { cwd }) => {
 
 // Run requested script in background
 ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
+  const noop = () => {};
   // Spawn new process and keep a ref to it
   const child = execa(project.client, ['run', script], {
     cwd: project.path,

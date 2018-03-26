@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
 import formatPath from '~/common/format-path';
-import preferences from '~/common/preferences-store';
+import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
 
 const FAILED_DEBOUNCE_WAIT = 250;
@@ -21,6 +21,8 @@ export default class AppState extends Container {
   };
 
   searchInputRef = null;
+
+  preferences = createStore();
 
   constructor(...args) {
     super(...args);
@@ -40,11 +42,11 @@ export default class AppState extends Container {
 
   // Preferences
   syncPreferences() {
-    preferences.set(
+    this.preferences.set(
       'projects',
       this.state.projects.map(project => project.path)
     );
-    preferences.set(
+    this.preferences.set(
       'pinned',
       this.state.projects
         .filter(project => project.pinned)
@@ -54,11 +56,11 @@ export default class AppState extends Container {
 
   clearPreferences() {
     this.setState({ projects: [], pinned: [] });
-    preferences.clear();
+    this.preferences.clear();
   }
 
   editPreferences() {
-    preferences.openInEditor();
+    this.preferences.openInEditor();
   }
 
   getTerminalApp() {
