@@ -30,7 +30,7 @@ const Projects = props => (
                 />
               ))
           ) : (
-            <Note>Add new projects by dragging it here 🗄</Note>
+            <Note>Add new projects by dragging it here</Note>
           )
         ) : (
           <ContentPlaceholder />
