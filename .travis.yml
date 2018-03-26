@@ -14,10 +14,6 @@ cache:
     - $HOME/.npm/_prebuilds
 install:
   - yarn
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
-    fi
 script:
   - yarn run lint
   - yarn run pack
