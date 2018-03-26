@@ -8,7 +8,7 @@ import ContentPlaceholder from './content-placeholder';
 
 const View = withTestId('projects')(
   styled.div`
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
   `
 );
