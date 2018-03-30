@@ -88,9 +88,7 @@ async function getProjectData(projectPath) {
 }
 
 menubar.on('after-create-window', () => {
-  menubar.tray.on('click', showTray);
   menubar.tray.on('drag-enter', showTray);
-  app.on('activate', showTray);
 });
 
 app.on('ready', () => {
