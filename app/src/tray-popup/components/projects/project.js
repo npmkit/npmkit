@@ -109,12 +109,20 @@ const StatusBall = styled.span`
   height: 6px;
 `;
 
-const showProjectMenu = (app, scripts, project) => {
+const getMenuPosition = event => {
+  const mouse = { x: event.clientX, y: event.clientY };
+  const rect = document.activeElement.getBoundingClientRect();
+  const element = {
+    x: parseInt(rect.right - rect.width / 2),
+    y: parseInt(rect.top),
+  };
+  return { x: mouse.x || element.x, y: mouse.y || element.y };
+};
+
+const showProjectMenu = (app, scripts, project, position) => {
   const scriptsMenu = Object.entries(project.scripts).map(
     ([script, command]) => ({
-      label: scripts.isRunning(project, script)
-        ? `Stop ${script} (running)`
-        : script,
+      label: scripts.isRunning(project, script) ? `⏹ stop ${script}` : script,
       click: () =>
         scripts.isRunning(project, script)
           ? scripts.stop(project, script)
@@ -122,11 +130,6 @@ const showProjectMenu = (app, scripts, project) => {
     })
   );
   // Show menu
-  const rect = document.activeElement.getBoundingClientRect();
-  const position = {
-    x: parseInt(rect.right) - 100,
-    y: parseInt(rect.top),
-  };
   remote.Menu.buildFromTemplate(
     [
       {
@@ -140,10 +143,6 @@ const showProjectMenu = (app, scripts, project) => {
         click: () => (project.pinned ? app.unpin(project) : app.pin(project)),
       },
       { type: 'separator' },
-      scriptsMenu.length && {
-        label: 'Scripts',
-        submenu: scriptsMenu,
-      },
       {
         label: 'Open in Terminal',
         click: () =>
@@ -152,6 +151,10 @@ const showProjectMenu = (app, scripts, project) => {
       {
         label: 'Open in Editor',
         click: () => shell.openItem(path.join(project.path, 'package.json')),
+      },
+      scriptsMenu.length && {
+        label: 'Scripts',
+        submenu: scriptsMenu,
       },
       { type: 'separator' },
       {
@@ -186,7 +189,9 @@ const Project = ({ project, ...props }) => (
         {...props}
         innerRef={node => node && props.selected && node.focus()}
         onContextMenu={() => showProjectMenu(app, scripts, project)}
-        onClick={() => showProjectMenu(app, scripts, project)}
+        onClick={event =>
+          showProjectMenu(app, scripts, project, getMenuPosition(event))
+        }
       >
         <Avatar accent={project.color}>
           {project.pinned && <Star />}
