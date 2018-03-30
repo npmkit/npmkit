@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  background: ${props =>
+  background-color: ${props =>
     props.ghost ? 'transparent' : props.theme.colors.primary};
   color: white;
   padding: 0.25rem;
@@ -12,8 +12,8 @@ const Button = styled.button`
   border-radius: 2px;
 
   &:focus {
+    background-color: #eee;
     outline: none;
-    background: #eee;
   }
 `;
 

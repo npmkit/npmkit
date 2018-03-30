@@ -21,9 +21,10 @@ const opacityAnimation = keyframes`
   100% { opacity: 1; }
 `;
 
-const Container = styled.button.attrs({ tabIndex: '0' })`
+const ProjectView = styled.button.attrs({ tabIndex: '0' })`
+  transition: opacity 100ms ease;
   padding: 0.5rem 0.75rem;
-  background: transparent;
+  background-color: transparent;
   align-items: center;
   text-align: left;
   display: flex;
@@ -36,6 +37,10 @@ const Container = styled.button.attrs({ tabIndex: '0' })`
     outline: none;
     box-shadow: inset 0 0 0 2px white,
       inset 0 0 0 4px ${props => props.theme.colors.primary};
+  }
+
+  &:not(:focus):hover {
+    opacity: 0.8;
   }
 `;
 
@@ -100,8 +105,8 @@ const Status = styled.div`
 `;
 
 const StatusBall = styled.span`
+  background-color: ${props => props.theme.colors.primary};
   animation: ${opacityAnimation} 1s linear infinite;
-  background: ${props => props.theme.colors.primary};
   margin-right: 0.25rem;
   display: inline-block;
   border-radius: 50%;
@@ -185,7 +190,7 @@ const renderScriptsStatus = (scripts, project) => {
 const Project = ({ project, ...props }) => (
   <Subscribe to={[AppContainer, ScriptsContainer]}>
     {(app, scripts) => (
-      <Container
+      <ProjectView
         {...props}
         innerRef={node => node && props.selected && node.focus()}
         onContextMenu={() => showProjectMenu(app, scripts, project)}
@@ -202,7 +207,7 @@ const Project = ({ project, ...props }) => (
           <Path title={project.path}>{formatPath(project.path)}</Path>
         </Details>
         {renderScriptsStatus(scripts, project)}
-      </Container>
+      </ProjectView>
     )}
   </Subscribe>
 );

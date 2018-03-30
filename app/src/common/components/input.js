@@ -7,7 +7,7 @@ const Input = styled.input`
   border-radius: 2px;
 
   &:focus {
-    background: #eee;
+    background-color: #eee;
     outline: none;
   }
 `;
