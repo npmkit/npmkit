@@ -24,7 +24,7 @@ script:
 after_script:
   - greenkeeper-lockfile-upload
 after_success:
-  - $TRAVIS_BRANCH == "master" && yarn release --mac --win --linux
+  - [[ $TRAVIS_BRANCH == "master" ]] && yarn release --mac --win --linux
 after_failure:
   - yarn run create-diff-report
 branches:
