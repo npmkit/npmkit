@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 32 32" version="1.1" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+  <path id="I-cap" d="M10,9l6,-3l6,3l-6,3l-6,-3Z" />
+  <path id="T" d="M14,30l0,-15l2,1l14,-7l0,4l-4,2l0,11l-4,2l0,-11l-4,2l0,11l-2,1l-2,-1Zm-12,-21l0,15l4,2l0,-8l4,10l4,2l-4,-12l4,-3l-4,-2l-4,3l0,-5l-4,-2Z" />
+</svg>
