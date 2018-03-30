@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sergeybekrin/npmkit/master/.github/npmkit-icon.svg?sanitize=true" height="64" />
+  <img src="https://raw.githubusercontent.com/sergeybekrin/npmkit/master/.github/npmkit-logo.svg?sanitize=true" height="64" />
   <h3 align="center">npmkit</h3>
   <p align="center">A cross-platform tray app for boosting development productivity</p>
   <p align="center">
-    <a href="https://travis-ci.org/sergeybekrin/npmkit.svg">
+    <a href="https://travis-ci.org/sergeybekrin/npmkit">
       <img src="https://img.shields.io/travis/sergeybekrin/npmkit.svg" alt="Travis Build Status" />
     </a>
     <a href="https://github.com/sergeybekrin/npmkit/blob/master/license.md">
