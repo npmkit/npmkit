@@ -26,8 +26,11 @@ if (global.process.env.NODE_ENV === 'test') {
   app.commandLine.appendSwitch('force-device-scale-factor', '2');
 }
 
-fixPath();
-electronDebug();
+if (electronUtil.is.development) {
+  electronDebug();
+} else {
+  fixPath();
+}
 
 const isDev = process.env.NODE_ENV === 'development';
 const preferences = createStore(true);
