@@ -121,7 +121,8 @@
       "category": "public.app-category.productivity"
     },
     "publish": {
-      "provider": "github"
+      "provider": "github",
+      "releaseType": "prerelease"
     }
   },
   "jest": {
