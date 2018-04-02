@@ -170,6 +170,11 @@ const showProjectMenu = (app, scripts, project, position) => {
         label: 'Copy Path',
         click: () => clipboard.writeText(project.path),
       },
+      { type: 'separator' },
+      {
+        label: 'Remove from list',
+        click: () => app.removeProject(project),
+      },
     ].filter(Boolean)
   ).popup(remote.getCurrentWindow(), position);
 };

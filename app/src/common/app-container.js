@@ -159,6 +159,13 @@ export default class AppState extends Container {
     this.setPinned(project, false);
   }
 
+  removeProject(project) {
+    this.setState({
+      projects: this.state.projects.filter(current => current !== project),
+    });
+    this.syncPreferences();
+  }
+
   // Project search related
   setSearchInputRef(node) {
     this.searchInputRef = node;
