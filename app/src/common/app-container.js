@@ -205,4 +205,8 @@ export default class AppState extends Container {
       ipcRenderer.send(Channels.PROJECT_OPEN_REQUEST, file.path)
     );
   }
+
+  checkForUpdates() {
+    ipcRenderer.send(Channels.CHECK_FOR_UPDATE);
+  }
 }

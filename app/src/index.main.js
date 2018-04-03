@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import { promisify } from 'util';
 import execa from 'execa';
 import { app, ipcMain } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
 import createMenubar from 'menubar';
@@ -14,6 +15,7 @@ import fixPath from 'fix-path';
 import createNotification from '~/common/notification';
 import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
+import Constants from '~/common/constants';
 import menubarIcon from '~/assets/menubarTemplate.png';
 import '~/assets/menubarTemplate@2x.png';
 
@@ -90,13 +92,25 @@ async function getProjectData(projectPath) {
   };
 }
 
+async function checkForUpdates() {
+  return await autoUpdater.checkForUpdatesAndNotify();
+}
+
 menubar.on('after-create-window', () => {
   menubar.tray.on('drag-enter', showTray);
 });
 
-app.on('ready', () => {
+app.on('ready', async () => {
   menubar.window.on('ready-to-show', showTray);
-  electronUtil.enforceMacOSAppLocation();
+  await electronUtil.enforceMacOSAppLocation();
+  await checkForUpdates();
+  // Check for updates periodically
+  setInterval(checkForUpdates, Constants.UPDATE_CHECK_INTERVAL);
+});
+
+// Request to check for an app update
+ipcMain.on(Channels.CHECK_FOR_UPDATE, async event => {
+  event.sender.send(Channels.CHECK_FOR_UPDATE_RESULT, await checkForUpdates());
 });
 
 // Open all projects (e.g. on first run)

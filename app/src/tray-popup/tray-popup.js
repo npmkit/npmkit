@@ -45,6 +45,10 @@ const showOptions = app => {
     { label: 'Edit settings', click: () => app.editPreferences() },
     { label: 'Clear settings', click: () => app.clearPreferences() },
     { type: 'separator' },
+    {
+      label: 'Check for updates',
+      click: () => app.checkForUpdates(),
+    },
     { label: 'About npmkit', role: 'about', click: () => {} },
     {
       label: 'Quit npmkit',
