@@ -8132,6 +8132,10 @@ thunky@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.2.tgz#a862e018e3fb1ea2ec3fce5d55605cf57f247371"
 
+tickedoff@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tickedoff/-/tickedoff-1.0.1.tgz#277c463b5b275dc3c7e7473f8eef804254b9002d"
+
 timed-out@^4.0.0, timed-out@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
@@ -8345,11 +8349,12 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
-unstated@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/unstated/-/unstated-1.2.0.tgz#5c57cc077473d2cce411ec0930da285cef3df306"
+unstated@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/unstated/-/unstated-2.0.0.tgz#9954465b6a722fe05742283e2bb7c3cd829f2bb4"
   dependencies:
     create-react-context "^0.1.5"
+    tickedoff "^1.0.1"
 
 untildify@^3.0.2:
   version "3.0.2"
