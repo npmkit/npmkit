@@ -2,8 +2,9 @@
 
 exports[`Integration preferences sets default preferences 1`] = `
 Object {
+  "editor": null,
   "pinned": Array [],
   "projects": Array [],
-  "terminal": "Terminal",
+  "terminal": "open -a \\"Terminal\\" %s",
 }
 `;
