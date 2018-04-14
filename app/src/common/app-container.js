@@ -14,9 +14,7 @@ const sortFn = firstBy('pinned', { direction: -1 })
   .thenBy('name', { ignoreCase: true })
   .thenBy('path');
 
-/**
- * This state container keeps key info about projects
- */
+// This state container keeps key info about projects
 export default class AppState extends Container {
   state = {
     ready: false,
@@ -46,7 +44,6 @@ export default class AppState extends Container {
     ipcRenderer.send(Channels.PROJECTS_LOAD);
   }
 
-  // Preferences
   syncPreferences() {
     this.preferences.set(
       'projects',
@@ -77,7 +74,6 @@ export default class AppState extends Container {
     return this.state.terminal;
   }
 
-  // Projects related
   isReady() {
     return this.state.ready;
   }
@@ -110,17 +106,13 @@ export default class AppState extends Container {
   proceedValidProject(newProject) {
     // Check if project already exist in list
     const existingProject = this.state.projects.find(
-      project => project.path === newProject.path
+      p => p.path === newProject.path
     );
     // Replace old project with a new data, or append it if new one
-    this.setState({
-      projects: existingProject
-        ? this.state.projects.map(
-            project => (project === existingProject ? newProject : project)
-          )
-        : [...this.state.projects, newProject],
-    });
-    // Save settings
+    const nextProjects = existingProject
+      ? this.state.projects.map(p => (p === existingProject ? newProject : p))
+      : [...this.state.projects, newProject];
+    this.setState({ projects: nextProjects });
     this.syncPreferences();
   }
 
@@ -143,12 +135,10 @@ export default class AppState extends Container {
   }
 
   setPinned(project, value) {
-    this.setState({
-      projects: this.state.projects.map(
-        current =>
-          current === project ? { ...current, pinned: value } : current
-      ),
-    });
+    const nextProjects = this.state.projects.map(
+      p => (p === project ? { ...p, pinned: value } : p)
+    );
+    this.setState({ projects: nextProjects });
     this.syncPreferences();
   }
 
@@ -161,13 +151,11 @@ export default class AppState extends Container {
   }
 
   removeProject(project) {
-    this.setState({
-      projects: this.state.projects.filter(current => current !== project),
-    });
+    const nextProjects = this.state.projects.filter(p => p !== project);
+    this.setState({ projects: nextProjects });
     this.syncPreferences();
   }
 
-  // Project search related
   setSearchInputRef(node) {
     this.searchInputRef = node;
   }
@@ -177,7 +165,7 @@ export default class AppState extends Container {
   }
 
   hasSearch() {
-    return typeof this.getSearch() === 'string';
+    return this.state.search !== null;
   }
 
   setSearch(keyword) {
@@ -192,7 +180,6 @@ export default class AppState extends Container {
     this.setState({ search: null });
   }
 
-  // Drag and drop related
   fileDragEnter() {
     this.setState({ entered: true });
   }
