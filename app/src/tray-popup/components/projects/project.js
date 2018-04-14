@@ -1,4 +1,3 @@
-import path from 'path';
 import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css, keyframes } from 'styled-components';
 import { tint } from 'polished';
