@@ -6,6 +6,7 @@ export default {
   PROJECTS_LOADED: 'projects-loaded',
   NOTIFICATION_SHOW: 'notification-show',
   TERMINAL_OPEN: 'terminal-open',
+  EDITOR_OPEN: 'editor-open',
   SCRIPT_RUN: 'script-run',
   SCRIPT_STARTED: 'script-started',
   SCRIPT_STOP: 'script-stop',

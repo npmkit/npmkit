@@ -37,16 +37,15 @@ const { Menu } = remote;
 const showOptions = app => {
   Menu.buildFromTemplate([
     {
-      label: 'Refresh projects',
-      accelerator: 'Cmd+Alt+R',
+      label: 'Refresh Projects',
       click: () => app.refreshProjects(),
     },
     { type: 'separator' },
-    { label: 'Edit settings', click: () => app.editPreferences() },
-    { label: 'Clear settings', click: () => app.clearPreferences() },
+    { label: 'Edit Preferences', click: () => app.editPreferences() },
+    { label: 'Reset Preferences', click: () => app.resetPreferences() },
     { type: 'separator' },
     {
-      label: 'Check for updates',
+      label: 'Check for Updates',
       click: () => app.checkForUpdates(),
     },
     { label: 'About npmkit', role: 'about', click: () => {} },

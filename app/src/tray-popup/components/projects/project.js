@@ -142,7 +142,7 @@ const showProjectMenu = (app, scripts, project, position) => {
         enabled: false,
       },
       {
-        label: 'Pin on top',
+        label: 'Pin on Top',
         type: 'checkbox',
         checked: project.pinned,
         click: () => (project.pinned ? app.unpin(project) : app.pin(project)),
@@ -150,29 +150,32 @@ const showProjectMenu = (app, scripts, project, position) => {
       { type: 'separator' },
       {
         label: 'Open in Terminal',
-        click: () =>
-          ipcRenderer.send(Channels.TERMINAL_OPEN, { cwd: project.path }),
+        click: () => ipcRenderer.send(Channels.TERMINAL_OPEN, project.path),
       },
       {
         label: 'Open in Editor',
-        click: () => shell.openItem(path.join(project.path, 'package.json')),
+        click: () => ipcRenderer.send(Channels.EDITOR_OPEN, project.path),
       },
-      scriptsMenu.length && {
-        label: 'Scripts',
-        submenu: scriptsMenu,
-      },
-      { type: 'separator' },
       {
         label: 'Reveal in Finder',
         click: () => shell.showItemInFolder(project.path),
+      },
+      { type: 'separator' },
+      scriptsMenu.length && {
+        label: 'Scripts',
+        submenu: scriptsMenu,
       },
       {
         label: 'Copy Path',
         click: () => clipboard.writeText(project.path),
       },
+      {
+        label: 'Copy Name',
+        click: () => clipboard.writeText(project.name),
+      },
       { type: 'separator' },
       {
-        label: 'Remove from list',
+        label: 'Remove from List',
         click: () => app.removeProject(project),
       },
     ].filter(Boolean)

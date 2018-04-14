@@ -8,21 +8,21 @@ import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
 
 const FAILED_DEBOUNCE_WAIT = 250;
-
-// Sort function for projects
+const DEFAULT_STATE = {
+  ready: false,
+  projects: [],
+  selected: null,
+  search: null,
+  failed: [],
+};
+// Custom sort function for unfiltered projects
 const sortFn = firstBy('pinned', { direction: -1 })
   .thenBy('name', { ignoreCase: true })
   .thenBy('path');
 
 // This state container keeps key info about projects
 export default class AppState extends Container {
-  state = {
-    ready: false,
-    projects: [],
-    selected: null,
-    search: null,
-    failed: [],
-  };
+  state = DEFAULT_STATE;
 
   searchInputRef = null;
 
@@ -57,13 +57,10 @@ export default class AppState extends Container {
     );
   }
 
-  clearPreferences() {
+  resetPreferences() {
     this.preferences.clear();
-    this.setState({
-      projects: [],
-      pinned: [],
-      search: null,
-    });
+    this.preferences.ensureDefaults();
+    this.setState({ ...DEFAULT_STATE, ready: true });
   }
 
   editPreferences() {
@@ -85,7 +82,7 @@ export default class AppState extends Container {
   getFilteredProjects() {
     const { search, projects } = this.state;
     return search
-      ? new Fuse(projects, { keys: ['name'] }).search(search)
+      ? new Fuse(projects, { keys: ['name', 'path'] }).search(search)
       : projects.sort(sortFn);
   }
 
@@ -125,12 +122,16 @@ export default class AppState extends Container {
         : `Failed to load project. Make sure ${formatPath(
             this.state.failed[0]
           )} is a valid npm module.`;
+    const nextProjects = this.state.projects.filter(
+      p => !this.state.failed.includes(p.path)
+    );
+    this.setState({ failed: [], projects: nextProjects });
     ipcRenderer.send(Channels.NOTIFICATION_SHOW, { body: message });
-    this.setState({ failed: [] });
   }, FAILED_DEBOUNCE_WAIT);
 
-  proceedInvalidProject(reason) {
-    this.setState({ failed: [...this.state.failed, reason.path] });
+  proceedInvalidProject(project) {
+    const nextFailed = [...this.state.failed, project.path];
+    this.setState({ failed: nextFailed });
     this.notifyAboutFailedProjects();
   }
 

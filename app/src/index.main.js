@@ -1,9 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
-import { promisify } from 'util';
+import util from 'util';
 import execa from 'execa';
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
@@ -34,11 +34,12 @@ if (electronUtil.is.development) {
   fixPath();
 }
 
+const APP_NAME = 'npmkit';
 const isDev = process.env.NODE_ENV === 'development';
-const preferences = createStore(true);
-const readFileAsync = promisify(fs.readFile);
-const statAsync = promisify(fs.stat);
-const treeKillAsync = promisify(treeKill);
+const readFileAsync = util.promisify(fs.readFile);
+const statAsync = util.promisify(fs.stat);
+const treeKillAsync = util.promisify(treeKill);
+const preferences = createStore().ensureDefaults();
 const menubar = createMenubar({
   index: isDev ? 'http://localhost:8080' : `file://${__dirname}/index.html`,
   width: 320,
@@ -138,18 +139,37 @@ ipcMain.on(Channels.PROJECT_OPEN_REQUEST, async (event, projectPath) => {
 
 // Show notification on request
 ipcMain.on(Channels.NOTIFICATION_SHOW, (_, payload) => {
-  const { title = 'npmkit', body, ...options } = payload;
+  const { title = APP_NAME, body, ...options } = payload;
   createNotification(title, body, options);
 });
 
 // Open terminal in provided directory
-ipcMain.on(Channels.TERMINAL_OPEN, (event, { cwd }) => {
-  // todo: add support for other paltforms
-  if (process.platform === 'darwin') {
-    execa('open', ['-a', preferences.get('terminal'), cwd], {
-      detached: true,
-    });
+ipcMain.on(Channels.TERMINAL_OPEN, (event, cwd) => {
+  const template = preferences.get('terminal');
+  const command = util.format(template, cwd);
+  execa.shell(command, { detached: true });
+});
+
+// Open provided path in editor
+ipcMain.on(Channels.EDITOR_OPEN, (event, path) => {
+  const template = preferences.get('editor');
+  if (template) {
+    execa.shell(util.format(template, path), { detached: true });
+    return;
   }
+  // There's no easy way to get default editor ☹️
+  dialog.showMessageBox(
+    {
+      type: 'question',
+      buttons: ['Cancel', 'Edit in Preferences'],
+      defaultId: 1,
+      title: APP_NAME,
+      message: 'No default editor command set',
+      detail:
+        'Check "editor" property in your preferences. Use "%s" as a placeholder for project path, e.g. "vscode %s" and try again.',
+    },
+    response => response && preferences.openInEditor()
+  );
 });
 
 // Run requested script in background
