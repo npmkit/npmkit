@@ -17,8 +17,8 @@ const Projects = props => (
   <Subscribe to={[AppContainer]}>
     {app => (
       <View>
-        {app.hasLoadedProjects() ? (
-          app.hasAnyProjects() ? (
+        {app.isReady() ? (
+          app.hasProjects() ? (
             app
               .getFilteredProjects()
               .map(project => (

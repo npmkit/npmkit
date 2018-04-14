@@ -2,11 +2,17 @@ import firstBy from 'thenby';
 import { ipcRenderer } from 'electron';
 import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
+import Fuse from 'fuse.js';
 import formatPath from '~/common/format-path';
 import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
 
 const FAILED_DEBOUNCE_WAIT = 250;
+
+// Sort function for projects
+const sortFn = firstBy('pinned', { direction: -1 })
+  .thenBy('name', { ignoreCase: true })
+  .thenBy('path');
 
 /**
  * This state container keeps key info about projects
@@ -55,8 +61,12 @@ export default class AppState extends Container {
   }
 
   clearPreferences() {
-    this.setState({ projects: [], pinned: [] });
     this.preferences.clear();
+    this.setState({
+      projects: [],
+      pinned: [],
+      search: null,
+    });
   }
 
   editPreferences() {
@@ -68,28 +78,19 @@ export default class AppState extends Container {
   }
 
   // Projects related
-  hasLoadedProjects() {
+  isReady() {
     return this.state.ready;
   }
 
-  hasAnyProjects() {
+  hasProjects() {
     return this.state.projects.length > 0;
   }
 
-  getSortedProjects() {
-    return this.state.projects.sort(
-      firstBy('pinned', { direction: -1 })
-        .thenBy('name', { ignoreCase: true })
-        .thenBy('path')
-    );
-  }
-
   getFilteredProjects() {
-    const projects = this.getSortedProjects();
-    const search = this.state.search && this.state.search.trim().toLowerCase();
+    const { search, projects } = this.state;
     return search
-      ? projects.filter(project => project.name.includes(search))
-      : projects;
+      ? new Fuse(projects, { keys: ['name'] }).search(search)
+      : projects.sort(sortFn);
   }
 
   refreshProjects() {

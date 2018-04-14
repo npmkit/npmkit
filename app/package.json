@@ -17,6 +17,7 @@
     "electron-util": "^0.8.0",
     "execa": "^0.10.0",
     "fix-path": "^2.1.0",
+    "fuse.js": "^3.2.0",
     "lodash.debounce": "^4.0.8",
     "lodash.flatten": "^4.4.0",
     "menubar": "^5.2.3",
