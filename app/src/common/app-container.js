@@ -7,7 +7,7 @@ import formatPath from '~/common/format-path';
 import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
 
-const FAILED_DEBOUNCE_WAIT = 250;
+const FAILED_DEBOUNCE_WAIT = 500;
 const DEFAULT_STATE = {
   ready: false,
   projects: [],
@@ -30,6 +30,8 @@ export default class AppState extends Container {
 
   constructor(...args) {
     super(...args);
+    // Auto sync state changes with preferences
+    this.subscribe(() => this.syncPreferences());
     // Subscribe to main process replies
     ipcRenderer.on(Channels.PROJECT_OPEN_SUCCESS, (_, payload) =>
       this.proceedValidProject(payload)
@@ -106,11 +108,11 @@ export default class AppState extends Container {
       p => p.path === newProject.path
     );
     // Replace old project with a new data, or append it if new one
-    const nextProjects = existingProject
-      ? this.state.projects.map(p => (p === existingProject ? newProject : p))
-      : [...this.state.projects, newProject];
-    this.setState({ projects: nextProjects });
-    this.syncPreferences();
+    this.setState({
+      projects: existingProject
+        ? this.state.projects.map(p => (p === existingProject ? newProject : p))
+        : [...this.state.projects, newProject],
+    });
   }
 
   // Since adding projects is async, we need to make sure send notification once
@@ -130,17 +132,18 @@ export default class AppState extends Container {
   }, FAILED_DEBOUNCE_WAIT);
 
   proceedInvalidProject(project) {
-    const nextFailed = [...this.state.failed, project.path];
-    this.setState({ failed: nextFailed });
-    this.notifyAboutFailedProjects();
+    this.setState(
+      { failed: [...this.state.failed, project.path] },
+      this.notifyAboutFailedProjects
+    );
   }
 
   setPinned(project, value) {
-    const nextProjects = this.state.projects.map(
-      p => (p === project ? { ...p, pinned: value } : p)
-    );
-    this.setState({ projects: nextProjects });
-    this.syncPreferences();
+    this.setState({
+      projects: this.state.projects.map(
+        p => (p === project ? { ...p, pinned: value } : p)
+      ),
+    });
   }
 
   pin(project) {
@@ -152,9 +155,9 @@ export default class AppState extends Container {
   }
 
   removeProject(project) {
-    const nextProjects = this.state.projects.filter(p => p !== project);
-    this.setState({ projects: nextProjects });
-    this.syncPreferences();
+    this.setState({
+      projects: this.state.projects.filter(p => p !== project),
+    });
   }
 
   setSearchInputRef(node) {
