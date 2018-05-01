@@ -35,7 +35,7 @@
     "babel-preset-react": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "concurrently": "^3.5.1",
-    "electron": "^1.8.6",
+    "electron": "^2.0.0",
     "electron-builder": "^20.10.0",
     "electron-updater": "^2.21.8",
     "eslint": "^4.19.1",
