@@ -4,70 +4,74 @@
   "license": "MIT",
   "scripts": {
     "start": "electron ./app",
-    "predev": "yarn build:main --mode=development",
+    "predev": "yarn build-main --mode=development",
     "dev":
       "webpack-dev-server --env.target=renderer --mode=development --hot --watch",
     "clean": "rimraf ./app/dist",
     "prebuild": "yarn clean",
-    "build": "yarn build:main && yarn build:renderer",
-    "build:main": "webpack --env.target=main --mode=production",
-    "build:renderer": "webpack --env.target=renderer --mode=production",
+    "build": "yarn build-main && yarn build-renderer",
+    "build-main": "webpack --env.target=main --mode=production",
+    "build-renderer": "webpack --env.target=renderer --mode=production",
     "prepack": "yarn build",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "electron-builder --mac --win --linux",
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "jest --runInBand",
+    "test": "yarn test-unit && yarn test-int",
     "create-diff-report": "node ./scripts/create-diff-report.js",
-    "test-unit": "yarn test --project .jest.unit.json",
-    "test-int": "yarn test --project .jest.integration.json",
-    "release": "build"
+    "test-unit": "jest --projects .jest.unit.json",
+    "test-int": "jest --runInBand --projects .jest.integration.json",
+    "prerelease": "yarn dist",
+    "release": "semantic-release"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
+    "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.4",
     "babel-plugin-react-require": "^3.0.0",
     "babel-plugin-root-import": "^5.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "concurrently": "^3.5.1",
-    "electron": "^1.8.6",
-    "electron-builder": "^20.10.0",
-    "electron-updater": "^2.21.8",
+    "electron": "^2.0.2",
+    "electron-builder": "^20.15.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-unobtrusive": "^1.2.2",
     "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.8.2",
     "file-loader": "^1.1.11",
+    "fs-extra": "^6.0.1",
     "glob-gitignore": "^1.0.6",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^0.14.3",
     "invariant": "^2.2.4",
-    "jest": "^22.4.3",
-    "jest-image-snapshot": "^2.4.1",
-    "lint-staged": "^7.0.5",
-    "prettier": "^1.12.1",
+    "jest": "^23.0.1",
+    "jest-image-snapshot": "^2.4.2",
+    "lint-staged": "^7.1.2",
+    "prettier": "^1.13.0",
     "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-hot-loader": "^4.1.2",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-hot-loader": "^4.2.0",
     "rimraf": "^2.6.2",
+    "semantic-release-cli": "^4.0.1",
     "sendmail": "^1.4.1",
     "spectron": "^3.8.0",
-    "styled-components": "^3.2.6",
-    "unstated": "^2.0.2",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.15",
-    "webpack-dev-server": "^3.1.3",
+    "webpack": "^4.9.2",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4",
     "webpack-externals-plugin": "^1.0.0",
     "webpack-merge": "^4.1.2"
   },
-  "browserslist": ["chrome 59"],
+  "browserslist": ["chrome 61"],
   "babel": {
     "presets": [
       [
@@ -98,6 +102,12 @@
     "trailingComma": "es5",
     "proseWrap": "always"
   },
+  "jest": {
+    "projects": [".jest.unit.json", ".jest.integration.json"],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": [
@@ -113,19 +123,42 @@
     },
     "rules": {
       "react/react-in-jsx-scope": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["**.spec.js"],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "build": {
     "appId": "com.sergeybekrin.npmkit",
     "files": ["**/*", "dist", "!src"],
     "mac": {
       "category": "public.app-category.productivity"
-    },
-    "publish": {
-      "provider": "github"
     }
   },
-  "jest": {
-    "projects": [".jest.unit.json", ".jest.integration.json"]
+  "release": {
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ],
+    "analyzeCommits": ["@semantic-release/commit-analyzer"],
+    "verifyRelease": [],
+    "generateNotes": ["@semantic-release/release-notes-generator"],
+    "prepare": [
+      { "path": "./scripts/update-package-version.js" },
+      {
+        "path": "@semantic-release/changelog",
+        "changelogFile": "changelog.md"
+      },
+      "@semantic-release/git"
+    ],
+    "publish": ["@semantic-release/github"],
+    "success": ["@semantic-release/github"],
+    "fail": ["@semantic-release/github"]
   }
 }

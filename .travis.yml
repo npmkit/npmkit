@@ -19,15 +19,15 @@ install:
 before_script:
   - greenkeeper-lockfile-update
 script:
-  - yarn run lint
-  - yarn run pack
-  - yarn run test
+  - yarn lint
+  - yarn build
+  - yarn test
 after_script:
   - greenkeeper-lockfile-upload
-after_success:
-  - "[[ $TRAVIS_BRANCH == 'master' ]] && yarn release --mac --win --linux"
+# after_success:
+  # - yarn release
 after_failure:
-  - yarn run create-diff-report
+  - yarn create-diff-report
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

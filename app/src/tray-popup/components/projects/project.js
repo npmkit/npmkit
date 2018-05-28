@@ -178,7 +178,7 @@ const showProjectMenu = (app, scripts, project, position) => {
         click: () => app.removeProject(project),
       },
     ].filter(Boolean)
-  ).popup(remote.getCurrentWindow(), position);
+  ).popup(position);
 };
 
 const renderScriptsStatus = (scripts, project) => {

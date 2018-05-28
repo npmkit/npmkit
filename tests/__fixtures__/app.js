@@ -11,19 +11,21 @@ const app = new Application({
 const getRemoteApp = () => app.electron.remote.app;
 
 const captureScreenshot = async selector => {
-  // Get position of target element
-  const execResult = await app.client.executeAsync((selector, done) => {
-    done(document.querySelector(selector).getBoundingClientRect());
+  // Get position of target element and capture a screenshot
+  const captureResult = await app.client.executeAsync((selector, done) => {
+    const electron = require('electron');
+    const clientRect = document.querySelector(selector).getBoundingClientRect();
+    const rect = {
+      x: parseInt(clientRect.left),
+      y: parseInt(clientRect.top),
+      width: parseInt(clientRect.width),
+      height: parseInt(clientRect.height),
+    };
+    electron.remote.getCurrentWindow().capturePage(rect, image => {
+      done(image.toPNG().toString('base64'));
+    });
   }, selector);
-  const rect = execResult.value;
-  // Capture a screenshot
-  const image = await app.browserWindow.capturePage({
-    x: parseInt(rect.left),
-    y: parseInt(rect.top),
-    width: parseInt(rect.width),
-    height: parseInt(rect.height),
-  });
-  return image;
+  return Buffer.from(captureResult.value, 'base64');
 };
 
 const selectByTestId = id => `[data-test-id="${id}"]`;

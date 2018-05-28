@@ -55,7 +55,7 @@ const showOptions = app => {
       accelerator: 'Cmd+Q',
       click: () => remote.app.quit(),
     },
-  ]).popup();
+  ]).popup({});
 };
 
 const handlePrintableKeyPress = app => event => {

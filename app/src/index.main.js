@@ -29,7 +29,7 @@ if (global.process.env.NODE_ENV === 'test') {
 }
 
 if (electronUtil.is.development) {
-  electronDebug();
+  electronDebug({ showDevTools: false });
 } else {
   fixPath();
 }
@@ -203,7 +203,7 @@ ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
       default:
         createNotification(
           project.name,
-          `${script} is successfully complete` // Click to show stdout.
+          `${script} is completed successfully` // Click to show stdout.
         ).on('click', noop);
         break;
     }

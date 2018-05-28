@@ -7,7 +7,5 @@ describe('Integration', () => {
         await captureScreenshot(selectByTestId('projects'))
       ).toMatchImageSnapshot();
     });
-
-    // it('adds new project', () => {});
   });
 });
