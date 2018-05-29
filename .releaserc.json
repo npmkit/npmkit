@@ -15,7 +15,10 @@
       "path": "@semantic-release/changelog",
       "changelogFile": "changelog.md"
     },
-    "@semantic-release/git"
+    {
+      "path": "@semantic-release/git",
+      "assets": ["changelog.md", "app/package.json"]
+    }
   ],
   "publish": [
     {
