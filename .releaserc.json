@@ -1,0 +1,33 @@
+{
+  "verifyConditions": [
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/git"
+  ],
+  "analyzeCommits": ["@semantic-release/commit-analyzer"],
+  "verifyRelease": [],
+  "generateNotes": ["@semantic-release/release-notes-generator"],
+  "prepare": [
+    {
+      "path": "./scripts/update-package-version.js"
+    },
+    {
+      "path": "@semantic-release/changelog",
+      "changelogFile": "changelog.md"
+    },
+    "@semantic-release/git"
+  ],
+  "publish": [
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        "dist/github/*",
+        "dist/*-mac.zip",
+        "dist/*.dmg",
+        "dist/*.dmg.blockmap"
+      ]
+    }
+  ],
+  "success": ["@semantic-release/github"],
+  "fail": ["@semantic-release/github"]
+}

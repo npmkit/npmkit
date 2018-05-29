@@ -18,12 +18,17 @@
     "lint": "eslint --ignore-path .gitignore .",
     "test": "yarn test-unit && yarn test-int",
     "create-diff-report": "node ./scripts/create-diff-report.js",
-    "test-unit": "jest --projects .jest.unit.json",
-    "test-int": "jest --runInBand --projects .jest.integration.json",
-    "prerelease": "yarn dist",
+    "test-unit": "jest --projects .jest.unit.json --",
+    "test-int": "jest --runInBand --projects .jest.integration.json --",
+    "prerelease": "yarn build && yarn dist",
     "release": "semantic-release"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^2.0.2",
+    "@semantic-release/commit-analyzer": "^5.0.3",
+    "@semantic-release/git": "^5.0.0",
+    "@semantic-release/github": "^4.2.17",
+    "@semantic-release/release-notes-generator": "^6.0.10",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -62,10 +67,10 @@
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.2.0",
     "rimraf": "^2.6.2",
-    "semantic-release-cli": "^4.0.1",
+    "semantic-release": "^15.5.0",
     "sendmail": "^1.4.1",
     "spectron": "^3.8.0",
-    "webpack": "^4.9.2",
+    "webpack": "^4.10.1",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4",
     "webpack-externals-plugin": "^1.0.0",
@@ -139,26 +144,5 @@
     "mac": {
       "category": "public.app-category.productivity"
     }
-  },
-  "release": {
-    "verifyConditions": [
-      "@semantic-release/changelog",
-      "@semantic-release/github",
-      "@semantic-release/git"
-    ],
-    "analyzeCommits": ["@semantic-release/commit-analyzer"],
-    "verifyRelease": [],
-    "generateNotes": ["@semantic-release/release-notes-generator"],
-    "prepare": [
-      { "path": "./scripts/update-package-version.js" },
-      {
-        "path": "@semantic-release/changelog",
-        "changelogFile": "changelog.md"
-      },
-      "@semantic-release/git"
-    ],
-    "publish": ["@semantic-release/github"],
-    "success": ["@semantic-release/github"],
-    "fail": ["@semantic-release/github"]
   }
 }

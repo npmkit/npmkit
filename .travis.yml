@@ -24,8 +24,8 @@ script:
   - yarn test
 after_script:
   - greenkeeper-lockfile-upload
-# after_success:
-  # - yarn release
+after_success:
+  - yarn release
 after_failure:
   - yarn create-diff-report
 branches:
