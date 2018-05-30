@@ -139,7 +139,7 @@
     ]
   },
   "build": {
-    "publish": "never",
+    "publish": false,
     "appId": "com.sergeybekrin.npmkit",
     "files": ["**/*", "dist", "!src"],
     "mac": {
