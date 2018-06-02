@@ -71,7 +71,7 @@
     "sendmail": "^1.4.1",
     "spectron": "^3.8.0",
     "webpack": "^4.10.1",
-    "webpack-cli": "^2.1.4",
+    "webpack-cli": "^3.0.0",
     "webpack-dev-server": "^3.1.4",
     "webpack-externals-plugin": "^1.0.0",
     "webpack-merge": "^4.1.2"
