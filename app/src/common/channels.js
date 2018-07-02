@@ -12,5 +12,5 @@ export default {
   SCRIPT_STOP: 'script-stop',
   SCRIPT_EXITED: 'script-exited',
   CHECK_FOR_UPDATE: 'update-check',
-  CHECK_FOR_UPDATE_RESULT: 'update-check-result',
+  PLUGINS_LOAD: 'plugins-load',
 };

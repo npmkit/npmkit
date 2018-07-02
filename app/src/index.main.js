@@ -1,45 +1,41 @@
+import '~/setup.main';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import util from 'util';
 import execa from 'execa';
 import { app, ipcMain, dialog } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import checkForUpdates from 'update-electron-app';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
+import unhandled from 'electron-unhandled';
 import createMenubar from 'menubar';
 import invariant from 'invariant';
 import stringToColor from 'string-to-color';
 import treeKill from 'tree-kill';
 import fixPath from 'fix-path';
 import createNotification from '~/common/notification';
-import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
-import Constants from '~/common/constants';
+import plugins from '~/plugins';
+import preferences from '~/preferences';
 import menubarIcon from '~/assets/menubarTemplate.png';
 import '~/assets/menubarTemplate@2x.png';
 
-// Setup test-related stuff until more elegant soultion is found
-if (global.process.env.NODE_ENV === 'test') {
-  // Point userData to temp directory
-  app.setPath('userData', app.getPath('temp'));
-  // Make sure visual snapshots are the same on CI
-  app.commandLine.appendSwitch('high-dpi-support', 'true');
-  app.commandLine.appendSwitch('force-device-scale-factor', '2');
-}
+const APP_NAME = 'npmkit';
+const UPDATE_INTERVAL = '1 hour';
 
 if (electronUtil.is.development) {
   electronDebug({ showDevTools: false });
 } else {
   fixPath();
+  unhandled();
+  checkForUpdates({ updateInterval: UPDATE_INTERVAL });
 }
 
-const APP_NAME = 'npmkit';
 const isDev = process.env.NODE_ENV === 'development';
 const readFileAsync = util.promisify(fs.readFile);
 const statAsync = util.promisify(fs.stat);
 const treeKillAsync = util.promisify(treeKill);
-const preferences = createStore().ensureDefaults();
 const menubar = createMenubar({
   index: isDev ? 'http://localhost:8080' : `file://${__dirname}/index.html`,
   width: 320,
@@ -55,7 +51,7 @@ const menubar = createMenubar({
 
 function showTray() {
   menubar.positioner.move('trayCenter', menubar.tray.getBounds());
-  menubar.window.show();
+  menubar.showWindow();
 }
 
 async function getProjectData(projectPath) {
@@ -93,10 +89,6 @@ async function getProjectData(projectPath) {
   };
 }
 
-async function checkForUpdates() {
-  return await autoUpdater.checkForUpdatesAndNotify();
-}
-
 menubar.on('after-create-window', () => {
   menubar.tray.on('drag-enter', showTray);
 });
@@ -104,14 +96,6 @@ menubar.on('after-create-window', () => {
 app.on('ready', async () => {
   menubar.window.on('ready-to-show', showTray);
   await electronUtil.enforceMacOSAppLocation();
-  await checkForUpdates();
-  // Check for updates periodically
-  setInterval(checkForUpdates, Constants.UPDATE_CHECK_INTERVAL);
-});
-
-// Request to check for an app update
-ipcMain.on(Channels.CHECK_FOR_UPDATE, async event => {
-  event.sender.send(Channels.CHECK_FOR_UPDATE_RESULT, await checkForUpdates());
 });
 
 // Open all projects (e.g. on first run)
@@ -217,6 +201,40 @@ ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
 });
 
 // Stops running process
-ipcMain.on(Channels.SCRIPT_STOP, async (event, { pid }) => {
+ipcMain.on(Channels.SCRIPT_STOP, async (_, { pid }) => {
   await treeKillAsync(pid);
+});
+
+// Load plugins
+ipcMain.on(Channels.PLUGINS_LOAD, async () => {
+  const failed = [];
+  const result = await Promise.all(
+    preferences.get('plugins').map(async plugin => {
+      try {
+        const pluginMod = await plugins.load(plugin);
+        if (pluginMod.onLoad) {
+          pluginMod.onLoad();
+        }
+      } catch (reason) {
+        failed.push([plugin, reason]);
+      }
+    })
+  );
+  if (result.length) {
+    console.log(`Loaded ${result.length} plugins`);
+    createNotification('Plugins', `Loaded ${result.length} plugins`);
+  }
+  for (const [plugin, reason] of failed) {
+    console.error('Failed to load plugin:', reason);
+    createNotification(
+      APP_NAME,
+      `Failed to load plugin ${plugin}, click for details`
+    ).on('click', () => {
+      const errors = reason.toString().match(/^error (.+)$/gm);
+      dialog.showErrorBox(
+        APP_NAME,
+        `Failed to load ${plugin}:\n\n${errors.join('\n')}`
+      );
+    });
+  }
 });

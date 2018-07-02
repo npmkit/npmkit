@@ -4,8 +4,8 @@ import { Container } from 'unstated';
 import debounce from 'lodash.debounce';
 import Fuse from 'fuse.js';
 import formatPath from '~/common/format-path';
-import createStore from '~/common/preferences-store';
 import Channels from '~/common/channels';
+import preferences from '~/preferences';
 
 const FAILED_DEBOUNCE_WAIT = 500;
 const DEFAULT_STATE = {
@@ -26,7 +26,9 @@ export default class AppState extends Container {
 
   searchInputRef = null;
 
-  preferences = createStore();
+  preferences = preferences;
+
+  projectPluginActions = [];
 
   constructor(...args) {
     super(...args);
@@ -88,10 +90,13 @@ export default class AppState extends Container {
       : projects.sort(sortFn);
   }
 
-  refreshProjects() {
+  refreshPreferences() {
+    // Refresh projects
     this.state.projects.forEach(project => {
       ipcRenderer.send(Channels.PROJECT_OPEN_REQUEST, project.path);
     });
+    // Refresh plugins
+    ipcRenderer.send(Channels.PLUGINS_LOAD);
   }
 
   setSelected(project) {
@@ -196,9 +201,5 @@ export default class AppState extends Container {
     Array.from(files).forEach(file =>
       ipcRenderer.send(Channels.PROJECT_OPEN_REQUEST, file.path)
     );
-  }
-
-  checkForUpdates() {
-    ipcRenderer.send(Channels.CHECK_FOR_UPDATE);
   }
 }

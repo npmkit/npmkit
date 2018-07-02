@@ -22,6 +22,7 @@ class PreferencesStore extends Store {
     this.set('editor', this.get('editor', this.getDefaultEditor()));
     this.set('pinned', this.get('pinned', []));
     this.set('projects', this.get('projects', []));
+    this.set('plugins', this.get('plugins', []));
     return this;
   }
 }

@@ -1,16 +1,28 @@
-import { promisify } from 'util';
+import { tmpdir } from 'os';
+import { join } from 'path';
+import { remove } from 'fs-extra';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
-import app, { getRemoteApp } from './__fixtures__/app';
-import rimraf from 'rimraf';
+import app from './__fixtures__/app';
 
 jest.setTimeout(1000 * 30);
 expect.extend({ toMatchImageSnapshot });
 
+async function cleanTempConfig() {
+  await remove(join(tmpdir(), 'config.json'));
+}
+
 beforeAll(async () => {
+  await cleanTempConfig();
   await app.start();
   await app.browserWindow.isVisible();
 });
 
+afterEach(async () => {
+  await cleanTempConfig();
+});
+
 afterAll(async () => {
-  await app.stop();
+  if (app.isRunning()) {
+    await app.stop();
+  }
 });

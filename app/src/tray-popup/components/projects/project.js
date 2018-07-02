@@ -2,6 +2,7 @@ import { remote, shell, clipboard, ipcRenderer } from 'electron';
 import styled, { css, keyframes } from 'styled-components';
 import { tint } from 'polished';
 import { Subscribe } from 'unstated';
+import plugins from '~/plugins';
 import AppContainer from '~/common/app-container';
 import ScriptsContainer from '~/common/scripts-container';
 import Channels from '~/common/channels';
@@ -123,16 +124,17 @@ const getMenuPosition = event => {
   return { x: mouse.x || element.x, y: mouse.y || element.y };
 };
 
-const showProjectMenu = (app, scripts, project, position) => {
-  const scriptsMenu = Object.entries(project.scripts).map(
-    ([script, command]) => ({
-      label: scripts.isRunning(project, script) ? `⏹ stop ${script}` : script,
-      click: () =>
-        scripts.isRunning(project, script)
-          ? scripts.stop(project, script)
-          : scripts.run(project, script),
-    })
-  );
+const showProjectMenu = (app, scripts, project, position = {}) => {
+  const scriptsMenu = Object.entries(project.scripts).map(([script]) => ({
+    label: scripts.isRunning(project, script) ? `▪️ stop ${script}` : script,
+    click: () =>
+      scripts.isRunning(project, script)
+        ? scripts.stop(project, script)
+        : scripts.run(project, script),
+  }));
+  const pluginsMenu = plugins
+    .hooks('getProjectMenu')
+    .map(getProjectMenu => getProjectMenu({ app, scripts, project }));
   // Show menu
   remote.Menu.buildFromTemplate(
     [
@@ -160,6 +162,10 @@ const showProjectMenu = (app, scripts, project, position) => {
         click: () => shell.showItemInFolder(project.path),
       },
       { type: 'separator' },
+      pluginsMenu.length && {
+        label: 'Plugins',
+        submenu: pluginsMenu,
+      },
       scriptsMenu.length && {
         label: 'Scripts',
         submenu: scriptsMenu,

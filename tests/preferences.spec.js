@@ -1,11 +1,10 @@
-import path from 'path';
-import app, { getRemoteApp } from './__fixtures__/app';
+import { join } from 'path';
+import { getRemoteApp } from './__fixtures__/app';
 
 describe('Integration', () => {
   describe('preferences', () => {
     it('sets default preferences', async () => {
-      await app.browserWindow.isVisible();
-      const preferences = require(path.join(
+      const preferences = require(join(
         await getRemoteApp().getPath('userData'),
         'config.json'
       ));
