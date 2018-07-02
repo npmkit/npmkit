@@ -1,5 +1,4 @@
 const path = require('path');
-const appPackage = require('../app/package');
 
 module.exports = {
   output: {
@@ -16,7 +15,7 @@ module.exports = {
       },
     ],
   },
-  externals: Object.keys(appPackage.dependencies).concat('electron'),
+  externals: /electron|(fix-path|execa|tree-kill|menubar$)/,
   node: {
     __dirname: false,
     __filename: false,
