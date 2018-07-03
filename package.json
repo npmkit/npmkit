@@ -15,13 +15,13 @@
     "build-renderer": "webpack --env.target=renderer --mode=production",
     "prepack": "yarn build",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --mac --win --linux",
+    "dist": "electron-builder --mac",
     "lint": "eslint .",
     "test": "yarn test-unit && yarn test-int",
     "create-diff-report": "node ./scripts/create-diff-report.js",
     "test-unit": "jest --projects .jest.unit.json",
     "test-int": "jest --projects .jest.integration.json --runInBand",
-    "prerelease": "yarn build && yarn dist",
+    "prerelease": "yarn lint && yarn build && yarn test && yarn dist",
     "release": "semantic-release"
   },
   "devDependencies": {

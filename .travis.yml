@@ -21,12 +21,8 @@ install:
 before_script:
   - greenkeeper-lockfile-update
 script:
-  - yarn lint
-  - yarn build
-  - yarn test
+  - yarn release
 after_script:
   - greenkeeper-lockfile-upload
-after_success:
-  - yarn release
 after_failure:
   - yarn create-diff-report
