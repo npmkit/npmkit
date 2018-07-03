@@ -18,6 +18,10 @@
       "changelogFile": "changelog.md"
     },
     {
+      "path": "@semantic-release/exec",
+      "cmd": "yarn dist"
+    },
+    {
       "path": "@semantic-release/git",
       "assets": ["changelog.md", "app/package.json"]
     }
