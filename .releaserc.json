@@ -9,7 +9,9 @@
   "generateNotes": ["@semantic-release/release-notes-generator"],
   "prepare": [
     {
-      "path": "./scripts/update-package-version.js"
+      "path": "@semantic-release/npm",
+      "pkgRoot": "./app",
+      "npmPublish": false
     },
     {
       "path": "@semantic-release/changelog",
