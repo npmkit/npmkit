@@ -9,7 +9,7 @@ Make sure you have next tools available:
 
 ## Quick Start
 
-1.  [Fork the project](https://github.com/sergeybekrin/npmkit#fork-destination-box)
+1.  [Fork the project](https://github.com/npmkit/npmkit#fork-destination-box)
 2.  Clone it: `git clone git@github.com:YOUR_USERNAME/npmkit.git`
 3.  Create new branch with helpful name: `git checkout -b fix/some-awesome-fix`
 4.  Run `yarn install`
@@ -19,5 +19,5 @@ Make sure you have next tools available:
     [Angular commit message convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/README.md#commit-message-format),
     e.g. `fix: some bugfix`
 8.  Push to your branch: `git push -u origin new-branch-name`
-9.  [Create a pull-request](https://github.com/sergeybekrin/npmkit/compare?expand=1)
+9.  [Create a pull-request](https://github.com/npmkit/npmkit/compare?expand=1)
 10. You're all set! ✨
