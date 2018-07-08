@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "npmkit/npmkit",
   "homepage": "https://npmkit.app",
-  "author": "Sergey Bekrin <sergey@bekrin.me> http://bekrin.me",
+  "author": "Sergey Bekrin <sergey@bekrin.me> https://bekrin.me",
   "private": true,
   "main": "dist/index.main.js",
   "dependencies": {
