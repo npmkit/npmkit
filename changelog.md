@@ -1,3 +1,11 @@
+<a name="1.3.3"></a>
+## [1.3.3](https://github.com/sergeybekrin/npmkit/compare/v1.3.2...v1.3.3) (2018-07-08)
+
+
+### Bug Fixes
+
+* update app icon ([753bb69](https://github.com/sergeybekrin/npmkit/commit/753bb69))
+
 <a name="1.3.2"></a>
 ## [1.3.2](https://github.com/sergeybekrin/npmkit/compare/v1.3.1...v1.3.2) (2018-07-03)
 
