@@ -18,6 +18,8 @@
 
 ## Download npmkit
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sergeybekrin/npmkit.svg)](https://greenkeeper.io/)
+
 Check latest release at
 [releases page](https://github.com/sergeybekrin/npmkit/releases).
 
