@@ -1,6 +1,6 @@
 import '~/setup.main';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import crypto from 'crypto';
 import util from 'util';
 import execa from 'execa';
@@ -9,6 +9,7 @@ import checkForUpdates from 'update-electron-app';
 import electronUtil from 'electron-util';
 import electronDebug from 'electron-debug';
 import unhandled from 'electron-unhandled';
+import normalizePkData from 'normalize-package-data';
 import createMenubar from 'menubar';
 import invariant from 'invariant';
 import stringToColor from 'string-to-color';
@@ -33,8 +34,6 @@ if (electronUtil.is.development) {
 }
 
 const isDev = process.env.NODE_ENV === 'development';
-const readFileAsync = util.promisify(fs.readFile);
-const statAsync = util.promisify(fs.stat);
 const treeKillAsync = util.promisify(treeKill);
 const menubar = createMenubar({
   index: isDev ? 'http://localhost:8080' : `file://${__dirname}/index.html`,
@@ -56,18 +55,16 @@ function showTray() {
 
 async function getProjectData(projectPath) {
   // Get basic data and validate it
-  const projectStat = await statAsync(projectPath);
+  const projectStat = await fs.stat(projectPath);
   invariant(projectStat.isDirectory(), `${projectPath} is not a directory`);
   const packagePath = path.join(projectPath, 'package.json');
-  const packageContent = await readFileAsync(packagePath, 'utf8');
-  const packageData = JSON.parse(packageContent);
+  const packageData = await fs.readJson(packagePath);
+  normalizePkData(packageData);
   const packageName = packageData.name || path.basename(projectPath);
   const packageScripts = packageData.scripts || {};
   // Check if it's yarn project
   const yarnLockFilePath = path.join(projectPath, 'yarn.lock');
-  const hasYarnLockFile =
-    fs.existsSync(yarnLockFilePath) &&
-    (await statAsync(yarnLockFilePath)).isFile();
+  const hasYarnLockFile = await fs.exists(yarnLockFilePath);
   const npmClient = hasYarnLockFile ? 'yarn' : 'npm';
   // Generate unique code based on project path
   const code = crypto
@@ -86,6 +83,7 @@ async function getProjectData(projectPath) {
     scripts: packageScripts,
     path: projectPath,
     client: npmClient,
+    pkg: packageData,
   };
 }
 

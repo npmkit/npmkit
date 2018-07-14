@@ -18,8 +18,6 @@
 
 ## Download npmkit
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/npmkit/npmkit.svg)](https://greenkeeper.io/)
-
 Check latest release at
 [releases page](https://github.com/npmkit/npmkit/releases).
 
@@ -29,6 +27,6 @@ See the [contribution guide](./contributing.md).
 
 ## License
 
-*This non-profit project is not affiliated with npm, Inc.*
+_This non-profit project is not affiliated with npm, Inc._
 
 MIT &copy; [Sergey Bekrin](http://bekrin.me)

@@ -178,6 +178,12 @@ const showProjectMenu = (app, scripts, project, position = {}) => {
         label: 'Copy Name',
         click: () => clipboard.writeText(project.name),
       },
+      {
+        label: 'Open Homepage',
+        enabled: Boolean(project.pkg.homepage),
+        click: () =>
+          project.pkg.homepage && shell.openExternal(project.pkg.homepage),
+      },
       { type: 'separator' },
       {
         label: 'Remove from List',

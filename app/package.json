@@ -21,6 +21,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.flatten": "^4.4.0",
     "menubar": "^5.2.3",
+    "normalize-package-data": "^2.4.0",
     "polished": "^1.9.3",
     "string-to-color": "^2.0.0",
     "styled-components": "^3.3.3",
