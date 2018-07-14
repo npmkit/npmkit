@@ -1,7 +1,7 @@
 {
   "name": "npmkit",
   "productName": "npmkit",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Tray app for quick access to all your projects",
   "license": "MIT",
   "repository": "npmkit/npmkit",

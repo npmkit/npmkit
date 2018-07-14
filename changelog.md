@@ -1,3 +1,11 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/npmkit/npmkit/compare/v1.3.3...v1.4.0) (2018-07-14)
+
+
+### Features
+
+* add `open homepage` action ([fd27b34](https://github.com/npmkit/npmkit/commit/fd27b34)), closes [#19](https://github.com/npmkit/npmkit/issues/19)
+
 <a name="1.3.3"></a>
 ## [1.3.3](https://github.com/npmkit/npmkit/compare/v1.3.2...v1.3.3) (2018-07-08)
 
