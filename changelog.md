@@ -1,3 +1,11 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/npmkit/npmkit/compare/v1.4.0...v1.4.1) (2018-07-15)
+
+
+### Bug Fixes
+
+* use some serious icons instead emojis ([b0530ec](https://github.com/npmkit/npmkit/commit/b0530ec))
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/npmkit/npmkit/compare/v1.3.3...v1.4.0) (2018-07-14)
 
