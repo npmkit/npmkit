@@ -3,6 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { tint } from 'polished';
 import { Subscribe } from 'unstated';
 import plugins from '~/plugins';
+import Icon from '~/common/components/icon';
 import AppContainer from '~/common/app-container';
 import ScriptsContainer from '~/common/scripts-container';
 import Channels from '~/common/channels';
@@ -21,27 +22,21 @@ const opacityAnimation = keyframes`
   100% { opacity: 1; }
 `;
 
-const ProjectView = styled.button.attrs({ tabIndex: '0' })`
-  transition: opacity 100ms ease;
-  padding: 0.5rem 0.75rem;
-  background-color: transparent;
-  align-items: center;
-  text-align: left;
-  display: flex;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  font: inherit;
+const Name = styled.h3`
+  ${cropOverflowedText};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-size: 1rem;
+`;
 
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0 2px white,
-      inset 0 0 0 4px ${props => props.theme.colors.primary};
-  }
-
-  &:not(:focus):hover {
-    opacity: 0.8;
-  }
+const Path = styled.div`
+  ${cropOverflowedText};
+  font-size: 0.75rem;
+  color: #999;
 `;
 
 const Avatar = styled.div.attrs({ role: 'presentation' })`
@@ -62,11 +57,45 @@ const Avatar = styled.div.attrs({ role: 'presentation' })`
   );
 `;
 
-const Star = styled.div.attrs({ children: '⭐️' })`
+const ProjectView = styled.button.attrs({ tabIndex: 0 })`
+  transition: opacity 100ms ease;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  align-items: center;
+  text-align: left;
+  display: flex;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+
+  &:focus {
+    outline: none;
+    background: ${props => props.theme.colors.primary};
+    box-shadow: inset 0 0 0 2px white;
+
+    ${Name} {
+      font-weight: 500;
+      color: white;
+    }
+
+    ${Path} {
+      color: white;
+      opacity: 0.5;
+    }
+  }
+
+  &:not(:focus):hover {
+    opacity: 0.8;
+  }
+`;
+
+const Star = styled(Icon).attrs({ glyph: 'star' })`
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.15));
   position: absolute;
-  font-size: 1.2rem;
-  left: -0.5rem;
-  top: -0.5rem;
+  left: -0.35rem;
+  top: -0.35rem;
+  color: gold;
 `;
 
 const Details = styled.div`
@@ -77,25 +106,11 @@ const Details = styled.div`
   flex: 1;
 `;
 
-const Name = styled.h3`
-  ${cropOverflowedText};
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-  font-size: 1rem;
-`;
-
-const Path = styled.div`
-  ${cropOverflowedText};
-  font-size: 0.75rem;
-  color: #999;
-`;
-
 const Status = styled.div`
   color: ${props => props.theme.colors.primary};
+  background: white;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.15rem;
   margin-left: 0.25rem;
   align-items: center;
   align-items: center;

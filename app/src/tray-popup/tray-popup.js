@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { injectGlobal } from 'styled-components';
 import { Provider, Subscribe } from 'unstated';
 import { hot } from 'react-hot-loader';
-import Button from '~/common/components/button';
+import Icon from '~/common/components/icon';
 import AppContainer from '~/common/app-container';
 import KeyCodes from '~/common/key-codes';
 import Tray from './components/tray';
@@ -109,18 +109,18 @@ const App = () => (
                   value={app.getSearch()}
                   autoFocus
                 />
-                <Button onClick={() => app.clearSearch()} ghost>
-                  🗑
-                </Button>
+                <Toolbar.Action onClick={() => app.clearSearch()}>
+                  <Icon glyph="clear" />
+                </Toolbar.Action>
               </Toolbar>
             ) : (
               <Toolbar>
                 <Toolbar.Action onClick={() => app.setSearch('')}>
-                  🔍
+                  <Icon glyph="magnifier" />
                 </Toolbar.Action>
                 <Toolbar.Title>npmkit</Toolbar.Title>
                 <Toolbar.Action onClick={() => showOptions(app)}>
-                  ⚙️
+                  <Icon glyph="gear" />
                 </Toolbar.Action>
               </Toolbar>
             )}

@@ -1,6 +1,7 @@
 import T from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import withTestId from '~/common/with-test-id';
 
 const noop = () => {};
 
@@ -91,4 +92,4 @@ class Tray extends React.Component {
   }
 }
 
-export default Tray;
+export default withTestId('app')(Tray);
