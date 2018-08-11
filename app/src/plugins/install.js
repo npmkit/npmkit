@@ -8,7 +8,7 @@ import getPluginsDir from './base';
 const execFileAsync = util.promisify(cp.execFile);
 const yarn = resolve(__dirname, '../../bin/yarn-standalone.js');
 
-async function install(pluginName) {
+export default async function install(pluginName) {
   const pluginsDir = getPluginsDir();
   const cacheDir = join(pluginsDir, 'cache');
   await ensureDir(pluginsDir);
@@ -41,5 +41,3 @@ async function install(pluginName) {
   );
   return __non_webpack_require__(getPluginsDir(pluginName));
 }
-
-export default install;

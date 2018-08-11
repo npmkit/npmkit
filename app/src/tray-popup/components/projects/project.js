@@ -139,7 +139,8 @@ const getMenuPosition = event => {
   return { x: mouse.x || element.x, y: mouse.y || element.y };
 };
 
-const showProjectMenu = (app, scripts, project, position = {}) => {
+const showProjectMenu = async (app, scripts, project, position = {}) => {
+  let menu;
   const scriptsMenu = Object.entries(project.scripts).map(([script]) => ({
     label: scripts.isRunning(project, script) ? `▪️ stop ${script}` : script,
     click: () =>
@@ -147,11 +148,18 @@ const showProjectMenu = (app, scripts, project, position = {}) => {
         ? scripts.stop(project, script)
         : scripts.run(project, script),
   }));
-  const pluginsMenu = plugins
-    .hooks('getProjectMenu')
-    .map(getProjectMenu => getProjectMenu({ app, scripts, project }));
-  // Show menu
-  remote.Menu.buildFromTemplate(
+  const pluginsMenu = await Promise.all(
+    plugins.hooks('getProjectMenu').map(getProjectMenu =>
+      getProjectMenu({
+        app,
+        project,
+        setMenu(pluginMenu) {
+          menu.getMenuItemById(pluginMenu.id).enabled = true;
+        },
+      })
+    )
+  );
+  menu = remote.Menu.buildFromTemplate(
     [
       {
         label: project.name,
@@ -177,14 +185,11 @@ const showProjectMenu = (app, scripts, project, position = {}) => {
         click: () => shell.showItemInFolder(project.path),
       },
       { type: 'separator' },
-      pluginsMenu.length && {
-        label: 'Plugins',
-        submenu: pluginsMenu,
-      },
       scriptsMenu.length && {
         label: 'Scripts',
         submenu: scriptsMenu,
       },
+      ...pluginsMenu,
       {
         label: 'Copy Path',
         click: () => clipboard.writeText(project.path),
@@ -205,7 +210,8 @@ const showProjectMenu = (app, scripts, project, position = {}) => {
         click: () => app.removeProject(project),
       },
     ].filter(Boolean)
-  ).popup(position);
+  );
+  menu.popup(position);
 };
 
 const renderScriptsStatus = (scripts, project) => {

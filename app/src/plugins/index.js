@@ -3,6 +3,7 @@ import install from './install';
 import load from './load';
 import hooks from './hooks';
 import base from './base';
+import get from './get';
 
 export default {
   available,
@@ -10,4 +11,5 @@ export default {
   install,
   hooks,
   base,
+  get,
 };

@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import crypto from 'crypto';
 import util from 'util';
+import os from 'os';
 import execa from 'execa';
 import { app, ipcMain, dialog } from 'electron';
 import checkForUpdates from 'update-electron-app';
@@ -161,7 +162,6 @@ ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
   const child = execa(project.client, ['run', script], {
     cwd: project.path,
     detached: true,
-    shell: true,
     reject: false,
   });
   // Wait once exited
@@ -177,6 +177,7 @@ ipcMain.on(Channels.SCRIPT_RUN, (event, { project, script }) => {
         ).on('click', noop);
         break;
       case result.failed:
+        console.log({ result });
         createNotification(
           project.name,
           `${script} has failed` // Click to show stderr.
@@ -228,7 +229,7 @@ ipcMain.on(Channels.PLUGINS_LOAD, async () => {
       APP_NAME,
       `Failed to load plugin ${plugin}, click for details`
     ).on('click', () => {
-      const errors = reason.toString().match(/^error (.+)$/gm);
+      const errors = reason.toString().match(/^error (.+)$/gm) || [];
       dialog.showErrorBox(
         APP_NAME,
         `Failed to load ${plugin}:\n\n${errors.join('\n')}`
