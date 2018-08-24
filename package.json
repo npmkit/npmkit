@@ -44,7 +44,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
-    "concurrently": "^3.6.1",
+    "concurrently": "^4.0.0",
     "electron": "^2.0.7",
     "electron-builder": "^20.27.1",
     "enzyme": "^3.4.1",
