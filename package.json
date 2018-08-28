@@ -34,7 +34,7 @@
     "@semantic-release/release-notes-generator": "^7.0.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
     "babel-plugin-react-require": "^3.0.0",
