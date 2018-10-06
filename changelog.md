@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/npmkit/npmkit/compare/v1.4.1...v1.4.2) (2018-10-06)
+
+
+### Bug Fixes
+
+* upgrade to electron 3 ([cac4871](https://github.com/npmkit/npmkit/commit/cac4871))
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/npmkit/npmkit/compare/v1.4.0...v1.4.1) (2018-07-15)
 
