@@ -13,7 +13,7 @@
     "electron-debug": "^2.0.0",
     "electron-is-dev": "^1.0.1",
     "electron-store": "^2.0.0",
-    "electron-unhandled": "^1.1.0",
+    "electron-unhandled": "^2.0.0",
     "electron-util": "^0.10.1",
     "execa": "^1.0.0",
     "fix-path": "^2.1.0",
