@@ -1,6 +1,7 @@
+import styled from 'styled-components';
 import Input from '~/common/components/input';
 
-const Search = Input.extend`
+const Search = styled(Input)`
   height: 1.75rem;
   padding-bottom: 0;
   padding-top: 0;
