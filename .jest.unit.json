@@ -1,5 +1,5 @@
 {
   "displayName": "unit",
   "testMatch": ["<rootDir>/app/src/**/*.spec.js"],
-  "setupTestFrameworkScriptFile": "<rootDir>/tests/.setup-enzyme.js"
+  "setupFilesAfterEnv": ["<rootDir>/tests/.setup-enzyme.js"]
 }

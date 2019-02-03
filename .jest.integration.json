@@ -1,6 +1,6 @@
 {
   "displayName": "integration",
   "testMatch": ["<rootDir>/tests/**/*.spec.js"],
-  "setupTestFrameworkScriptFile": "<rootDir>/tests/.setup-spectron.js",
+  "setupFilesAfterEnv": ["<rootDir>/tests/.setup-spectron.js"],
   "testEnvironment": "node"
 }
