@@ -1,6 +1,7 @@
+import styled from 'styled-components';
 import Heading from '~/common/components/heading';
 
-const ToolbarTitle = Heading.extend`
+const ToolbarTitle = styled(Heading)`
   text-align: center;
   flex: 1;
 `;

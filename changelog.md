@@ -1,3 +1,25 @@
+## [1.4.4](https://github.com/npmkit/npmkit/compare/v1.4.3...v1.4.4) (2019-02-03)
+
+
+### Bug Fixes
+
+* update electron to 4.0.4 ([d74c075](https://github.com/npmkit/npmkit/commit/d74c075))
+
+## [1.4.3](https://github.com/npmkit/npmkit/compare/v1.4.2...v1.4.3) (2018-10-22)
+
+
+### Bug Fixes
+
+* **package:** update electron-util to version 0.10.0 ([48f713b](https://github.com/npmkit/npmkit/commit/48f713b))
+* **package:** update electron-util to version 0.10.1 ([7dbbffe](https://github.com/npmkit/npmkit/commit/7dbbffe))
+
+## [1.4.2](https://github.com/npmkit/npmkit/compare/v1.4.1...v1.4.2) (2018-10-06)
+
+
+### Bug Fixes
+
+* upgrade to electron 3 ([cac4871](https://github.com/npmkit/npmkit/commit/cac4871))
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/npmkit/npmkit/compare/v1.4.0...v1.4.1) (2018-07-15)
 

@@ -29,7 +29,7 @@ module.exports = (env, { mode }) =>
       lazy: false,
       before() {
         // Start main process
-        spawn('npm', ['run', 'start'], {
+        spawn('yarn', ['start'], {
           shell: true,
           env: process.env,
           stdio: 'inherit',

@@ -35,12 +35,12 @@ const Glyph = ({ name }) => {
   }
 };
 
-const Icon = styled.svg.attrs({
+const Icon = styled.svg.attrs(({ glyph }) => ({
   xmlns: 'http://www.w3.org/2000/svg',
   version: '1.1',
   viewBox: '0 0 16 16',
-  children: ({ glyph }) => <Glyph name={glyph} />,
-})`
+  children: <Glyph name={glyph} />,
+}))`
   fill-rule: evenodd;
   clip-rule: evenodd;
   stroke-linejoin: round;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { remote } from 'electron';
-import { injectGlobal } from 'styled-components';
 import { Provider, Subscribe } from 'unstated';
 import { hot } from 'react-hot-loader';
 import Icon from '~/common/components/icon';
@@ -9,29 +8,7 @@ import KeyCodes from '~/common/key-codes';
 import Tray from './components/tray';
 import Toolbar from './components/toolbar';
 import Projects from './components/projects';
-
-injectGlobal`
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    -webkit-font-smoothing: antialiased;
-    font-smooth: always;
-    font-size: 14px;
-    cursor: default;
-    user-select: none;
-    box-sizing: border-box;
-  }
-
-  *, *::before, *::after {
-    box-sizing: inherit;
-    padding: 0;
-    margin: 0;
-  }
-
-  #root {
-    width: 100vw;
-    height: calc(100vh - 17px);
-  }
-`;
+import GlobalStyles from './components/global-styles';
 
 const { Menu } = remote;
 const showOptions = app => {
@@ -98,6 +75,7 @@ const App = () => (
           onKeyPress={handlePrintableKeyPress(app)}
           onKeyDown={handleMetaKeyPress(app)}
         >
+          <GlobalStyles />
           <Tray.Arrow />
           <Tray.Popup>
             {app.hasSearch() ? (

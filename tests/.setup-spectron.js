@@ -4,7 +4,8 @@ import { remove } from 'fs-extra';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import app from './__fixtures__/app';
 
-jest.setTimeout(1000 * 30);
+jest.setTimeout(30e3);
+
 expect.extend({ toMatchImageSnapshot });
 
 async function cleanTempConfig() {

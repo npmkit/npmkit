@@ -90,7 +90,7 @@ const ProjectView = styled.button.attrs({ tabIndex: 0 })`
   }
 `;
 
-const Star = styled(Icon).attrs({ glyph: 'star' })`
+const Star = styled(Icon)`
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.15));
   position: absolute;
   left: -0.35rem;
@@ -239,7 +239,7 @@ const Project = ({ project, ...props }) => (
         }
       >
         <Avatar accent={project.color}>
-          {project.pinned && <Star />}
+          {project.pinned && <Star glyph="star" />}
           {extractInitials(project.name)}
         </Avatar>
         <Details>
