@@ -73,7 +73,7 @@
     "semantic-release": "^15.13.3",
     "sendmail": "^1.4.1",
     "spectron": "^5.0.0",
-    "webpack": "^4.29.0",
+    "webpack": "^4.35.2",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14",
     "webpack-externals-plugin": "^1.0.0",
