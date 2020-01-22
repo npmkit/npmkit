@@ -68,7 +68,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-hot-loader": "^4.6.5",
+    "react-hot-loader": "^4.12.19",
     "rimraf": "^2.6.3",
     "semantic-release": "^15.13.3",
     "sendmail": "^1.4.1",
