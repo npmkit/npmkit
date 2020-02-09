@@ -69,7 +69,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-hot-loader": "^4.6.5",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.2",
     "semantic-release": "^15.13.3",
     "sendmail": "^1.4.1",
     "spectron": "^5.0.0",
