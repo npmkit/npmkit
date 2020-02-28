@@ -45,7 +45,7 @@
     "babel-plugin-root-import": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "concurrently": "^4.1.0",
-    "electron": "^4.0.4",
+    "electron": "^8.0.2",
     "electron-builder": "^20.38.5",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
