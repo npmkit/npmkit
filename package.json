@@ -67,7 +67,7 @@
     "prettier": "^1.16.4",
     "prop-types": "^15.6.2",
     "react": "^16.13.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.13.0",
     "react-hot-loader": "^4.6.5",
     "rimraf": "^2.6.3",
     "semantic-release": "^15.13.3",
